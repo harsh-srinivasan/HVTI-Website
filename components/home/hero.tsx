@@ -124,9 +124,9 @@ export default function Hero() {
               className="
                 max-w-[760px]
                 text-[62px]
-                font-semibold
+                font-bold
                 leading-[1.05]
-                tracking-[-0.035em]
+                tracking-[-0.03em]
                 text-white
               "
             >
@@ -667,9 +667,9 @@ export default function Hero() {
   className="
     max-w-[390px]
     text-[36px]
-    font-semibold
+    font-bold
     leading-[1.06]
-    tracking-[-0.035em]
+    tracking-[-0.03em]
     text-white
     sm:text-[40px]
   "
@@ -697,11 +697,10 @@ export default function Hero() {
   className="
     mt-9
     max-w-[390px]
-    text-[14px]
-    leading-6
+    text-[15px]
+    leading-[1.65]
     text-[#CBD5E1]
-    sm:text-[15px]
-    sm:leading-6
+    sm:text-[15.5px]
   "
 >
               High-voltage safety, electrical testing and condition
