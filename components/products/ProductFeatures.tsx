@@ -1,434 +1,168 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { ProductFeature } from "@/types/product";
 
 /* ================================================================
-   PRODUCT FEATURES
+   HVTI EDITORIAL FEATURES SYSTEM
    File: components/products/ProductFeatures.tsx
 
-   Desktop:
-   - Designed to sit inside the shared Applications + Features
-     two-column desktop layout.
-   - No standalone full-width section spacing.
-   - Larger important-information typography.
-   - Compact editorial feature list.
-   - Sequential feature reveal animation.
-
-   Mobile:
-   - Existing design preserved.
+   Editorial engineering layout with prominent orange numbers (01, 02..),
+   strong typography hierarchy, generous negative space, and zero
+   unnecessary card containers.
    ================================================================ */
 
-
-/* ================================================================
-   REVEAL HOOK
-   ================================================================ */
-
-function useReveal() {
+function useReveal(threshold = 0.2) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const element = ref.current;
-
     if (!element) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true);
-
-          // Animation only happens once.
           observer.unobserve(element);
         }
       },
-      {
-        threshold: 0.55,
-      }
+      { threshold }
     );
 
     observer.observe(element);
+    return () => observer.disconnect();
+  }, [threshold]);
 
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-  return {
-    ref,
-    visible,
-  };
+  return { ref, visible };
 }
-
-
-/* ================================================================
-   DESKTOP FEATURES CONTENT
-
-   IMPORTANT:
-
-   This is intentionally NOT wrapped in a <section>.
-
-   ProductPage will place this beside ProductApplications inside
-   the shared Applications + Features desktop module.
-   ================================================================ */
-
-function DesktopFeaturesContent({
-  features,
-}: {
-  features: {
-    title: string;
-    description: string;
-  }[];
-}) {
-  /* ==============================================================
-     DESKTOP HEADING REVEAL
-     ============================================================== */
-
-  const {
-    ref: headingRef,
-    visible: headingVisible,
-  } = useReveal();
-
-  /* ==============================================================
-     DESKTOP FEATURES REVEAL
-     ============================================================== */
-
-  const {
-    ref: featuresRef,
-    visible: featuresVisible,
-  } = useReveal();
-
-  return (
-    <div className="hidden lg:block">
-      {/* ==========================================================
-          SECTION HEADER
-          ========================================================== */}
-
-      <div
-        ref={headingRef}
-        className={`
-          mb-6
-
-          transition-all
-          duration-[1200ms]
-          ease-[cubic-bezier(0.22,1,0.36,1)]
-
-          motion-reduce:transition-none
-          motion-reduce:transform-none
-          motion-reduce:opacity-100
-
-          ${
-            headingVisible
-              ? "translate-y-0 opacity-100"
-              : "translate-y-[24px] opacity-0"
-          }
-        `}
-      >
-        {/* ======================================================
-            EYEBROW
-            ====================================================== */}
-
-        <div className="mb-3 flex items-center gap-3">
-          <span className="h-[2px] w-8 bg-[#F97316]" />
-
-          <span
-            className="
-              font-sans
-              text-[12px]
-              font-semibold
-              uppercase
-              tracking-[0.14em]
-              text-[#F97316]
-            "
-          >
-            Features
-          </span>
-        </div>
-
-        {/* ======================================================
-            HEADING
-            ====================================================== */}
-
-        <h2
-          className="
-            max-w-[430px]
-            font-heading
-            text-[32px]
-            font-semibold
-            leading-[1.1]
-            tracking-[-0.02em]
-            text-white
-            sm:text-[34px]
-          "
-        >
-          Engineered for dependable
-          <br />
-          performance
-        </h2>
-      </div>
-
-      {/* ==========================================================
-          DESKTOP FEATURE LIST
-
-          Compact editorial layout.
-          ========================================================== */}
-
-      <div
-        ref={featuresRef}
-        className="
-          grid
-          grid-cols-1
-          gap-0
-        "
-      >
-        {features.map((feature, index) => (
-          <div
-            key={feature.title}
-            className={`
-              group
-              rounded-[6px]
-              border-b
-              border-white/[0.08]
-              px-2.5
-              py-3.5
-              -mx-2.5
-
-              transition-all
-              duration-[1200ms]
-              ease-[cubic-bezier(0.22,1,0.36,1)]
-
-              motion-reduce:transition-none
-              motion-reduce:transform-none
-              motion-reduce:opacity-100
-
-              hover:bg-white/[0.02]
-
-              ${
-                index === features.length - 1
-                  ? "border-b-0"
-                  : ""
-              }
-
-              ${
-                featuresVisible
-                  ? "translate-y-0 opacity-100"
-                  : "translate-y-[24px] opacity-0"
-              }
-            `}
-            style={{
-              transitionDelay: `${index * 90 + 90}ms`,
-            }}
-          >
-            <div className="flex gap-4">
-              {/* ==================================================
-                  FEATURE NUMBER
-                  ================================================== */}
-
-              <span
-                className="
-                  w-[24px]
-                  shrink-0
-                  pt-[2px]
-                  font-sans
-                  text-[13px]
-                  font-semibold
-                  leading-6
-                  text-[#F97316]
-                "
-              >
-                {String(index + 1).padStart(2, "0")}
-              </span>
-
-              {/* ==================================================
-                  FEATURE CONTENT
-                  ================================================== */}
-
-              <div>
-                <h3
-                  className="
-                    font-heading
-                    text-[16.5px]
-                    font-semibold
-                    leading-6
-                    text-white
-                    xl:text-[17.5px]
-                  "
-                >
-                  {feature.title}
-                </h3>
-
-                <p
-                  className="
-                    mt-1
-                    max-w-[500px]
-                    font-sans
-                    text-[15px]
-                    font-normal
-                    leading-[1.68]
-                    text-[#CBD5E1]
-                    xl:text-[15.5px]
-                  "
-                >
-                  {feature.description}
-                </p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-
-/* ================================================================
-   MAIN COMPONENT
-   ================================================================ */
 
 export default function ProductFeatures({
-  product,
-  layout = "all",
+  features,
 }: {
-  product: any;
-  layout?: "desktop" | "mobile" | "all";
+  features: ProductFeature[];
 }) {
-  const features = product.features || [];
+  const { ref: headerRef, visible: headerVisible } = useReveal(0.2);
+  const { ref: listRef, visible: listVisible } = useReveal(0.15);
+
+  if (!features || features.length === 0) {
+    return null;
+  }
 
   return (
-    <>
-      {/* ==========================================================
-          DESKTOP
-          ========================================================== */}
-
-      {(layout === "desktop" || layout === "all") && (
-        <DesktopFeaturesContent features={features} />
-      )}
-
-      {/* ==========================================================
-          MOBILE
-          ========================================================== */}
-
-      {(layout === "mobile" || layout === "all") && (
-        <section
-          id="features"
-          className="
-            border-b
-            border-white/[0.08]
-            bg-[#05070D]
-            lg:hidden
-          "
-        >
+    <section
+      id="features"
+      className="
+        relative
+        w-full
+        overflow-hidden
+        bg-transparent
+        py-20
+        sm:py-24
+        lg:py-32
+      "
+    >
+      <div className="relative z-10 mx-auto w-full max-w-[1360px] px-6 sm:px-10 lg:px-12">
+        {/* ========================================================
+            CENTERED SECTION HEADER
+            ======================================================== */}
         <div
-          className="
-            mx-auto
-            w-full
-            px-5
-            py-14
-            sm:px-8
-          "
+          ref={headerRef}
+          className={`
+            mb-16
+            text-center
+            transition-all
+            duration-[1100ms]
+            ease-[cubic-bezier(0.22,1,0.36,1)]
+            ${headerVisible ? "translate-y-0 opacity-100" : "translate-y-[24px] opacity-0"}
+          `}
         >
-          {/* ======================================================
-              MOBILE HEADER
-              ====================================================== */}
-
-          <div className="mb-4 flex items-center gap-3">
+          <div className="mb-3.5 flex items-center justify-center gap-3">
             <span className="h-[2px] w-8 bg-[#F97316]" />
-
-            <span
-              className="
-                font-sans
-                text-[11.5px]
-                font-semibold
-                uppercase
-                tracking-[0.14em]
-                text-[#F97316]
-              "
-            >
+            <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.16em] text-[#F97316]">
               Features
             </span>
+            <span className="h-[2px] w-8 bg-[#F97316]" />
           </div>
 
           <h2
             className="
+              mx-auto
+              max-w-[720px]
               font-heading
-              text-[29px]
+              text-[32px]
               font-semibold
-              leading-[1.1]
-              tracking-[-0.02em]
+              leading-[1.15]
+              tracking-[-0.025em]
               text-white
-              sm:text-[32px]
+              sm:text-[38px]
+              xl:text-[42px]
             "
           >
-            Engineered for
-            <br />
-            dependable performance
+            Engineered for dependable performance.
           </h2>
-
-          {/* ======================================================
-              MOBILE FEATURE LIST
-              ====================================================== */}
-
-          <div className="mt-6">
-            {features.map(
-              (
-                feature: {
-                  title: string;
-                  description: string;
-                },
-                index: number
-              ) => (
-                <div
-                  key={feature.title}
-                  className="
-                    border-b
-                    border-white/[0.08]
-                    py-5
-                  "
-                >
-                  <div className="flex gap-3">
-                    <span
-                      className="
-                        font-sans
-                        text-[12px]
-                        font-semibold
-                        text-[#F97316]
-                      "
-                    >
-                      0{index + 1}
-                    </span>
-
-                    <div>
-                      <h3
-                        className="
-                          font-heading
-                          text-[15.5px]
-                          font-semibold
-                          text-white
-                        "
-                      >
-                        {feature.title}
-                      </h3>
-
-                      <p
-                        className="
-                          mt-2
-                          font-sans
-                          text-[14.5px]
-                          font-normal
-                          leading-[1.65]
-                          text-[#CBD5E1]
-                        "
-                      >
-                        {feature.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              )
-            )}
-          </div>
         </div>
-        </section>
-      )}
-    </>
+
+        {/* ========================================================
+            EDITORIAL MULTI-COLUMN FEATURE GRID
+            ======================================================== */}
+        <div
+          ref={listRef}
+          className={`
+            grid
+            grid-cols-1
+            gap-8
+            sm:grid-cols-2
+            lg:grid-cols-3
+            lg:gap-x-12
+            lg:gap-y-12
+            transition-all
+            duration-[1200ms]
+            ease-[cubic-bezier(0.22,1,0.36,1)]
+            ${listVisible ? "translate-y-0 opacity-100" : "translate-y-[30px] opacity-0"}
+          `}
+        >
+          {features.map((feature, index) => {
+            const featureNumber = feature.code || String(index + 1).padStart(2, "0");
+
+            return (
+              <div
+                key={`${feature.title}-${index}`}
+                className="
+                  group
+                  relative
+                  flex
+                  flex-col
+                  border-t
+                  border-white/[0.08]
+                  pt-6
+                  transition-all
+                  duration-300
+                  hover:border-[#F97316]/50
+                "
+              >
+                {/* Number Callout */}
+                <div className="mb-3 flex items-center justify-between">
+                  <span className="font-heading text-[24px] font-bold text-[#F97316] transition-transform duration-300 group-hover:translate-x-1">
+                    {featureNumber}
+                  </span>
+                  <span className="h-[1px] w-8 bg-white/[0.08] transition-colors group-hover:bg-[#F97316]/50" />
+                </div>
+
+                {/* Title */}
+                <h3 className="font-heading text-[18px] font-semibold leading-snug tracking-tight text-white transition-colors group-hover:text-[#F8FAFC]">
+                  {feature.title}
+                </h3>
+
+                {/* Description */}
+                <p className="mt-2.5 font-sans text-[14.5px] leading-[1.65] text-[#CBD5E1] transition-colors group-hover:text-[#E2E8F0]">
+                  {feature.description}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
   );
 }

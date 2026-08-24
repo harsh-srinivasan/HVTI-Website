@@ -1,9 +1,9 @@
 "use client";
 
+import { ProductData } from "@/types/product";
 import ProductAtmosphere from "./ProductAtmosphere";
 import ProductHero from "./ProductHero";
-import ProductNavigation from "./ProductNavigation";
-import ProductOverview from "./ProductOverview";
+import ProductEngineeringAtAGlance from "./ProductEngineeringAtAGlance";
 import ProductSpecifications from "./ProductSpecifications";
 import ProductApplications from "./ProductApplications";
 import ProductFeatures from "./ProductFeatures";
@@ -11,115 +11,62 @@ import ProductBenefits from "./ProductBenefits";
 import ProductCTA from "./ProductCTA";
 
 /* ================================================================
-   PRODUCT PAGE
+   HVTI PRODUCT PAGE SYSTEM — PIPELINE ORCHESTRATOR
    File: components/products/ProductPage.tsx
 
-   Cohesive, premium industrial engineering product catalogue
-   architecture matching the reference visual design.
-
-   Features:
-   - Unified continuous atmospheric studio background (ProductAtmosphere)
-   - 3D equipment render naturally integrated into the page canvas
-   - 100% transparent section layering with refined structural borders
+   Data-driven, reusable product page pipeline.
+   Every section below the Hero is conditionally rendered based on
+   actual product data.
    ================================================================ */
 
 export default function ProductPage({
   product,
 }: {
-  product: any;
+  product: ProductData;
 }) {
   return (
     <main className="relative w-full overflow-hidden bg-[#05070D] text-white">
-
       {/* ==========================================================
-          UNIFIED CONTINUOUS ATMOSPHERIC BACKGROUND SYSTEM
+          CONTINUOUS ATMOSPHERIC BACKGROUND SYSTEM
           ========================================================== */}
-
       <ProductAtmosphere />
 
       {/* ==========================================================
-          PRODUCT PAGE SECTIONS (Layered naturally above atmosphere)
+          DYNAMIC SECTION PIPELINE
           ========================================================== */}
-
       <div className="relative z-10 w-full">
-
-        {/* 01 — PRODUCT HERO */}
+        {/* 01 — HERO (Always rendered) */}
         <ProductHero product={product} />
 
-        {/* 02 — PRODUCT NAVIGATION (STICKY) */}
-        <ProductNavigation />
+        {/* 02 — ENGINEERING AT A GLANCE (Render only if data exists) */}
+        {product.engineeringAtAGlance && product.engineeringAtAGlance.length > 0 && (
+          <ProductEngineeringAtAGlance items={product.engineeringAtAGlance} />
+        )}
 
-        {/* 03 — UNIFIED PRODUCT OVERVIEW & INFORMATION */}
-        <ProductOverview product={product} />
+        {/* 03 — TECHNICAL SPECIFICATIONS & METRICS (Render only if data exists) */}
+        {((product.specificationsTable && product.specificationsTable.length > 0) ||
+          (product.metrics && product.metrics.length > 0) ||
+          (product.specifications && product.specifications.length > 0)) && (
+          <ProductSpecifications product={product} />
+        )}
 
-        {/* 04 — TECHNICAL SPECIFICATIONS */}
-        <ProductSpecifications product={product} />
+        {/* 04 — APPLICATIONS (Render only if data exists) */}
+        {product.applications && product.applications.length > 0 && (
+          <ProductApplications applications={product.applications} />
+        )}
 
-        {/* 05 — APPLICATIONS + FEATURES (SHARED 2-COL MODULE) */}
-        <section
-          id="applications-features"
-          className="
-            border-b
-            border-white/[0.08]
-            bg-transparent
-          "
-        >
-          {/* Desktop 2-Column Shared Container */}
-          <div
-            className="
-              mx-auto
-              hidden
-              w-full
-              max-w-[1280px]
-              px-10
-              py-16
-              xl:px-12
-              lg:block
-            "
-          >
-            <div
-              className="
-                grid
-                grid-cols-2
-                gap-12
-                xl:gap-16
-              "
-            >
-              {/* Left: Applications Grid */}
-              <div
-                className="
-                  min-w-0
-                  border-r
-                  border-white/[0.08]
-                  pr-10
-                  xl:pr-14
-                "
-              >
-                <ProductApplications product={product} layout="desktop" />
-              </div>
+        {/* 05 — FEATURES (Render only if data exists) */}
+        {product.features && product.features.length > 0 && (
+          <ProductFeatures features={product.features} />
+        )}
 
-              {/* Right: Features Numbered List */}
-              <div className="min-w-0">
-                <ProductFeatures product={product} layout="desktop" />
-              </div>
-            </div>
-          </div>
-
-          {/* Mobile Stacked Sections */}
-          <div className="block lg:hidden">
-            <ProductApplications product={product} layout="mobile" />
-            <ProductFeatures product={product} layout="mobile" />
-          </div>
-        </section>
-
-        {/* 06 — ENGINEERED VALUE / BENEFITS */}
-        {product.benefits && (
+        {/* 06 — ENGINEERED VALUE / BENEFITS (Render only if data exists) */}
+        {product.benefits && product.benefits.length > 0 && (
           <ProductBenefits benefits={product.benefits} />
         )}
 
-        {/* 07 — CONVERSION BANNER (DOCUMENTS + CTA) */}
+        {/* 07 — FINAL CTA / CONVERSION */}
         <ProductCTA product={product} />
-
       </div>
     </main>
   );

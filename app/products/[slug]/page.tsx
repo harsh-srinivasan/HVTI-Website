@@ -2,15 +2,18 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
 import ProductPage from "@/components/products/ProductPage";
+import { ProductData } from "@/types/product";
 import highVoltageACTestingKits from "@/data/products/high-voltage-ac-testing-kits";
+import highVoltageDetectorTPS9 from "@/data/products/high-voltage-detector-tp-s9";
 
 /* ================================================================
-   PRODUCT ROUTE
+   HVTI DYNAMIC PRODUCT ROUTE
    File: app/products/[slug]/page.tsx
    ================================================================ */
 
-const products: Record<string, typeof highVoltageACTestingKits> = {
+const products: Record<string, ProductData> = {
   "high-voltage-ac-testing-kits": highVoltageACTestingKits,
+  "high-voltage-detector-tp-s9": highVoltageDetectorTPS9,
 };
 
 export async function generateStaticParams() {

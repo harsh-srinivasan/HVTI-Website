@@ -48,7 +48,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-white/[0.08] bg-[#05070D]">
+    <footer className="relative z-20 border-t border-white/[0.08] bg-[#05070D]">
       {/* ============================================================
           FOOTER MAIN CONTAINER
           File: components/layout/Footer.tsx

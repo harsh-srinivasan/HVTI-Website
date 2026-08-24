@@ -2,22 +2,26 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { ProductData, ProductSpecRow } from "@/types/product";
+import { HVTestCircuitSchematic, HVBushingSchematic } from "./ProductSchematics";
 
 /* ================================================================
-   PRODUCT SPECIFICATIONS
+   HVTI TECHNICAL SPECIFICATIONS SYSTEM
    File: components/products/ProductSpecifications.tsx
 
-   Features a 3-column technical specification table paired with an
-   industrial hardware preview card matching the visual reference.
+   Focused, single-viewport desktop engineering composition:
+   - Header with clear hierarchy
+   - Precision 3-column technical specification table
+   - Side-by-side aligned hardware image
+   - Subtle flanking vector schematics
    ================================================================ */
 
-function useReveal(threshold = 0.55) {
+function useReveal(threshold = 0.2) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const element = ref.current;
-
     if (!element) return;
 
     const observer = new IntersectionObserver(
@@ -27,138 +31,108 @@ function useReveal(threshold = 0.55) {
           observer.unobserve(element);
         }
       },
-      {
-        threshold,
-      }
+      { threshold }
     );
 
     observer.observe(element);
-
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, [threshold]);
 
-  return {
-    ref,
-    visible,
-  };
+  return { ref, visible };
 }
-
-export type SpecRow = {
-  parameter: string;
-  details?: string;
-  range?: string;
-  value?: string;
-};
 
 export default function ProductSpecifications({
   product,
 }: {
-  product: any;
+  product: ProductData;
 }) {
-  const specRows: SpecRow[] =
+  const specRows: ProductSpecRow[] =
     product.specificationsTable ||
-    product.specifications?.map((s: { parameter: string; value: string }) => ({
+    product.specifications?.map((s) => ({
       parameter: s.parameter,
       details: "Standard",
       range: s.value,
     })) ||
     [];
 
-  const specImage = product.specImage || "/images/products/product-testing.jpg";
+  const specImage = product.specImage;
 
-  const { ref: headingRef, visible: headingVisible } = useReveal(0.55);
-  const { ref: contentRef, visible: contentVisible } = useReveal(0.55);
+  const { ref: headerRef, visible: headerVisible } = useReveal(0.2);
+  const { ref: tableRef, visible: tableVisible } = useReveal(0.15);
+
+  if (specRows.length === 0) {
+    return null;
+  }
 
   return (
     <section
       id="specifications"
       className="
         relative
+        flex
+        w-full
+        min-h-[calc(100vh-80px)]
+        flex-col
+        justify-center
         overflow-hidden
-        border-b
-        border-white/[0.08]
         bg-transparent
+        py-16
+        sm:py-20
+        lg:py-20
+        xl:py-24
       "
     >
-      {/* Subtle cool, precise atmospheric gradient */}
+      {/* Background ambient lighting */}
       <div
         className="
           pointer-events-none
           absolute
-          inset-0
-          bg-[radial-gradient(ellipse_at_15%_75%,rgba(30,41,59,0.18),transparent_60%)]
+          left-1/2
+          top-1/2
+          h-[700px]
+          w-[1000px]
+          -translate-x-1/2
+          -translate-y-1/2
+          bg-[radial-gradient(ellipse_at_50%_50%,rgba(168,85,247,0.035),transparent_65%)]
         "
       />
 
-      <div
-        className="
-          relative
-          z-10
-          mx-auto
-          w-full
-          max-w-[1280px]
-          px-5
-          py-14
-          sm:px-8
-          sm:py-16
-          lg:px-10
-          lg:py-18
-          xl:px-12
-        "
-      >
+      <div className="relative z-10 mx-auto w-full max-w-[1360px] px-6 sm:px-10 lg:px-12">
         {/* ========================================================
-            SECTION HEADER
+            CENTERED SECTION HEADER
             ======================================================== */}
-
         <div
-          ref={headingRef}
+          ref={headerRef}
           className={`
-            mb-8
-
+            mb-10
+            text-center
             transition-all
-            duration-[1200ms]
+            duration-[1100ms]
             ease-[cubic-bezier(0.22,1,0.36,1)]
-
-            motion-reduce:transition-none
-            motion-reduce:transform-none
-            motion-reduce:opacity-100
-
-            ${
-              headingVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-[24px] opacity-0"
-            }
+            lg:mb-12
+            ${headerVisible ? "translate-y-0 opacity-100" : "translate-y-[24px] opacity-0"}
           `}
         >
-          <div className="mb-3 flex items-center gap-3">
-            <span className="h-[2px] w-8 bg-[#A855F7]" />
-
-            <span
-              className="
-                font-sans
-                text-[12px]
-                font-semibold
-                uppercase
-                tracking-[0.14em]
-                text-[#A855F7]
-              "
-            >
+          <div className="mb-3 flex items-center justify-center gap-3">
+            <span className="h-[2px] w-7 bg-[#A855F7]" />
+            <span className="font-sans text-[11.5px] font-semibold uppercase tracking-[0.16em] text-[#A855F7]">
               Technical Specifications
             </span>
+            <span className="h-[2px] w-7 bg-[#A855F7]" />
           </div>
 
           <h2
             className="
+              mx-auto
+              max-w-[760px]
               font-heading
-              text-[32px]
+              text-[30px]
               font-semibold
-              leading-[1.12]
-              tracking-[-0.02em]
+              leading-[1.15]
+              tracking-[-0.025em]
               text-white
               sm:text-[36px]
-              xl:text-[38px]
+              xl:text-[40px]
             "
           >
             Detailed specifications for precise performance.
@@ -166,255 +140,139 @@ export default function ProductSpecifications({
         </div>
 
         {/* ========================================================
-            DESKTOP SPLIT: TABLE + HARDWARE PREVIEW
+            TECHNICAL SPECIFICATIONS TABLE & ALIGNED HARDWARE PHOTO
             ======================================================== */}
-
         <div
-          ref={contentRef}
+          ref={tableRef}
           className={`
-            hidden
-            lg:grid
-            lg:grid-cols-[1.4fr_1fr]
-            lg:items-stretch
-            lg:gap-8
-            xl:gap-10
-
+            relative
             transition-all
             duration-[1200ms]
             ease-[cubic-bezier(0.22,1,0.36,1)]
-
-            motion-reduce:transition-none
-            motion-reduce:transform-none
-            motion-reduce:opacity-100
-
-            ${
-              contentVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-[24px] opacity-0"
-            }
+            ${tableVisible ? "translate-y-0 opacity-100" : "translate-y-[30px] opacity-0"}
           `}
         >
-          {/* ======================================================
-              3-COLUMN TECHNICAL SPECIFICATION TABLE
-              ====================================================== */}
+          {/* Subtle Background Schematics on Large Displays */}
+          <div className="pointer-events-none absolute -left-[130px] top-1/2 hidden -translate-y-1/2 2xl:block">
+            <HVTestCircuitSchematic opacity={0.09} />
+          </div>
+          <div className="pointer-events-none absolute -right-[110px] top-1/2 hidden -translate-y-1/2 2xl:block">
+            <HVBushingSchematic opacity={0.09} />
+          </div>
 
           <div
-            className="
-              overflow-hidden
-              rounded-[10px]
-              border
-              border-white/[0.09]
-              bg-[#080D17]
-            "
+            className={`
+              grid
+              gap-6
+              xl:gap-8
+              ${specImage ? "lg:grid-cols-[1.45fr_1fr] lg:items-stretch" : "grid-cols-1 max-w-[1020px] mx-auto"}
+            `}
           >
-            <table className="w-full border-collapse">
-              <thead>
-                <tr className="border-b border-white/[0.08] bg-white/[0.035]">
-                  <th
-                    className="
-                      w-[35%]
-                      px-5
-                      py-3.5
-                      text-left
-                      font-sans
-                      text-[11.5px]
-                      font-semibold
-                      uppercase
-                      tracking-[0.14em]
-                      text-[#A855F7]
-                    "
-                  >
-                    Parameter
-                  </th>
-
-                  <th
-                    className="
-                      w-[35%]
-                      px-5
-                      py-3.5
-                      text-left
-                      font-sans
-                      text-[11.5px]
-                      font-semibold
-                      uppercase
-                      tracking-[0.14em]
-                      text-[#A855F7]
-                    "
-                  >
-                    Details
-                  </th>
-
-                  <th
-                    className="
-                      w-[30%]
-                      px-5
-                      py-3.5
-                      text-left
-                      font-sans
-                      text-[11.5px]
-                      font-semibold
-                      uppercase
-                      tracking-[0.14em]
-                      text-[#A855F7]
-                    "
-                  >
-                    Range / Options
-                  </th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {specRows.map((row, index) => (
-                  <tr
-                    key={`${row.parameter}-${index}`}
-                    className={`
-                      transition-colors
-                      duration-150
-                      hover:bg-white/[0.035]
-
-                      ${
-                        index % 2 === 0
-                          ? "bg-transparent"
-                          : "bg-white/[0.015]"
-                      }
-                    `}
-                  >
-                    <td
-                      className="
-                        border-t
-                        border-white/[0.06]
-                        px-5
-                        py-3.5
-                        font-sans
-                        text-[14.5px]
-                        font-semibold
-                        leading-snug
-                        text-white
-                        xl:text-[15px]
-                      "
-                    >
-                      {row.parameter}
-                    </td>
-
-                    <td
-                      className="
-                        border-t
-                        border-white/[0.06]
-                        px-5
-                        py-3.5
-                        font-sans
-                        text-[14px]
-                        font-normal
-                        leading-relaxed
-                        text-[#CBD5E1]
-                        xl:text-[14.5px]
-                      "
-                    >
-                      {row.details || "—"}
-                    </td>
-
-                    <td
-                      className="
-                        border-t
-                        border-white/[0.06]
-                        px-5
-                        py-3.5
-                        font-sans
-                        text-[14px]
-                        font-normal
-                        leading-relaxed
-                        text-[#94A3B8]
-                        xl:text-[14.5px]
-                      "
-                    >
-                      {row.range || row.value || "—"}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* ======================================================
-              HARDWARE PREVIEW CARD
-              ====================================================== */}
-
-          <div
-            className="
-              relative
-              flex
-              min-h-[420px]
-              overflow-hidden
-              rounded-[12px]
-              border
-              border-white/[0.09]
-              bg-[#080D17]
-            "
-          >
-            <div className="absolute inset-0 bg-gradient-to-t from-[#05070D]/80 via-transparent to-transparent z-10" />
-
-            <Image
-              src={specImage}
-              alt={product.title}
-              fill
-              className="object-cover object-center transition-transform duration-700 hover:scale-105"
-              sizes="(max-width: 1024px) 100vw, 40vw"
-            />
-
-            {/* Corner Registration Mark */}
-            <div className="pointer-events-none absolute right-3 top-3 font-mono text-[9px] text-white/30 z-20">
-              +
+            {/* Specification Table */}
+            <div
+              className="
+                flex
+                flex-col
+                justify-center
+                overflow-hidden
+                rounded-[12px]
+                border
+                border-white/[0.09]
+                bg-[#080D17]/90
+                shadow-[0_16px_48px_rgba(0,0,0,0.4)]
+                backdrop-blur-md
+              "
+            >
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse">
+                  <thead>
+                    <tr className="border-b border-white/[0.08] bg-white/[0.035]">
+                      <th className="px-5 py-3 text-left font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[#A855F7] xl:px-6 xl:py-3.5">
+                        Parameter
+                      </th>
+                      <th className="px-5 py-3 text-left font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[#A855F7] xl:px-6 xl:py-3.5">
+                        Details
+                      </th>
+                      <th className="px-5 py-3 text-left font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[#A855F7] xl:px-6 xl:py-3.5">
+                        Range / Options
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {specRows.map((row, index) => (
+                      <tr
+                        key={`${row.parameter}-${index}`}
+                        className={`
+                          transition-colors
+                          duration-150
+                          hover:bg-white/[0.035]
+                          ${index % 2 === 0 ? "bg-transparent" : "bg-white/[0.015]"}
+                        `}
+                      >
+                        <td className="border-t border-white/[0.06] px-5 py-2.5 font-sans text-[13.5px] font-semibold text-white xl:px-6 xl:py-3 xl:text-[14px]">
+                          {row.parameter}
+                        </td>
+                        <td className="border-t border-white/[0.06] px-5 py-2.5 font-sans text-[13px] text-[#CBD5E1] xl:px-6 xl:py-3 xl:text-[13.5px]">
+                          {row.details || "—"}
+                        </td>
+                        <td className="border-t border-white/[0.06] px-5 py-2.5 font-sans text-[13px] text-[#94A3B8] xl:px-6 xl:py-3 xl:text-[13.5px]">
+                          {row.range || row.value || "—"}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
 
-            {/* Subtle bottom badge */}
-            <div className="absolute bottom-4 left-4 z-20">
-              <span className="rounded-[4px] border border-white/10 bg-[#05070D]/80 px-2.5 py-1 text-[11px] font-mono uppercase tracking-wider text-[#A855F7] backdrop-blur-md">
-                HV Control & Test Setup
-              </span>
+            {/* Hardware Preview Image — Aligned with Table */}
+            {specImage && (
+              <div
+                className="
+                  relative
+                  hidden
+                  min-h-[380px]
+                  w-full
+                  items-center
+                  justify-center
+                  overflow-hidden
+                  rounded-[12px]
+                  border
+                  border-white/[0.09]
+                  bg-[#05070E]
+                  p-3
+                  shadow-[0_16px_48px_rgba(0,0,0,0.4)]
+                  backdrop-blur-md
+                  lg:flex
+                "
+              >
+                <div className="relative h-full w-full">
+                  <Image
+                    src={specImage}
+                    alt={product.title}
+                    fill
+                    className="object-contain object-center transition-transform duration-500 hover:scale-[1.02]"
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Mobile Hardware Image */}
+          {specImage && (
+            <div className="relative mt-6 h-[260px] w-full overflow-hidden rounded-[10px] border border-white/[0.08] bg-[#05070E] p-2.5 sm:h-[320px] lg:hidden">
+              <div className="relative h-full w-full">
+                <Image
+                  src={specImage}
+                  alt={product.title}
+                  fill
+                  className="object-contain object-center"
+                  sizes="100vw"
+                />
+              </div>
             </div>
-          </div>
-        </div>
-
-        {/* ========================================================
-            MOBILE SPECIFICATIONS
-            ======================================================== */}
-
-        <div className="block lg:hidden">
-          <div className="overflow-x-auto rounded-[10px] border border-white/[0.09] bg-[#080D17]">
-            <table className="w-full min-w-[500px] border-collapse">
-              <thead>
-                <tr className="border-b border-white/[0.08] bg-white/[0.035]">
-                  <th className="px-4 py-3 text-left font-sans text-[11px] font-semibold uppercase tracking-[0.08em] text-[#A855F7]">
-                    Parameter
-                  </th>
-                  <th className="px-4 py-3 text-left font-sans text-[11px] font-semibold uppercase tracking-[0.08em] text-[#A855F7]">
-                    Details
-                  </th>
-                  <th className="px-4 py-3 text-left font-sans text-[11px] font-semibold uppercase tracking-[0.08em] text-[#A855F7]">
-                    Range / Options
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {specRows.map((row, index) => (
-                  <tr
-                    key={`mob-${row.parameter}-${index}`}
-                    className={index % 2 === 0 ? "bg-transparent" : "bg-white/[0.015]"}
-                  >
-                    <td className="border-t border-white/[0.06] px-4 py-3 font-sans text-[13.5px] font-semibold text-white">
-                      {row.parameter}
-                    </td>
-                    <td className="border-t border-white/[0.06] px-4 py-3 font-sans text-[13px] font-normal text-[#CBD5E1]">
-                      {row.details || "—"}
-                    </td>
-                    <td className="border-t border-white/[0.06] px-4 py-3 font-sans text-[13px] font-normal text-[#94A3B8]">
-                      {row.range || row.value || "—"}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          )}
         </div>
       </div>
     </section>

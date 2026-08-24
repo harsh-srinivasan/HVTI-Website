@@ -1,23 +1,24 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { ProductData } from "@/types/product";
 
 /* ================================================================
-   PRODUCT CTA & CONVERSION BANNER
+   HVTI PRODUCT CTA & CONVERSION SYSTEM
    File: components/products/ProductCTA.tsx
 
-   Unified high-impact bottom conversion module matching the
-   visual reference image.
+   High-impact bottom conversion module.
+   Adapts cleanly whether supporting imagery is present or absent.
    ================================================================ */
 
-function useReveal() {
+function useReveal(threshold = 0.25) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const element = ref.current;
-
     if (!element) return;
 
     const observer = new IntersectionObserver(
@@ -27,22 +28,14 @@ function useReveal() {
           observer.unobserve(element);
         }
       },
-      {
-        threshold: 0.55,
-      }
+      { threshold }
     );
 
     observer.observe(element);
+    return () => observer.disconnect();
+  }, [threshold]);
 
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-  return {
-    ref,
-    visible,
-  };
+  return { ref, visible };
 }
 
 function ArrowIcon() {
@@ -66,273 +59,179 @@ function DownloadIcon() {
 
 export default function ProductCTA({
   product,
-  layout = "all",
 }: {
-  product: any;
-  layout?: "desktop" | "mobile" | "all";
+  product: ProductData;
 }) {
   const { ref, visible } = useReveal();
 
+  const ctaData = product.cta;
+  const title = ctaData?.title || "Need the right solution for your application?";
+  const description =
+    ctaData?.description ||
+    `Our engineering team will help you select the ideal ${product.title || "high-voltage testing"} kit.`;
+  const primaryText = ctaData?.primaryButtonText || "Talk to an Engineer";
+  const primaryLink = ctaData?.primaryButtonLink || "/contact";
+  const secondaryText = ctaData?.secondaryButtonText || "Download Brochure";
+  const secondaryLink = ctaData?.secondaryButtonLink || product.brochure || "#";
+  const supportingImage = ctaData?.supportingImage;
+
   return (
     <section
-      id="documents"
+      id="cta"
       className="
         relative
+        w-full
         overflow-hidden
-        border-b
-        border-white/[0.08]
         bg-transparent
+        pb-24
+        pt-16
+        sm:pb-32
+        sm:pt-20
       "
     >
-      {/* Subtle purple atmospheric light (Left side) */}
-      <div
-        className="
-          pointer-events-none
-          absolute
-          inset-0
-          bg-[radial-gradient(ellipse_at_20%_45%,rgba(168,85,247,0.038),transparent_60%)]
-        "
-      />
-
-      {/* Subtle warm orange atmospheric light near CTA (Right side) */}
-      <div
-        className="
-          pointer-events-none
-          absolute
-          inset-0
-          bg-[radial-gradient(ellipse_at_80%_60%,rgba(249,115,22,0.028),transparent_55%)]
-        "
-      />
-
-      <div
-        className="
-          relative
-          z-10
-          mx-auto
-          w-full
-          max-w-[1280px]
-          px-5
-          py-14
-          sm:px-8
-          sm:py-16
-          lg:px-10
-          lg:py-18
-          xl:px-12
-        "
-      >
+      <div className="relative z-10 mx-auto w-full max-w-[1360px] px-6 sm:px-10 lg:px-12">
         <div
           ref={ref}
           className={`
             relative
             overflow-hidden
-            rounded-[14px]
+            rounded-[16px]
             border
-            border-white/[0.09]
-            bg-[#080D17]
-            px-6
-            py-8
-            sm:px-10
-            sm:py-10
-            lg:px-12
-            lg:py-12
-
+            border-white/[0.12]
+            bg-[#080D1A]/90
+            p-8
+            shadow-[0_24px_64px_rgba(0,0,0,0.5)]
+            backdrop-blur-xl
             transition-all
             duration-[1200ms]
             ease-[cubic-bezier(0.22,1,0.36,1)]
-
-            motion-reduce:transition-none
-            motion-reduce:transform-none
-            motion-reduce:opacity-100
-
-            hover:border-[#8B5CF6]/40
-            hover:shadow-[0_16px_48px_rgba(124,58,237,0.12)]
-
-            ${
-              visible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-[24px] opacity-0"
-            }
+            sm:p-12
+            lg:p-16
+            ${visible ? "translate-y-0 opacity-100" : "translate-y-[30px] opacity-0"}
           `}
         >
-          {/* Subtle Ambient Purple Glow */}
-          <div
-            className="
-              pointer-events-none
-              absolute
-              -left-20
-              -top-20
-              h-[260px]
-              w-[260px]
-              rounded-full
-              bg-[#7C3AED]/12
-              blur-[90px]
-            "
-          />
+          {/* Ambient Glow Orbs */}
+          <div className="pointer-events-none absolute -left-20 -top-20 h-[300px] w-[300px] rounded-full bg-[#7C3AED]/15 blur-[100px]" />
+          <div className="pointer-events-none absolute -bottom-20 -right-20 h-[300px] w-[300px] rounded-full bg-[#F97316]/10 blur-[100px]" />
 
           <div
-            className="
-              pointer-events-none
-              absolute
-              -bottom-20
-              -right-20
-              h-[260px]
-              w-[260px]
-              rounded-full
-              bg-[#F97316]/[0.06]
-              blur-[90px]
-            "
-          />
-
-          {/* Registration Mark */}
-          <div className="pointer-events-none absolute right-4 top-3 font-mono text-[9px] text-white/20">
-            +
-          </div>
-
-          {/* Conversion Content Layout */}
-          <div
-            className="
+            className={`
               relative
               z-10
               flex
               flex-col
               gap-8
-              lg:flex-row
-              lg:items-center
-              lg:justify-between
-            "
+              ${
+                supportingImage
+                  ? "lg:grid lg:grid-cols-[1.4fr_1fr] lg:items-center"
+                  : "lg:flex-row lg:items-center lg:justify-between"
+              }
+            `}
           >
-            {/* Left: Solution Inquiry */}
-            <div className="max-w-[460px]">
+            {/* Left Content */}
+            <div className="max-w-[620px]">
+              <div className="mb-3 flex items-center gap-3">
+                <span className="h-[2px] w-7 bg-[#F97316]" />
+                <span className="font-sans text-[11.5px] font-semibold uppercase tracking-[0.16em] text-[#F97316]">
+                  Engineering Consultation
+                </span>
+              </div>
+
               <h2
                 className="
                   font-heading
-                  text-[24px]
-                  font-semibold
-                  leading-snug
+                  text-[28px]
+                  font-bold
+                  leading-[1.12]
                   tracking-[-0.02em]
                   text-white
-                  sm:text-[27px]
-                  xl:text-[28px]
+                  sm:text-[34px]
+                  xl:text-[38px]
                 "
               >
-                Need the right solution for your application?
+                {title}
               </h2>
 
-              <p
-                className="
-                  mt-2
-                  font-sans
-                  text-[15px]
-                  leading-relaxed
-                  text-[#CBD5E1]
-                "
-              >
-                Our engineering team will help you select the ideal HV AC testing kit.
+              <p className="mt-4 font-sans text-[16px] leading-relaxed text-[#CBD5E1] sm:text-[17px]">
+                {description}
               </p>
-            </div>
 
-            {/* Center: Talk to Engineer Primary Action */}
-            <div className="flex shrink-0 items-center">
-              <Link
-                href="/contact"
-                className="
-                  group
-                  inline-flex
-                  h-[52px]
-                  w-full
-                  items-center
-                  justify-center
-                  gap-3
-                  rounded-[6px]
-                  bg-[#F97316]
-                  px-8
-                  font-sans
-                  text-[12.5px]
-                  font-semibold
-                  uppercase
-                  tracking-[0.08em]
-                  text-white
-                  transition-all
-                  duration-200
-                  hover:bg-[#FB923C]
-                  hover:shadow-[0_0_30px_rgba(249,115,22,0.25)]
-                  sm:w-auto
-                "
-              >
-                <span>Talk to an Engineer</span>
-
-                <span
+              {/* Action Buttons */}
+              <div className="mt-8 flex flex-wrap items-center gap-5">
+                <Link
+                  href={primaryLink}
                   className="
-                    transition-transform
+                    group
+                    inline-flex
+                    h-[54px]
+                    items-center
+                    justify-center
+                    gap-3
+                    rounded-[8px]
+                    bg-[#F97316]
+                    px-8
+                    font-sans
+                    text-[12.5px]
+                    font-semibold
+                    uppercase
+                    tracking-wider
+                    text-white
+                    shadow-[0_4px_24px_rgba(249,115,22,0.3)]
+                    transition-all
                     duration-200
-                    group-hover:translate-x-1
+                    hover:bg-[#FB923C]
+                    hover:shadow-[0_0_36px_rgba(249,115,22,0.4)]
                   "
                 >
-                  <ArrowIcon />
-                </span>
-              </Link>
-            </div>
+                  <span>{primaryText}</span>
+                  <span className="transition-transform duration-200 group-hover:translate-x-1">
+                    <ArrowIcon />
+                  </span>
+                </Link>
 
-            {/* Right: Download Brochure Action */}
-            <div
-              className="
-                flex
-                flex-col
-                justify-center
-                border-t
-                border-white/[0.08]
-                pt-6
-                lg:border-l
-                lg:border-t-0
-                lg:pl-10
-                lg:pt-0
-              "
-            >
-              <Link
-                href={product.brochure || "#"}
-                aria-label="Download product brochure"
-                className="
-                  group
-                  inline-flex
-                  items-center
-                  gap-2.5
-                  font-sans
-                  text-[12px]
-                  font-semibold
-                  uppercase
-                  tracking-[0.08em]
-                  text-[#A855F7]
-                  transition-colors
-                  duration-200
-                  hover:text-[#C084FC]
-                "
-              >
-                <span>Download Brochure</span>
-
-                <span
+                <Link
+                  href={secondaryLink}
                   className="
-                    transition-transform
+                    inline-flex
+                    items-center
+                    gap-2.5
+                    rounded-[8px]
+                    border
+                    border-white/[0.15]
+                    bg-white/[0.04]
+                    px-6
+                    py-3.5
+                    font-sans
+                    text-[12.5px]
+                    font-semibold
+                    uppercase
+                    tracking-wider
+                    text-[#A855F7]
+                    transition-all
                     duration-200
-                    group-hover:translate-y-0.5
+                    hover:border-[#A855F7]
+                    hover:bg-[#A855F7]/10
+                    hover:text-[#C084FC]
                   "
                 >
+                  <span>{secondaryText}</span>
                   <DownloadIcon />
-                </span>
-              </Link>
-
-              <p
-                className="
-                  mt-1.5
-                  max-w-[220px]
-                  font-sans
-                  text-[13px]
-                  leading-normal
-                  text-[#94A3B8]
-                "
-              >
-                Get detailed product information and specifications.
-              </p>
+                </Link>
+              </div>
             </div>
+
+            {/* Right Supporting Image (Rendered only when real asset exists) */}
+            {supportingImage && (
+              <div className="relative min-h-[280px] overflow-hidden rounded-[12px] border border-white/10 lg:min-h-[340px]">
+                <Image
+                  src={supportingImage}
+                  alt={title}
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

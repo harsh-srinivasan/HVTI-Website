@@ -1,17 +1,17 @@
+import { ProductData } from "@/types/product";
+
 /* ================================================================
-
-   HIGH VOLTAGE AC TESTING KITS
-
+   HIGH VOLTAGE AC TESTING KITS — PRODUCT DATA
    File: data/products/high-voltage-ac-testing-kits.ts
 
-   Product data for the High Voltage AC Testing Kits product page.
-
+   Reference product data for the High Voltage AC Testing Kits.
+   Contains only authentic, verified HVTI product specifications.
    ================================================================ */
 
-const highVoltageACTestingKits = {
+const highVoltageACTestingKits: ProductData = {
   slug: "high-voltage-ac-testing-kits",
 
-  category: "Electrical Testing",
+  category: "High Voltage AC Testing Kits",
 
   title: "High Voltage AC Testing Kits",
 
@@ -21,14 +21,12 @@ const highVoltageACTestingKits = {
   /* ==============================================================
      PRODUCT OVERVIEW
      ============================================================== */
-
   overview:
     "HV AC test kits are used for testing and commissioning of HV electrical equipment including motors, generators, switchgears, cables and transformers. The kits are available from 25 kV to 300 kV AC in various mA and kVA ratings to meet diverse testing requirements.",
 
   /* ==============================================================
-     HERO HIGHLIGHTS (2x2 checkmark grid in Hero)
+     HERO HIGHLIGHTS
      ============================================================== */
-
   highlights: [
     "25–300 kV AC",
     "Automated & Manual Control",
@@ -36,84 +34,83 @@ const highVoltageACTestingKits = {
     "PD-Free Designs",
   ],
 
-  /* ==============================================================
-     PRODUCT AT A GLANCE (Overview Matrix)
-     ============================================================== */
-
-  atAGlance: [
-    {
-      code: "VOLT",
-      label: "VOLTAGE RANGE",
-      value: "25 kV – 300 kV AC",
-    },
-    {
-      code: "CONT",
-      label: "CONTROL",
-      value: "Automated & Manual",
-    },
-    {
-      code: "APP",
-      label: "APPLICATIONS",
-      value: "Motors, Generators, Switchgears, Cables & Transformers",
-    },
-    {
-      code: "DEPT",
-      label: "TESTING",
-      value: "Laboratory & Field Use",
-    },
-    {
-      code: "DIM",
-      label: "DESIGN",
-      value: "Compact Test Transformers",
-    },
-    {
-      code: "PD",
-      label: "PD DESIGN",
-      value: "PD-Free Designs Available",
-    },
-  ],
+  modelUrl: "/models/hv-ac-testing-kit.glb",
+  renderType: "3d",
 
   /* ==============================================================
-     ENGINEERING AT A GLANCE (Visual metrics banner)
+     ENGINEERING AT A GLANCE (Wave Metrics)
      ============================================================== */
-
   engineeringAtAGlance: [
     {
-      id: "voltage",
-      icon: "lightning",
-      value: "25 – 300 kV AC",
-      description: "Wide voltage range for diverse testing needs",
-    },
-    {
       id: "control",
-      icon: "sliders",
+      icon: "control",
       value: "Automated & Manual Control",
       description: "Flexibility to choose your control setup",
     },
     {
       id: "pd",
-      icon: "shield",
+      icon: "pd",
       value: "PD-Free Designs",
       description: "Partial discharge free designs for accurate testing",
     },
     {
+      id: "voltage",
+      icon: "voltage",
+      value: "25 – 300 kV AC",
+      description: "Wide voltage range for diverse testing needs",
+      highlighted: true,
+    },
+    {
       id: "testing",
-      icon: "briefcase",
+      icon: "testing",
       value: "Laboratory & Field Ready",
       description: "Built for both controlled labs and on-site testing",
     },
     {
       id: "power",
-      icon: "transformer",
+      icon: "power",
       value: "Multiple mA / kVA Ratings",
       description: "Multiple current and power ratings available",
     },
   ],
 
   /* ==============================================================
-     TECHNICAL SPECIFICATIONS (3-Column Table)
+     TOP TECHNICAL METRICS
      ============================================================== */
+  metrics: [
+    {
+      id: "voltage",
+      icon: "voltage",
+      label: "OUTPUT VOLTAGE (AC)",
+      value: "25 – 300 kV",
+      subtext: "Adjustable",
+    },
+    {
+      id: "frequency",
+      icon: "frequency",
+      label: "FREQUENCY",
+      value: "50 / 60 Hz",
+      subtext: "Power Frequency",
+    },
+    {
+      id: "current",
+      icon: "current",
+      label: "OUTPUT CURRENT (AC)",
+      value: "Upto 1000 mA",
+      subtext: "Adjustable",
+    },
+    {
+      id: "power",
+      icon: "power",
+      label: "OUTPUT POWER (AC)",
+      value: "Upto 300 kVA",
+      subtext: "Adjustable",
+    },
+  ],
 
+  /* ==============================================================
+     TECHNICAL SPECIFICATIONS TABLE (3-Column)
+     ============================================================== */
   specificationsTable: [
     {
       parameter: "Output Voltage (AC)",
@@ -157,57 +154,43 @@ const highVoltageACTestingKits = {
     },
   ],
 
-  /* Specifications fallback for backwards compatibility */
-  specifications: [
-    {
-      parameter: "Resin Cast Dry Type Test Transformers",
-      value: "25 kV – 150 kV",
-    },
-    {
-      parameter: "Oil Filled Test Transformers",
-      value: "50, 70, 100, 150, 200 & 300 kV",
-    },
-    {
-      parameter: "Control",
-      value: "Automated and Manual Control Panels / Control Desks",
-    },
-    {
-      parameter: "Automated Control",
-      value:
-        "Microprocessor-based controls with touchscreen interface and programmable parameters",
-    },
-    {
-      parameter: "Metering",
-      value: "Option of tertiary metering winding",
-    },
-    {
-      parameter: "Design",
-      value: "Compact designs suitable for laboratory and field testing",
-    },
-    {
-      parameter: "PD Design",
-      value: "PD-free designs available",
-    },
-  ],
-
   specImage: "/images/products/product-testing.jpg",
 
   /* ==============================================================
      APPLICATIONS
      ============================================================== */
-
   applications: [
-    "Motors",
-    "Generators",
-    "Switchgears",
-    "Cables",
-    "Transformers",
+    {
+      id: "motors",
+      title: "Motors",
+      icon: "motor",
+      isCenter: true,
+    },
+    {
+      id: "generators",
+      title: "Generators",
+      icon: "generator",
+    },
+    {
+      id: "switchgears",
+      title: "Switchgears",
+      icon: "switchgear",
+    },
+    {
+      id: "cables",
+      title: "Cables",
+      icon: "cable",
+    },
+    {
+      id: "transformers",
+      title: "Transformers",
+      icon: "transformer",
+    },
   ],
 
   /* ==============================================================
-     FEATURES (Numbered Editorial List)
+     FEATURES (Editorial Numbered List)
      ============================================================== */
-
   features: [
     {
       title: "Automated & Manual Control",
@@ -244,7 +227,6 @@ const highVoltageACTestingKits = {
   /* ==============================================================
      ENGINEERED VALUE / BENEFITS
      ============================================================== */
-
   benefits: [
     {
       id: "reliability",
@@ -270,10 +252,18 @@ const highVoltageACTestingKits = {
   ],
 
   /* ==============================================================
-     PRODUCT DOCUMENTS
+     CONVERSION CTA & DOCUMENTS
      ============================================================== */
-
   brochure: "#",
+  cta: {
+    title: "Need the right solution for your application?",
+    description:
+      "Our engineering team will help you select the ideal HV AC testing kit.",
+    primaryButtonText: "Talk to an Engineer",
+    primaryButtonLink: "/contact",
+    secondaryButtonText: "Download Brochure",
+    secondaryButtonLink: "#",
+  },
 };
 
 export default highVoltageACTestingKits;

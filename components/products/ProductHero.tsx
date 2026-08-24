@@ -1,29 +1,21 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import ProductHighlights from "./ProductHighlights";
 import HVACTestingKitRender from "@/components/renders/HVACTestingKitRender";
+import VoltageDetectorTPS9Render from "@/components/renders/VoltageDetectorTPS9Render";
+import { ProductData } from "@/types/product";
 
 /* ================================================================
-   PRODUCT HERO
+   HVTI PRODUCT HERO SYSTEM
    File: components/products/ProductHero.tsx
 
-   Desktop:
-   - Compact premium product-catalogue composition
-   - Stronger product typography
-   - Controlled entrance animations
-   - 3D render has an independent container
-   - Render position/size controlled by the parent container
-   - Reduced overall vertical footprint
-
-   Mobile:
-   - Existing implementation preserved
-   ================================================================ */
-
-
-/* ================================================================
-   REVEAL HOOK
+   - Full-scale, high-contrast engineering hero composition
+   - Large realistic 3D hardware render or high-res product photo on luminous floor energy ring
+   - Dynamic highlights adaptation (2, 3, 4, 5+ items)
+   - Dynamic 3D model resolver supporting both system & tool models
    ================================================================ */
 
 function useReveal(threshold = 0.15) {
@@ -32,207 +24,67 @@ function useReveal(threshold = 0.15) {
 
   useEffect(() => {
     const element = ref.current;
-
     if (!element) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true);
-
           observer.unobserve(element);
         }
       },
-      {
-        threshold,
-      }
+      { threshold }
     );
 
     observer.observe(element);
-
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, [threshold]);
 
-  return {
-    ref,
-    visible,
-  };
+  return { ref, visible };
 }
-
-
-/* ================================================================
-   ARROW ICON
-   ================================================================ */
 
 function ArrowIcon() {
   return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M5 12H19"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-
-      <path
-        d="M13 6L19 12L13 18"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M5 12H19" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M13 6L19 12L13 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
-
-
-/* ================================================================
-   DOWNLOAD ICON
-   ================================================================ */
 
 function DownloadIcon() {
   return (
-    <svg
-      width="17"
-      height="17"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M12 3V15"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-
-      <path
-        d="M7 11L12 16L17 11"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-
-      <path
-        d="M5 20H19"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 3V15" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M7 11L12 16L17 11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M5 20H19" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
     </svg>
   );
 }
 
-
-/* ================================================================
-   RENDER PLACEHOLDER
-
-   Replace this with the actual 3D render later.
-
-   IMPORTANT:
-   The parent container controls the size and position of the
-   render area.
-
-   The actual 3D render component should fill this container.
-   ================================================================ */
-
-function RenderPlaceholder() {
-  return (
-    <div
-      className="
-        relative
-        flex
-        h-full
-        min-h-[390px]
-        items-center
-        justify-center
-      "
-    >
-      <div
-        className="
-          absolute
-          h-[360px]
-          w-[360px]
-          rounded-full
-          bg-[#7C3AED]/20
-          blur-[100px]
-        "
-      />
-
-      <div
-        className="
-          relative
-          z-10
-          text-center
-          text-sm
-          uppercase
-          tracking-[0.18em]
-          text-white/30
-        "
-      >
-        3D Product Render
-      </div>
-    </div>
-  );
+function render3DModel(product: ProductData) {
+  if (product.modelUrl === "/models/hv-ac-testing-kit.glb") {
+    return <HVACTestingKitRender />;
+  }
+  return <VoltageDetectorTPS9Render modelUrl={product.modelUrl} />;
 }
-
 
 /* ================================================================
    DESKTOP HERO
    ================================================================ */
 
-function DesktopProductHero({
-  product,
-}: {
-  product: any;
-}) {
-  /* ==============================================================
-     INDIVIDUAL REVEALS
-     ============================================================== */
+function DesktopProductHero({ product }: { product: ProductData }) {
+  const { ref: breadcrumbRef, visible: breadcrumbVisible } = useReveal(0.15);
+  const { ref: categoryRef, visible: categoryVisible } = useReveal(0.15);
+  const { ref: titleRef, visible: titleVisible } = useReveal(0.15);
+  const { ref: descriptionRef, visible: descriptionVisible } = useReveal(0.15);
+  const { ref: highlightsRef, visible: highlightsVisible } = useReveal(0.15);
+  const { ref: ctaRef, visible: ctaVisible } = useReveal(0.15);
+  const { ref: renderRef, visible: renderVisible } = useReveal(0.1);
 
-  const {
-    ref: breadcrumbRef,
-    visible: breadcrumbVisible,
-  } = useReveal(0.15);
-
-  const {
-    ref: categoryRef,
-    visible: categoryVisible,
-  } = useReveal(0.15);
-
-  const {
-    ref: titleRef,
-    visible: titleVisible,
-  } = useReveal(0.15);
-
-  const {
-    ref: descriptionRef,
-    visible: descriptionVisible,
-  } = useReveal(0.15);
-
-  const {
-    ref: highlightsRef,
-    visible: highlightsVisible,
-  } = useReveal(0.15);
-
-  const {
-    ref: ctaRef,
-    visible: ctaVisible,
-  } = useReveal(0.15);
-
-  const {
-    ref: renderRef,
-    visible: renderVisible,
-  } = useReveal(0.1);
+  const highlights = product.highlights || [];
+  const brochureLink = product.brochure || product.cta?.brochureUrl;
+  const hasVisual = (product.renderType === "3d" && product.modelUrl) || product.image || product.specImage;
 
   return (
     <section
@@ -242,19 +94,13 @@ function DesktopProductHero({
         hidden
         min-h-screen
         overflow-hidden
-        border-b
-        border-white/[0.08]
         bg-transparent
         lg:flex
         lg:flex-col
         lg:justify-center
       "
     >
-
-      {/* ==========================================================
-          SUBTLE BOTTOM FADE
-          ========================================================== */}
-
+      {/* Bottom atmospheric soft blend */}
       <div
         className="
           pointer-events-none
@@ -268,10 +114,6 @@ function DesktopProductHero({
         "
       />
 
-      {/* ==========================================================
-          HERO CONTENT
-          ========================================================== */}
-
       <div
         className="
           relative
@@ -280,31 +122,19 @@ function DesktopProductHero({
           flex
           min-h-screen
           w-full
-          max-w-[1280px]
+          max-w-[1360px]
           items-center
           gap-8
           px-10
-          pb-10
-          pt-[88px]
+          pb-12
+          pt-[100px]
           xl:gap-12
-          xl:px-12
+          xl:px-14
         "
       >
-        {/* ========================================================
-            LEFT CONTENT
-            ======================================================== */}
-
-        <div
-          className="
-            w-[48%]
-            max-w-[620px]
-            shrink-0
-          "
-        >
-          {/* ======================================================
-              BREADCRUMB
-              ====================================================== */}
-
+        {/* Left Content Column */}
+        <div className={`w-[48%] max-w-[620px] shrink-0 ${!hasVisual ? "mx-auto text-center" : ""}`}>
+          {/* Breadcrumb */}
           <div
             ref={breadcrumbRef}
             className={`
@@ -312,48 +142,25 @@ function DesktopProductHero({
               text-[12px]
               font-medium
               text-[#64748B]
-
               transition-all
               duration-[900ms]
               ease-[cubic-bezier(0.22,1,0.36,1)]
-
-              ${breadcrumbVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-[18px] opacity-0"
-              }
+              ${breadcrumbVisible ? "translate-y-0 opacity-100" : "translate-y-[18px] opacity-0"}
+              ${!hasVisual ? "justify-center flex" : ""}
             `}
           >
-            <Link
-              href="/"
-              className="transition-colors hover:text-white"
-            >
+            <Link href="/" className="transition-colors hover:text-white">
               Home
             </Link>
-
-            <span className="mx-2 text-white/20">
-              /
-            </span>
-
-            <Link
-              href="/products"
-              className="transition-colors hover:text-white"
-            >
+            <span className="mx-2 text-white/20">/</span>
+            <Link href="/products" className="transition-colors hover:text-white">
               Products
             </Link>
-
-            <span className="mx-2 text-white/20">
-              /
-            </span>
-
-            <span className="text-[#A855F7]">
-              {product.category}
-            </span>
+            <span className="mx-2 text-white/20">/</span>
+            <span className="text-[#A855F7]">{product.category}</span>
           </div>
 
-          {/* ======================================================
-              EYEBROW / CATEGORY
-              ====================================================== */}
-
+          {/* Eyebrow */}
           <div
             ref={categoryRef}
             className={`
@@ -361,38 +168,21 @@ function DesktopProductHero({
               flex
               items-center
               gap-3
-
               transition-all
               duration-[900ms]
               delay-[80ms]
               ease-[cubic-bezier(0.22,1,0.36,1)]
-
-              ${categoryVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-[20px] opacity-0"
-              }
+              ${categoryVisible ? "translate-y-0 opacity-100" : "translate-y-[20px] opacity-0"}
+              ${!hasVisual ? "justify-center" : ""}
             `}
           >
             <span className="h-[2px] w-9 bg-[#F97316]" />
-
-            <span
-              className="
-                font-sans
-                text-[12px]
-                font-semibold
-                uppercase
-                tracking-[0.14em]
-                text-[#F97316]
-              "
-            >
+            <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.14em] text-[#F97316]">
               {product.category}
             </span>
           </div>
 
-          {/* ======================================================
-              PRODUCT TITLE
-              ====================================================== */}
-
+          {/* Title */}
           <div
             ref={titleRef}
             className={`
@@ -400,33 +190,26 @@ function DesktopProductHero({
               duration-[1100ms]
               delay-[140ms]
               ease-[cubic-bezier(0.22,1,0.36,1)]
-
-              ${titleVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-[28px] opacity-0"
-              }
+              ${titleVisible ? "translate-y-0 opacity-100" : "translate-y-[28px] opacity-0"}
             `}
           >
             <h1
-              className="
-                max-w-[580px]
+              className={`
                 font-heading
-                text-[56px]
+                text-[50px]
                 font-bold
                 leading-[1.06]
                 tracking-[-0.03em]
                 text-white
-                xl:text-[62px]
-              "
+                xl:text-[58px]
+                ${!hasVisual ? "mx-auto max-w-[800px]" : "max-w-[620px]"}
+              `}
             >
               {product.title}
             </h1>
           </div>
 
-          {/* ======================================================
-              DESCRIPTION
-              ====================================================== */}
-
+          {/* Description */}
           <div
             ref={descriptionRef}
             className={`
@@ -434,75 +217,57 @@ function DesktopProductHero({
               duration-[1000ms]
               delay-[240ms]
               ease-[cubic-bezier(0.22,1,0.36,1)]
-
-              ${descriptionVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-[25px] opacity-0"
-              }
+              ${descriptionVisible ? "translate-y-0 opacity-100" : "translate-y-[25px] opacity-0"}
             `}
           >
             <p
-              className="
+              className={`
                 mt-4
-                max-w-[570px]
                 font-sans
                 font-normal
-                text-[17px]
+                text-[16.5px]
                 leading-[1.68]
                 text-[#CBD5E1]
-                xl:text-[18px]
-              "
+                xl:text-[17.5px]
+                ${!hasVisual ? "mx-auto max-w-[720px]" : "max-w-[560px]"}
+              `}
             >
               {product.description}
             </p>
           </div>
 
-          {/* ======================================================
-              HIGHLIGHTS
-              ====================================================== */}
+          {/* Highlights */}
+          {highlights.length > 0 && (
+            <div
+              ref={highlightsRef}
+              className={`
+                mt-6
+                transition-all
+                duration-[1000ms]
+                delay-[340ms]
+                ease-[cubic-bezier(0.22,1,0.36,1)]
+                ${highlightsVisible ? "translate-y-0 opacity-100" : "translate-y-[25px] opacity-0"}
+                ${!hasVisual ? "flex justify-center" : ""}
+              `}
+            >
+              <ProductHighlights highlights={highlights} />
+            </div>
+          )}
 
-          <div
-            ref={highlightsRef}
-            className={`
-              mt-5
-
-              transition-all
-              duration-[1000ms]
-              delay-[340ms]
-              ease-[cubic-bezier(0.22,1,0.36,1)]
-
-              ${highlightsVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-[25px] opacity-0"
-              }
-            `}
-          >
-            <ProductHighlights
-              highlights={product.highlights || []}
-            />
-          </div>
-
-          {/* ======================================================
-              CTA
-              ====================================================== */}
-
+          {/* Actions */}
           <div
             ref={ctaRef}
             className={`
-              mt-6
+              mt-8
               flex
               items-center
-              gap-5
-
+              gap-6
               transition-all
               duration-[1000ms]
               delay-[440ms]
               ease-[cubic-bezier(0.22,1,0.36,1)]
-
-              ${ctaVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-[25px] opacity-0"
-              }
+              ${ctaVisible ? "translate-y-0 opacity-100" : "translate-y-[25px] opacity-0"}
+              ${!hasVisual ? "justify-center" : ""}
             `}
           >
             <Link
@@ -516,116 +281,122 @@ function DesktopProductHero({
                 gap-3
                 rounded-[7px]
                 bg-[#F97316]
-                px-7
-                text-[12px]
+                px-8
+                text-[12.5px]
                 font-semibold
                 uppercase
-                tracking-wide
+                tracking-wider
                 text-white
                 transition-all
                 duration-200
                 hover:bg-[#FB923C]
-                hover:shadow-[0_0_30px_rgba(249,115,22,0.20)]
+                hover:shadow-[0_0_30px_rgba(249,115,22,0.25)]
               "
             >
-              <span>
-                Request a Quote
-              </span>
-
-              <span
-                className="
-                  transition-transform
-                  duration-200
-                  group-hover:translate-x-1
-                "
-              >
+              <span>Request a Quote</span>
+              <span className="transition-transform duration-200 group-hover:translate-x-1">
                 <ArrowIcon />
               </span>
             </Link>
 
-            <Link
-              href="#documents"
-              className="
-                inline-flex
-                items-center
-                gap-2
-                text-[12px]
-                font-semibold
-                uppercase
-                tracking-wide
-                text-[#A855F7]
-                transition-colors
-                hover:text-[#C084FC]
-              "
-            >
-              <span>
-                Download Brochure
-              </span>
-
-              <DownloadIcon />
-            </Link>
+            {brochureLink && brochureLink !== "#" && (
+              <Link
+                href={brochureLink}
+                className="
+                  inline-flex
+                  items-center
+                  gap-2.5
+                  text-[12.5px]
+                  font-semibold
+                  uppercase
+                  tracking-wider
+                  text-[#A855F7]
+                  transition-colors
+                  hover:text-[#C084FC]
+                "
+              >
+                <span>Download Brochure</span>
+                <DownloadIcon />
+              </Link>
+            )}
           </div>
         </div>
 
-        {/* ========================================================
-            RIGHT — 3D RENDER CONTAINER
-
-            IMPORTANT:
-
-            This DIV controls the size and position of the render.
-
-            The actual 3D component will be placed INSIDE this
-            container later.
-
-            Do not move sizing logic into the render component.
-            ======================================================== */}
-
-        <div
-          id="product-hero-render-desktop"
-          ref={renderRef}
-          className={`
-            relative
-            ml-auto
-            h-[480px]
-            w-[50%]
-            max-w-[640px]
-            shrink-0
-            xl:h-[520px]
-
-            transition-all
-            duration-[1200ms]
-            delay-[180ms]
-            ease-[cubic-bezier(0.22,1,0.36,1)]
-
-            motion-reduce:transition-none
-            motion-reduce:transform-none
-            motion-reduce:opacity-100
-
-            ${renderVisible
-              ? "translate-x-0 scale-100 opacity-100"
-              : "translate-x-[20px] scale-[0.98] opacity-0"
-            }
-          `}
-        >
-          <HVACTestingKitRender />
-        </div>
+        {/* Right Hero Visual Stage */}
+        {hasVisual && (
+          <div
+            id="product-hero-render-desktop"
+            ref={renderRef}
+            className={`
+              relative
+              ml-auto
+              h-[500px]
+              w-[52%]
+              max-w-[680px]
+              shrink-0
+              xl:h-[560px]
+              transition-all
+              duration-[1200ms]
+              delay-[180ms]
+              ease-[cubic-bezier(0.22,1,0.36,1)]
+              ${renderVisible ? "translate-x-0 scale-100 opacity-100" : "translate-x-[20px] scale-[0.98] opacity-0"}
+            `}
+          >
+            {/* Circular Ground Ambient Glow Ring beneath Model / Image */}
+            <div
+              className="
+                pointer-events-none
+                absolute
+                bottom-[40px]
+                left-1/2
+                h-[360px]
+                w-[540px]
+                -translate-x-1/2
+                rounded-full
+                bg-[radial-gradient(ellipse_at_50%_50%,rgba(168,85,247,0.18),rgba(249,115,22,0.06)_50%,transparent_75%)]
+                blur-[32px]
+              "
+            />
+            {product.renderType === "3d" && product.modelUrl ? (
+              render3DModel(product)
+            ) : (product.image || product.specImage) ? (
+              <div className="relative flex h-full w-full items-center justify-center p-4">
+                <div className="relative h-[440px] w-full overflow-hidden rounded-[16px] border border-white/[0.12] bg-[#080D1A]/90 p-3 shadow-[0_24px_64px_rgba(0,0,0,0.6)] backdrop-blur-md">
+                  <div className="relative h-full w-full overflow-hidden rounded-[12px]">
+                    <Image
+                      src={(product.image || product.specImage)!}
+                      alt={product.title}
+                      fill
+                      className="object-cover object-center transition-transform duration-700 hover:scale-105"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#05070D]/85 via-transparent to-transparent" />
+                    <div className="absolute bottom-5 left-5 z-20">
+                      <span className="rounded-[4px] border border-white/10 bg-[#05070D]/85 px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-[#A855F7] backdrop-blur-md">
+                        {product.category}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : null}
+          </div>
+        )}
       </div>
     </section>
   );
 }
 
-
 /* ================================================================
    MOBILE HERO
-
-   EXISTING MOBILE IMPLEMENTATION PRESERVED.
    ================================================================ */
 
-function MobileProductHero({
-  product,
-}: {
-  product: any;
-}) {
+function MobileProductHero({ product }: { product: ProductData }) {
+  const highlights = product.highlights || [];
+  const brochureLink = product.brochure || product.cta?.brochureUrl;
+  const hasVisual = (product.renderType === "3d" && product.modelUrl) || product.image || product.specImage;
+
   return (
     <section
       id="product-hero-mobile"
@@ -633,17 +404,11 @@ function MobileProductHero({
         relative
         block
         overflow-hidden
-        border-b
-        border-white/[0.08]
         bg-transparent
         lg:hidden
       "
     >
-      {/* ==========================================================
-          MOBILE CONTENT CONTAINER (Unified tight vertical rhythm)
-          ========================================================== */}
-
-      <div className="relative z-10 flex flex-col px-5 pb-10 pt-[92px] sm:px-8 sm:pt-[98px]">
+      <div className="relative z-10 flex flex-col px-5 pb-12 pt-[96px] sm:px-8 sm:pt-[104px]">
         {/* Breadcrumb */}
         <div
           className="
@@ -652,7 +417,7 @@ function MobileProductHero({
             items-center
             overflow-hidden
             whitespace-nowrap
-            text-[10px]
+            text-[11px]
             font-medium
             text-[#64748B]
           "
@@ -660,38 +425,18 @@ function MobileProductHero({
           <Link href="/" className="transition-colors hover:text-white">
             Home
           </Link>
-
-          <span className="mx-1.5 text-white/20">
-            /
-          </span>
-
+          <span className="mx-1.5 text-white/20">/</span>
           <Link href="/products" className="transition-colors hover:text-white">
             Products
           </Link>
-
-          <span className="mx-1.5 text-white/20">
-            /
-          </span>
-
-          <span className="font-semibold text-[#A855F7]">
-            {product.category}
-          </span>
+          <span className="mx-1.5 text-white/20">/</span>
+          <span className="font-semibold text-[#A855F7]">{product.category}</span>
         </div>
 
         {/* Eyebrow */}
         <div className="mb-2.5 flex items-center gap-2.5">
           <span className="h-[2px] w-6 bg-[#F97316]" />
-
-          <span
-            className="
-              font-sans
-              text-[11px]
-              font-semibold
-              uppercase
-              tracking-[0.14em]
-              text-[#F97316]
-            "
-          >
+          <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[#F97316]">
             {product.category}
           </span>
         </div>
@@ -705,7 +450,7 @@ function MobileProductHero({
             leading-[1.08]
             tracking-[-0.025em]
             text-white
-            sm:text-[38px]
+            sm:text-[40px]
           "
         >
           {product.title}
@@ -714,131 +459,133 @@ function MobileProductHero({
         {/* Description */}
         <p
           className="
-            mt-3
+            mt-3.5
             max-w-[480px]
             font-sans
             font-normal
-            text-[15px]
+            text-[15.5px]
             leading-[1.65]
             text-[#CBD5E1]
-            sm:text-[15.5px]
           "
         >
           {product.description}
         </p>
 
-        {/* Compact Highlights */}
-        <div className="mt-4">
-          <ProductHighlights
-            highlights={product.highlights || []}
-          />
-        </div>
+        {/* Highlights */}
+        {highlights.length > 0 && (
+          <div className="mt-5">
+            <ProductHighlights highlights={highlights} />
+          </div>
+        )}
 
-        {/* ========================================================
-            3D PRODUCT RENDER (Dominant visual centerpiece)
-            ======================================================== */}
+        {/* Hero Visual Stage */}
+        {hasVisual && (
+          <div
+            id="product-hero-render-mobile"
+            className="
+              relative
+              mt-4
+              h-[340px]
+              w-full
+              sm:h-[400px]
+            "
+          >
+            <div
+              className="
+                pointer-events-none
+                absolute
+                bottom-[20px]
+                left-1/2
+                h-[240px]
+                w-[320px]
+                -translate-x-1/2
+                rounded-full
+                bg-[radial-gradient(ellipse_at_50%_50%,rgba(168,85,247,0.18),transparent_70%)]
+                blur-[24px]
+              "
+            />
+            {product.renderType === "3d" && product.modelUrl ? (
+              render3DModel(product)
+            ) : (
+              <div className="relative h-full w-full overflow-hidden rounded-[14px] border border-white/[0.10] bg-[#080D1A]/90 p-2 shadow-[0_16px_40px_rgba(0,0,0,0.5)]">
+                <div className="relative h-full w-full overflow-hidden rounded-[10px]">
+                  <Image
+                    src={(product.image || product.specImage)!}
+                    alt={product.title}
+                    fill
+                    className="object-cover object-center"
+                    sizes="100vw"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#05070D]/85 via-transparent to-transparent" />
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
-        <div
-          id="product-hero-render-mobile"
-          className="
-            relative
-            mt-3
-            h-[350px]
-            w-full
-            sm:h-[400px]
-          "
-        >
-          <HVACTestingKitRender />
-        </div>
-
-        {/* ========================================================
-            CTA GROUP (Natural document flow below render)
-            ======================================================== */}
-
-        <div className="mt-4 flex flex-col gap-3">
+        {/* CTA Group */}
+        <div className="mt-5 flex flex-col gap-3.5">
           <Link
             href="/contact"
             className="
               group
               inline-flex
-              h-[50px]
+              h-[52px]
               w-full
               items-center
               justify-center
               gap-2.5
               rounded-[8px]
               bg-[#F97316]
-              text-[12px]
+              text-[12.5px]
               font-semibold
               uppercase
-              tracking-[0.08em]
+              tracking-wider
               text-white
-              shadow-[0_4px_20px_rgba(249,115,22,0.30)]
+              shadow-[0_4px_24px_rgba(249,115,22,0.30)]
               transition-all
               duration-200
-              hover:bg-[#EA580C]
+              hover:bg-[#FB923C]
               active:scale-[0.99]
             "
           >
-            <span>
-              Request a Quote
-            </span>
-
+            <span>Request a Quote</span>
             <ArrowIcon />
           </Link>
 
-          <Link
-            href="#documents"
-            className="
-              inline-flex
-              items-center
-              justify-center
-              gap-2
-              py-1.5
-              text-[11.5px]
-              font-semibold
-              uppercase
-              tracking-[0.08em]
-              text-[#A855F7]
-              transition-colors
-              duration-200
-              hover:text-[#C084FC]
-            "
-          >
-            <span>
-              Download Brochure
-            </span>
-
-            <DownloadIcon />
-          </Link>
+          {brochureLink && brochureLink !== "#" && (
+            <Link
+              href={brochureLink}
+              className="
+                inline-flex
+                items-center
+                justify-center
+                gap-2
+                py-2
+                text-[12px]
+                font-semibold
+                uppercase
+                tracking-wider
+                text-[#A855F7]
+                transition-colors
+                hover:text-[#C084FC]
+              "
+            >
+              <span>Download Brochure</span>
+              <DownloadIcon />
+            </Link>
+          )}
         </div>
       </div>
     </section>
   );
 }
 
-
-/* ================================================================
-   MAIN PRODUCT HERO
-   ================================================================ */
-
-export default function ProductHero({
-  product,
-}: {
-  product: any;
-}) {
+export default function ProductHero({ product }: { product: ProductData }) {
   return (
     <>
-      {/* ============================================================
-          DESKTOP
-          ============================================================ */}
-
       <DesktopProductHero product={product} />
-
-      {/* ============================================================
-          MOBILE
-          ============================================================ */}
-
       <MobileProductHero product={product} />
     </>
   );
