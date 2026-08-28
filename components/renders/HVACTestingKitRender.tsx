@@ -101,7 +101,7 @@ function createTechnicalGridTexture(): THREE.CanvasTexture {
     const centerY = 512;
 
     // Faint concentric calibration rings
-    for (let r of [160, 280, 400, 480]) {
+    for (const r of [160, 280, 400, 480]) {
       ctx.strokeStyle = "rgba(168, 85, 247, 0.06)";
       ctx.lineWidth = 1;
       ctx.beginPath();

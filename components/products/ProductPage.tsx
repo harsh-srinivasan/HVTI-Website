@@ -8,6 +8,7 @@ import ProductSpecifications from "./ProductSpecifications";
 import ProductApplications from "./ProductApplications";
 import ProductFeatures from "./ProductFeatures";
 import ProductBenefits from "./ProductBenefits";
+import ProductSafetySimulator from "./ProductSafetySimulator";
 import ProductCTA from "./ProductCTA";
 
 /* ================================================================
@@ -65,7 +66,12 @@ export default function ProductPage({
           <ProductBenefits benefits={product.benefits} />
         )}
 
-        {/* 07 — FINAL CTA / CONVERSION */}
+        {/* 07 — INTERACTIVE SAFETY / VOLTAGE SIMULATOR (Render only if configured) */}
+        {product.safetySimulator?.enabled && (
+          <ProductSafetySimulator product={product} />
+        )}
+
+        {/* 08 — FINAL CTA / CONVERSION */}
         <ProductCTA product={product} />
       </div>
     </main>

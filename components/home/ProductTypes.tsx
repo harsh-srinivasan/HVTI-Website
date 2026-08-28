@@ -1,1098 +1,478 @@
 "use client";
 
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 /* ================================================================
-   PRODUCT TYPES DATA
+   HOME — PRODUCT TYPES & CATEGORIES SHOWCASE
    File: components/home/ProductTypes.tsx
+
+   - Seamlessly integrated with the continuous procedural stardust canvas
+   - 4-Card responsive grid with luxury glassmorphism & ambient hover aura
+   - Calibrated 0.25 threshold for natural, immediate entrance reveals
+   - Smooth 1800ms staggered vertical entrance choreography
    ================================================================ */
 
-const products = [
-  {
-    title: "Electrical Safety Equipment",
-    description:
-      "Reliable safety equipment for live line working and personnel protection.",
-    image: "/images/products/product-safety.jpg",
-    accent: "orange",
-    href: "/products/electrical-safety",
-  },
-  {
-    title: "Electrical Testing Equipment",
-    description:
-      "Advanced testing solutions for substations, switchgears, transformers and more.",
-    image: "/images/products/product-testing.jpg",
-    accent: "purple",
-    href: "/products/electrical-testing",
-  },
-  {
-    title: "Condition Monitoring Systems",
-    description:
-      "Real-time monitoring solutions to detect abnormalities and prevent failures.",
-    image: "/images/products/product-monitoring.jpg",
-    accent: "orange",
-    href: "/products/condition-monitoring",
-  },
-  {
-    title: "Thermal & Imaging Systems",
-    description:
-      "High-performance cameras for inspection, diagnostics and leak detection.",
-    image: "/images/products/product-thermal.jpg",
-    accent: "purple",
-    href: "/products/thermal-imaging",
-  },
-];
-
-/* ================================================================
-   REVEAL HOOK
-
-   Watches an element and sets visible = true once it enters
-   the viewport.
-
-   Each element is only revealed once.
-   ================================================================ */
-
-function useReveal(options?: IntersectionObserverInit) {
+function useReveal(threshold = 0.25) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const element = ref.current;
-
-    if (!element) return;
+    const el = ref.current;
+    if (!el) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true);
-
-          // Animation only happens once.
-          observer.unobserve(element);
+          observer.unobserve(el);
         }
       },
-      {
-        threshold: 0.15,
-        ...options,
-      }
+      { threshold }
     );
 
-    observer.observe(element);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [threshold]);
 
-    return () => {
-      observer.disconnect();
-    };
-  }, [options]);
-
-  return {
-    ref,
-    visible,
-  };
+  return { ref, visible };
 }
 
-/* ================================================================
-   ICONS
-   ================================================================ */
-
-function SafetyIcon() {
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M12 3L19 6V11C19 15.5 16.2 19.2 12 21C7.8 19.2 5 15.5 5 11V6L12 3Z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-
-      <path
-        d="M13 7L9.5 13H12L11.5 17L15 11H12.5L13 7Z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function TestingIcon() {
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M3 12H6L8 6L11 18L14 8L16 14L18 11H21"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function MonitoringIcon() {
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-    >
-      <rect
-        x="3"
-        y="4"
-        width="18"
-        height="14"
-        rx="2"
-        stroke="currentColor"
-        strokeWidth="1.5"
-      />
-
-      <path
-        d="M7 14L9.5 10L12 13L14.5 8L17 11"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-
-      <path
-        d="M8 21H16"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function ThermalIcon() {
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-    >
-      <rect
-        x="7"
-        y="3"
-        width="10"
-        height="15"
-        rx="2"
-        stroke="currentColor"
-        strokeWidth="1.5"
-      />
-
-      <path
-        d="M12 6V14"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-
-      <circle
-        cx="12"
-        cy="17"
-        r="3"
-        stroke="currentColor"
-        strokeWidth="1.5"
-      />
-
-      <path
-        d="M12 11V17"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function ArrowIcon() {
-  return (
-    <svg
-      width="17"
-      height="17"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M5 12H19"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-
-      <path
-        d="M13 6L19 12L13 18"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-/* ================================================================
-   PRODUCT ICON SELECTOR
-   ================================================================ */
-
-function ProductIcon({ index }: { index: number }) {
-  if (index === 0) {
-    return <SafetyIcon />;
-  }
-
-  if (index === 1) {
-    return <TestingIcon />;
-  }
-
-  if (index === 2) {
-    return <MonitoringIcon />;
-  }
-
-  return <ThermalIcon />;
-}
-
-/* ================================================================
-   DESKTOP PRODUCT CARD
-   ================================================================ */
-
-function DesktopProductCard({
-  product,
-  index,
-  visible,
-}: {
-  product: (typeof products)[number];
-  index: number;
-  visible: boolean;
-}) {
-  const isOrange = product.accent === "orange";
-
-  return (
-    <article
-      className={`
-        group
-        relative
-        flex
-        min-h-[405px]
-        flex-col
-        overflow-hidden
-        rounded-[12px]
-        border
-        border-white/[0.10]
-        bg-[#080D17]/90
-
-        transition-all
-        duration-[750ms]
-        ease-[cubic-bezier(0.22,1,0.36,1)]
-
-        hover:-translate-y-1
-        hover:border-white/[0.18]
-
-        ${
-          visible
-            ? "translate-y-0 opacity-100"
-            : "translate-y-[45px] opacity-0"
-        }
-      `}
-      style={{
-        transitionDelay: `${index * 220}ms`,
-      }}
-    >
-      {/* ============================================================
-          PRODUCT IMAGE
-          ============================================================ */}
-
-      <div className="relative h-[200px] w-full overflow-hidden">
-        <img
-          src={product.image}
-          alt={product.title}
-          className="
-            h-full
-            w-full
-            object-cover
-            transition-transform
-            duration-500
-            group-hover:scale-[1.04]
-          "
-        />
-
-        {/* Image fade */}
-        <div
-          className="
-            absolute
-            inset-0
-            bg-gradient-to-t
-            from-[#080D17]
-            via-transparent
-            to-transparent
-          "
-        />
-      </div>
-
-      {/* ============================================================
-          CARD CONTENT
-          ============================================================ */}
-
-      <div
-        className="
-          flex
-          flex-1
-          flex-col
-          px-5
-          pb-5
-        "
-      >
-        {/* Icon */}
-        <div
-          className={`
-            relative
-            -mt-6
-            mb-3
-            flex
-            h-[44px]
-            w-[44px]
-            shrink-0
-            items-center
-            justify-center
-            rounded-[9px]
-            border
-            bg-[#080D17]
-
-            ${
-              isOrange
-                ? "border-[#F97316]/70 text-[#F97316]"
-                : "border-[#8B5CF6]/70 text-[#8B5CF6]"
-            }
-          `}
-        >
-          <ProductIcon index={index} />
-        </div>
-
-        {/* Title */}
-        <h3
-          className="
-            max-w-[250px]
-            text-[20px]
-            font-semibold
-            leading-[1.15]
-            tracking-[-0.02em]
-            text-white
-          "
-        >
-          {product.title}
-        </h3>
-
-        {/* Accent line */}
-        <div
-          className={`
-            mt-4
-            h-[2px]
-            w-[32px]
-
-            ${
-              isOrange
-                ? "bg-[#F97316]"
-                : "bg-[#8B5CF6]"
-            }
-          `}
-        />
-
-        {/* Description */}
-        <p
-          className="
-            mt-4
-            max-w-[270px]
-            text-[13px]
-            leading-[1.55]
-            text-[#94A3B8]
-          "
-        >
-          {product.description}
-        </p>
-
-        {/* Explore */}
-        <Link
-          href={product.href}
-          className={`
-            group/explore
-            mt-auto
-            flex
-            items-center
-            gap-2
-            pt-5
-            text-[11px]
-            font-semibold
-            uppercase
-            tracking-wide
-
-            ${
-              isOrange
-                ? "text-[#F97316]"
-                : "text-[#A855F7]"
-            }
-          `}
-        >
-          <span>Explore</span>
-
-          <span
-            className="
-              transition-transform
-              duration-200
-              group-hover/explore:translate-x-1
-            "
-          >
-            <ArrowIcon />
-          </span>
-        </Link>
-      </div>
-
-      {/* ============================================================
-          CARD BOTTOM ACCENT
-
-          Internal card decoration only.
-          Not a section separator.
-          ============================================================ */}
-
-      <div
-        className={`
-          absolute
-          bottom-0
-          left-0
-          h-[2px]
-          w-full
-
-          ${
-            isOrange
-              ? "bg-[#F97316]"
-              : "bg-[#8B5CF6]"
-          }
-        `}
-      />
-    </article>
-  );
-}
-
-/* ================================================================
-   MOBILE PRODUCT CARD
-   ================================================================ */
-
-function MobileProductCard({
-  product,
-  index,
-  visible,
-}: {
-  product: (typeof products)[number];
-  index: number;
-  visible: boolean;
-}) {
-  const isOrange = product.accent === "orange";
-
-  return (
-    <article
-      className={`
-        group
-        relative
-        min-h-[400px]
-        overflow-hidden
-        rounded-[12px]
-        border
-        border-white/[0.10]
-        bg-[#080D17]/95
-
-        transition-all
-        duration-[650ms]
-        ease-[cubic-bezier(0.22,1,0.36,1)]
-
-        ${
-          visible
-            ? "translate-y-0 opacity-100"
-            : "translate-y-[30px] opacity-0"
-        }
-      `}
-    >
-      {/* ============================================================
-          MOBILE IMAGE
-          ============================================================ */}
-
-      <div className="relative h-[190px] w-full overflow-hidden">
-        <img
-          src={product.image}
-          alt={product.title}
-          className="
-            h-full
-            w-full
-            object-cover
-          "
-        />
-
-        {/* Image fade */}
-        <div
-          className="
-            absolute
-            inset-0
-            bg-gradient-to-t
-            from-[#080D17]
-            via-transparent
-            to-transparent
-          "
-        />
-      </div>
-
-      {/* ============================================================
-          MOBILE CONTENT
-          ============================================================ */}
-
-      <div
-        className="
-          flex
-          min-h-[210px]
-          flex-col
-          px-5
-          pb-6
-        "
-      >
-        {/* Icon */}
-        <div
-          className={`
-            relative
-            -mt-6
-            mb-3
-            flex
-            h-[46px]
-            w-[46px]
-            shrink-0
-            items-center
-            justify-center
-            rounded-[9px]
-            border
-            bg-[#080D17]
-
-            ${
-              isOrange
-                ? "border-[#F97316]/70 text-[#F97316]"
-                : "border-[#8B5CF6]/70 text-[#8B5CF6]"
-            }
-          `}
-        >
-          <ProductIcon index={index} />
-        </div>
-
-        {/* Title */}
-        <h3
-          className="
-            text-[20px]
-            font-semibold
-            leading-[1.2]
-            text-white
-          "
-        >
-          {product.title}
-        </h3>
-
-        {/* Accent line */}
-        <div
-          className={`
-            mt-3
-            h-[2px]
-            w-[30px]
-
-            ${
-              isOrange
-                ? "bg-[#F97316]"
-                : "bg-[#8B5CF6]"
-            }
-          `}
-        />
-
-        {/* Description */}
-        <p
-          className="
-            mt-3
-            max-w-[500px]
-            text-[13px]
-            leading-6
-            text-[#94A3B8]
-          "
-        >
-          {product.description}
-        </p>
-
-        {/* Explore */}
-        <Link
-          href={product.href}
-          className={`
-            mt-auto
-            flex
-            items-center
-            gap-2
-            pt-5
-            text-[11px]
-            font-semibold
-            uppercase
-            tracking-wide
-
-            ${
-              isOrange
-                ? "text-[#F97316]"
-                : "text-[#A855F7]"
-            }
-          `}
-        >
-          <span>Explore</span>
-
-          <ArrowIcon />
-        </Link>
-      </div>
-
-      {/* ============================================================
-          MOBILE CARD BOTTOM ACCENT
-          ============================================================ */}
-
-      <div
-        className={`
-          absolute
-          bottom-0
-          left-0
-          h-[2px]
-          w-full
-
-          ${
-            isOrange
-              ? "bg-[#F97316]"
-              : "bg-[#8B5CF6]"
-          }
-        `}
-      />
-    </article>
-  );
-}
-
-/* ================================================================
-   DESKTOP PRODUCT TYPES
-   ================================================================ */
-
-function DesktopProductTypes() {
-  /* ==============================================================
-     HEADING OBSERVER
-
-     Only controls the Product Types heading.
-     ============================================================== */
-
-  const {
-    ref: headingRef,
-    visible: headingVisible,
-  } = useReveal({
-    threshold: 0.35,
-  });
-
-  /* ==============================================================
-     CARDS OBSERVER
-
-     Completely independent from the heading observer.
-
-     The cards do NOT start animating when the heading appears.
-     ============================================================== */
-
-  const {
-    ref: cardsRef,
-    visible: cardsVisible,
-  } = useReveal({
-    threshold: 0.7,
-  });
-
-  return (
-    <section
-      className="
-        hidden
-        border-t
-        border-white/[0.10]
-        bg-[#05070D]
-        py-16
-        md:block
-        lg:py-20
-      "
-    >
-      <div
-        className="
-          mx-auto
-          w-full
-          max-w-[1440px]
-          px-8
-          lg:px-10
-        "
-      >
-
-        {/* ==========================================================
-    SECTION HEADER
-
-    Independent reveal from the cards.
-    ========================================================== */}
-
-<div
-  ref={headingRef}
-  className={`
-    mb-8
-    ml-4
-    max-w-[720px]
-
-    transition-all
-    duration-[2000ms]
-    delay-[120ms]
-    ease-[cubic-bezier(0.05,1,0.65,1)]
-
-    ${
-      headingVisible
-        ? "translate-y-0 opacity-100"
-        : "translate-y-[35px] opacity-0"
-    }
-  `}
->
-  {/* ==========================================================
-      EYEBROW
-      ========================================================== */}
-
-  <div className="mb-5 flex items-center gap-4">
-    <span className="h-[2px] w-11 bg-[#F97316]" />
-
-    <span
-      className="
-        text-[14px]
-        font-semibold
-        uppercase
-        tracking-[0.10em]
-        text-[#F97316]
-      "
-    >
-      Product Types
-    </span>
-  </div>
-
-  {/* ==========================================================
-      HEADING
-      ========================================================== */}
-
-  <h2
-    className="
-      text-[38px]
-      font-semibold
-      leading-[1.08]
-      tracking-[-0.035em]
-      text-white
-      lg:text-[44px]
-    "
-  >
-    Solutions for Every
-    <br />
-    Critical Need
-  </h2>
-
-  {/* ==========================================================
-      GRADIENT LINE
-      ========================================================== */}
-
-  <div
-    className="
-      mt-5
-      h-[2px]
-      w-[300px]
-      bg-gradient-to-r
-      from-[#F97316]
-      via-[#A855F7]
-      to-transparent
-    "
-  />
-
-  {/* ==========================================================
-      DESCRIPTION
-      ========================================================== */}
-
-  <p
-    className="
-      mt-5
-      max-w-[650px]
-      text-[16px]
-      leading-7
-      text-[#B4BFCE]
-    "
-  >
-    Engineered and manufactured high-voltage safety,
-    electrical testing, and condition monitoring solutions
-    built for reliability, accuracy, and safety.
-  </p>
-
-  {/* ==========================================================
-      VIEW ALL PRODUCTS
-      ========================================================== */}
-
-  <Link
-    href="/products"
-    className="
-      group
-      mt-6
-      inline-flex
-      items-center
-      gap-2.5
-      text-[14px]
-      font-semibold
-      uppercase
-      tracking-wide
-      text-[#F97316]
-    "
-  >
-    <span>View All Products</span>
-
-    <span
-      className="
-        transition-transform
-        duration-200
-        group-hover:translate-x-1
-      "
-    >
-      <ArrowIcon />
-    </span>
-  </Link>
-</div>
-
-        {/* ==========================================================
-            DESKTOP PRODUCT GRID
-
-            Separate observer from heading.
-
-            Cards reveal sequentially once THIS grid enters
-            the viewport.
-            ========================================================== */}
-
-        <div
-          ref={cardsRef}
-          className="
-            grid
-            grid-cols-2
-            gap-4
-            xl:grid-cols-4
-          "
-        >
-          {products.map((product, index) => (
-            <DesktopProductCard
-              key={product.title}
-              product={product}
-              index={index}
-              visible={cardsVisible}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ================================================================
-   MOBILE PRODUCT TYPES
-   ================================================================ */
-
-function MobileProductTypes() {
-  return (
-    <section
-      className="
-        block
-        border-t
-        border-white/[0.10]
-        bg-[#05070D]
-        py-12
-        md:hidden
-      "
-    >
-      <div className="w-full px-5">
-        {/* ==========================================================
-            MOBILE HEADER
-            ========================================================== */}
-
-        <div className="mb-8">
-          {/* Eyebrow */}
-          <div className="mb-3 flex items-center gap-3">
-            <span className="h-[2px] w-8 bg-[#F97316]" />
-
-            <span
-              className="
-                text-[11px]
-                font-semibold
-                uppercase
-                tracking-[0.10em]
-                text-[#F97316]
-              "
-            >
-              Product Types
-            </span>
-          </div>
-
-          {/* Heading */}
-          <h2
-            className="
-              text-[31px]
-              font-semibold
-              leading-[1.08]
-              tracking-[-0.035em]
-              text-white
-            "
-          >
-            Solutions for Every
-            <br />
-            Critical Need
-          </h2>
-
-          {/* Gradient line */}
-          <div
-            className="
-              mt-4
-              h-[2px]
-              w-[195px]
-              bg-gradient-to-r
-              from-[#F97316]
-              via-[#A855F7]
-              to-transparent
-            "
-          />
-
-          {/* Description */}
-          <p
-            className="
-              mt-4
-              text-[13px]
-              leading-6
-              text-[#94A3B8]
-            "
-          >
-            Engineered and manufactured high-voltage safety,
-            electrical testing, and condition monitoring solutions
-            built for reliability, accuracy, and safety.
-          </p>
-
-          {/* View all */}
-          <Link
-            href="/products"
-            className="
-              group
-              mt-5
-              inline-flex
-              items-center
-              gap-2
-              text-[11px]
-              font-semibold
-              uppercase
-              tracking-wide
-              text-[#F97316]
-            "
-          >
-            <span>View All Products</span>
-
-            <span
-              className="
-                transition-transform
-                duration-200
-                group-hover:translate-x-1
-              "
-            >
-              <ArrowIcon />
-            </span>
-          </Link>
-        </div>
-
-        {/* ==========================================================
-            MOBILE PRODUCT LIST
-
-            20px gap between cards.
-            Each card has its own observer.
-            ========================================================== */}
-
-        <div className="flex flex-col gap-10">
-          {products.map((product, index) => (
-            <MobileProductCardReveal
-              key={product.title}
-              product={product}
-              index={index}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ================================================================
-   MOBILE CARD REVEAL WRAPPER
-
-   Each mobile card has its own IntersectionObserver.
-
-   Cards reveal individually as the user scrolls.
-   ================================================================ */
-
-function MobileProductCardReveal({
-  product,
-  index,
-}: {
-  product: (typeof products)[number];
-  index: number;
-}) {
-  const {
-    ref,
-    visible,
-  } = useReveal({
-    threshold: 0.8,
-  });
-
-  return (
-    <div
-      ref={ref}
-      className="
-        transition-all
-        duration-[1200ms]
-        ease-[cubic-bezier(0.22,1,0.36,1)]
-      "
-      style={{
-        transitionDelay: `${Math.min(index*500)}ms`,
-      }}
-    >
-      <MobileProductCard
-        product={product}
-        index={index}
-        visible={visible}
-      />
-    </div>
-  );
-}
-
-/* ================================================================
-   MAIN PRODUCT TYPES COMPONENT
-   ================================================================ */
+const products = [
+  {
+    title: "Electrical Safety Equipment",
+    tag: "LIVE-LINE PROTECTION",
+    description:
+      "Reliable safety equipment, insulated tools, and PPE engineered for live line working and personnel protection up to 800 kV.",
+    image: "/images/products/product-safety.jpg",
+    accent: "orange",
+    href: "/products/electrical-safety",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 3L19 6V11C19 15.5 16.2 19.2 12 21C7.8 19.2 5 15.5 5 11V6L12 3Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+        <path d="M13 7L9.5 13H12L11.5 17L15 11H12.5L13 7Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    title: "Electrical Testing Equipment",
+    tag: "SUBSTATION & APPARATUS",
+    description:
+      "Advanced precision testing solutions for substations, switchgears, power transformers, and circuit breaker diagnostics.",
+    image: "/images/products/product-testing.jpg",
+    accent: "purple",
+    href: "/products/electrical-testing",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M3 12H6L8 6L11 18L14 8L16 14L18 11H21" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    title: "Condition Monitoring Systems",
+    tag: "PREDICTIVE ASSET HEALTH",
+    description:
+      "Continuous online monitoring solutions, acoustic partial discharge sensors, and telemetry to detect anomalies before catastrophic failure.",
+    image: "/images/products/product-monitoring.jpg",
+    accent: "orange",
+    href: "/products/condition-monitoring",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="14" rx="2" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M7 14L9.5 10L12 13L14.5 8L17 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M8 21H16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    title: "Thermal & Imaging Systems",
+    tag: "OPTICAL & INFRARED",
+    description:
+      "High-definition radiometric thermal cameras and optical inspection systems for non-contact thermal diagnostics and corona detection.",
+    image: "/images/products/product-thermal.jpg",
+    accent: "purple",
+    href: "/products/thermal-imaging",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="7" y="3" width="10" height="15" rx="2" stroke="currentColor" strokeWidth="1.5" />
+        <circle cx="12" cy="17" r="3" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M12 6V11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+];
 
 export default function ProductTypes() {
+  const { ref: sectionRef, visible: isVisible } = useReveal(0.2);
+
   return (
-    <>
-      {/* ============================================================
-          DESKTOP VERSION
-          ============================================================ */}
+    <section
+      id="product-types"
+      className="
+        relative
+        w-full
+        overflow-hidden
+        bg-transparent
+        px-5
+        py-16
+        sm:px-8
+        sm:py-20
+        lg:px-10
+        lg:py-24
+      "
+    >
+      {/* Subtle Ambient Violet Glow Bloom */}
+      <div
+        className={`
+          pointer-events-none
+          absolute
+          left-1/2
+          top-1/3
+          h-[650px]
+          w-[950px]
+          -translate-x-1/2
+          rounded-full
+          bg-[radial-gradient(ellipse_at_center,rgba(168,85,247,0.06),rgba(124,58,237,0.02)_50%,transparent_70%)]
+          blur-[120px]
+          transition-opacity
+          duration-[3000ms]
+          ease-out
+          ${isVisible ? "opacity-100" : "opacity-0"}
+        `}
+        aria-hidden="true"
+      />
 
-      <DesktopProductTypes />
+      <div
+        ref={sectionRef}
+        className="
+          relative
+          z-10
+          mx-auto
+          w-full
+          max-w-[1400px]
+        "
+      >
+        {/* ========================================================
+            SECTION HEADER
+            ======================================================== */}
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            {/* Eyebrow */}
+            <div
+              className={`
+                flex
+                items-center
+                gap-2.5
+                transition-all
+                duration-[1600ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${isVisible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}
+              `}
+            >
+              <span
+                className={`
+                  h-[2px]
+                  bg-[#F97316]
+                  transition-all
+                  duration-[1400ms]
+                  delay-[150ms]
+                  ease-[cubic-bezier(0.16,1,0.3,1)]
+                  ${isVisible ? "w-7 opacity-100" : "w-0 opacity-0"}
+                `}
+              />
+              <span className="font-sans text-[11px] font-bold uppercase tracking-[0.18em] text-[#F97316]">
+                Product Categories &amp; Systems
+              </span>
+              <span
+                className={`
+                  h-[2px]
+                  bg-[#F97316]
+                  transition-all
+                  duration-[1400ms]
+                  delay-[150ms]
+                  ease-[cubic-bezier(0.16,1,0.3,1)]
+                  ${isVisible ? "w-7 opacity-100" : "w-0 opacity-0"}
+                `}
+              />
+            </div>
 
-      {/* ============================================================
-          MOBILE VERSION
-          ============================================================ */}
+            {/* Heading */}
+            <h2
+              className={`
+                mt-3
+                font-heading
+                text-[28px]
+                font-bold
+                tracking-[-0.025em]
+                text-white
+                drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]
+                sm:text-[36px]
+                lg:text-[42px]
+                transition-all
+                duration-[1800ms]
+                delay-[100ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${isVisible ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"}
+              `}
+            >
+              <span>Solutions for Every</span>{" "}
+              <span className="text-[#A855F7]">Critical Need</span>
+            </h2>
 
-      <MobileProductTypes />
-    </>
+            {/* Description */}
+            <p
+              className={`
+                mt-2.5
+                max-w-[660px]
+                font-sans
+                text-[14px]
+                leading-relaxed
+                text-[#94A3B8]
+                sm:text-[15px]
+                transition-all
+                duration-[1800ms]
+                delay-[220ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}
+              `}
+            >
+              Engineered and certified high-voltage safety equipment, automated testing apparatus,
+              and real-time condition monitoring built for safety, reliability, and precision.
+            </p>
+          </div>
+
+          {/* View All Products Capsule Button */}
+          <div
+            className={`
+              transition-all
+              duration-[1800ms]
+              delay-[300ms]
+              ease-[cubic-bezier(0.16,1,0.3,1)]
+              ${isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}
+            `}
+          >
+            <Link
+              href="/products"
+              className="
+                group
+                inline-flex
+                h-[46px]
+                items-center
+                gap-2.5
+                rounded-full
+                border
+                border-white/[0.14]
+                bg-[#0A0F1D]/80
+                px-6
+                font-sans
+                text-[12px]
+                font-bold
+                tracking-wide
+                text-white
+                shadow-[0_4px_18px_rgba(0,0,0,0.4)]
+                backdrop-blur-md
+                transition-all
+                duration-300
+                hover:border-[#A855F7]/60
+                hover:bg-[#0A0F1D]
+                hover:shadow-[0_0_24px_rgba(168,85,247,0.25)]
+                hover:scale-[1.02]
+                active:scale-[0.98]
+              "
+            >
+              <span>VIEW COMPLETE CATALOGUE</span>
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                className="transition-transform duration-200 group-hover:translate-x-1"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
+          </div>
+        </div>
+
+        {/* ========================================================
+            4-CARD PRODUCT GRID (1800ms Staggered Reveals)
+            ======================================================== */}
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
+          {products.map((product, index) => {
+            const isOrange = product.accent === "orange";
+            const delayClass =
+              index === 0
+                ? "delay-[250ms]"
+                : index === 1
+                ? "delay-[400ms]"
+                : index === 2
+                ? "delay-[550ms]"
+                : "delay-[700ms]";
+
+            return (
+              <article
+                key={product.title}
+                className={`
+                  group
+                  relative
+                  flex
+                  flex-col
+                  overflow-hidden
+                  rounded-2xl
+                  border
+                  border-white/[0.08]
+                  bg-[#0A0F1D]/85
+                  shadow-[0_12px_36px_rgba(0,0,0,0.45)]
+                  backdrop-blur-md
+                  transition-all
+                  duration-[1800ms]
+                  ease-[cubic-bezier(0.16,1,0.3,1)]
+                  hover:-translate-y-2
+                  hover:border-white/[0.18]
+                  hover:shadow-[0_0_32px_rgba(168,85,247,0.18)]
+                  ${delayClass}
+                  ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}
+                `}
+              >
+                {/* Product Image Area */}
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#05070D]">
+                  <Image
+                    src={product.image}
+                    alt={product.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 25vw"
+                    className="
+                      object-cover
+                      transition-transform
+                      duration-700
+                      ease-out
+                      group-hover:scale-[1.06]
+                    "
+                  />
+
+                  {/* Gradient Scrim */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0F1D] via-[#0A0F1D]/30 to-transparent" />
+
+                  {/* Category Monospace Tag */}
+                  <div className="absolute right-3 top-3 rounded-full border border-white/[0.12] bg-[#05070D]/80 px-2.5 py-0.5 font-mono text-[9.5px] font-semibold tracking-wider text-[#CBD5E1] backdrop-blur-md">
+                    {product.tag}
+                  </div>
+                </div>
+
+                {/* Overlapping Icon Badge */}
+                <div className="relative z-10 -mt-6 ml-5 flex items-center justify-between pr-5">
+                  <div
+                    className={`
+                      flex
+                      h-[46px]
+                      w-[46px]
+                      items-center
+                      justify-center
+                      rounded-xl
+                      border
+                      bg-[#0A0F1D]
+                      shadow-md
+                      transition-all
+                      duration-300
+                      group-hover:scale-105
+                      ${
+                        isOrange
+                          ? "border-[#F97316]/50 text-[#F97316] group-hover:border-[#F97316] group-hover:shadow-[0_0_18px_rgba(249,115,22,0.30)]"
+                          : "border-[#A855F7]/50 text-[#A855F7] group-hover:border-[#A855F7] group-hover:shadow-[0_0_18px_rgba(168,85,247,0.30)]"
+                      }
+                    `}
+                  >
+                    {product.icon}
+                  </div>
+
+                  <span className="font-mono text-[11px] font-bold text-[#64748B] group-hover:text-[#A855F7]">
+                    0{index + 1}
+                  </span>
+                </div>
+
+                {/* Card Content */}
+                <div className="flex flex-1 flex-col justify-between p-5 pt-3">
+                  <div>
+                    <h3 className="font-heading text-[18px] font-bold leading-snug text-white transition-colors duration-200 group-hover:text-white sm:text-[19px]">
+                      {product.title}
+                    </h3>
+
+                    {/* Accent Indicator */}
+                    <div
+                      className={`
+                        mt-2.5
+                        h-[2px]
+                        w-7
+                        transition-all
+                        duration-300
+                        group-hover:w-12
+                        ${isOrange ? "bg-[#F97316]" : "bg-[#A855F7]"}
+                      `}
+                    />
+
+                    <p className="mt-3 font-sans text-[13px] leading-relaxed text-[#94A3B8]">
+                      {product.description}
+                    </p>
+                  </div>
+
+                  {/* Explore Link CTA */}
+                  <Link
+                    href={product.href}
+                    className={`
+                      group/link
+                      mt-6
+                      inline-flex
+                      items-center
+                      gap-2
+                      font-sans
+                      text-[12px]
+                      font-bold
+                      uppercase
+                      tracking-wider
+                      transition-colors
+                      duration-200
+                      ${
+                        isOrange
+                          ? "text-[#F97316] hover:text-[#FB923C]"
+                          : "text-[#A855F7] hover:text-[#C084FC]"
+                      }
+                    `}
+                  >
+                    <span>EXPLORE CATEGORY</span>
+                    <svg
+                      width="13"
+                      height="13"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      className="transition-transform duration-200 group-hover/link:translate-x-1.5"
+                    >
+                      <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </Link>
+                </div>
+
+                {/* Subtle Hover Aura Line */}
+                <div
+                  className={`
+                    h-[2px]
+                    w-full
+                    transition-opacity
+                    duration-300
+                    ${isOrange ? "bg-[#F97316]" : "bg-[#A855F7]"}
+                    opacity-0
+                    group-hover:opacity-100
+                  `}
+                />
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
   );
 }

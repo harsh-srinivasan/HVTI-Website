@@ -100,20 +100,6 @@ function DesktopProductHero({ product }: { product: ProductData }) {
         lg:justify-center
       "
     >
-      {/* Bottom atmospheric soft blend */}
-      <div
-        className="
-          pointer-events-none
-          absolute
-          inset-x-0
-          bottom-0
-          h-[120px]
-          bg-gradient-to-t
-          from-[#05070D]
-          to-transparent
-        "
-      />
-
       <div
         className="
           relative

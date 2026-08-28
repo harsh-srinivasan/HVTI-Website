@@ -107,34 +107,35 @@ const highVoltageDetectorTPS9: ProductData = {
     },
   ],
 
+  /* ==============================================================
+     APPLICATIONS (5-Node Orbital Energy Loop)
+     ============================================================== */
   applications: [
     {
-      id: "hv-installations",
-      title: "High Voltage Installations",
-      icon: "installation",
-      description:
-        "Verification of overhead lines, busbars, and switchyard apparatus.",
+      id: "substations",
+      title: "Substations",
+      icon: "substation",
+      isCenter: true,
     },
     {
-      id: "industrial-safety",
-      title: "Industrial Safety",
-      icon: "shield",
-      description:
-        "Live/dead line safety verification prior to maintenance work.",
-    },
-    {
-      id: "electrical-maintenance",
-      title: "Electrical Maintenance",
-      icon: "maintenance",
-      description:
-        "Preventative safety inspections for engineers and technicians.",
-    },
-    {
-      id: "field-inspection",
-      title: "Field Engineering",
+      id: "overhead-lines",
+      title: "Overhead Lines",
       icon: "field",
-      description:
-        "Indoor substations and outdoor transmission utility inspections.",
+    },
+    {
+      id: "switchgears",
+      title: "Switchgears",
+      icon: "switchgear",
+    },
+    {
+      id: "transformers",
+      title: "Transformers",
+      icon: "transformer",
+    },
+    {
+      id: "cables",
+      title: "Cables",
+      icon: "cable",
     },
   ],
 
@@ -204,6 +205,27 @@ const highVoltageDetectorTPS9: ProductData = {
         "Modular insulated extension rods provide safe standoff distances across transmission and distribution voltages.",
     },
   ],
+
+  safetySimulator: {
+    enabled: true,
+    badge: "Interactive Testing Simulator",
+    title: "Live vs. Dead Voltage Verification Simulator",
+    subtitle:
+      "Experience how the Model TP-S9 detector senses live overhead lines and confirms de-energized circuits before maintenance.",
+    description:
+      "Operate the insulated telescopic hot stick from the ground to test overhead conductors. Toggle line energization, adjust grid voltage, or trigger the proving unit self-test to see the capacitive sensor's dual light and sound indication in real time.",
+    productModel: "Model TP-S9 High Voltage Detector",
+    defaultVoltage: 33,
+    voltageOptions: [
+      { label: "11 kV", value: 11, unit: "kV", category: "Distribution Line", description: "Standard medium voltage feeder" },
+      { label: "33 kV", value: 33, unit: "kV", category: "Substation Incomer", description: "Primary distribution busbar" },
+      { label: "66 kV", value: 66, unit: "kV", category: "Sub-Transmission", description: "High voltage regional line" },
+      { label: "132 kV", value: 132, unit: "kV", category: "Grid Transmission", description: "Heavy industrial transmission line" },
+      { label: "220 kV", value: 220, unit: "kV", category: "Regional Interconnector", description: "Bulk grid transmission line" },
+      { label: "400 kV", value: 400, unit: "kV", category: "Extra High Voltage (EHV)", description: "National grid interstate line" },
+      { label: "765 kV", value: 765, unit: "kV", category: "Ultra High Voltage (UHV)", description: "Super-grid bulk transmission corridor" },
+    ],
+  },
 
   cta: {
     title: "Need reliable high-voltage safety equipment?",

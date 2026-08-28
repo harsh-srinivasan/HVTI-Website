@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { ProductData } from "@/types/product";
 
 /* ================================================================
    PRODUCT DOCUMENTS
@@ -112,7 +113,7 @@ function DownloadIcon() {
 function DesktopDocumentsContent({
   product,
 }: {
-  product: any;
+  product: ProductData;
 }) {
   /* ==============================================================
      DOCUMENT REVEAL
@@ -129,13 +130,13 @@ function DesktopDocumentsContent({
         ref={contentRef}
         className={`
           transition-all
-          duration-[1100ms]
-          ease-[cubic-bezier(0.22,1,0.36,1)]
+          duration-[1800ms]
+          ease-[cubic-bezier(0.16,1,0.3,1)]
 
           ${
             contentVisible
               ? "translate-x-0 opacity-100"
-              : "-translate-x-[30px] opacity-0"
+              : "-translate-x-6 opacity-0"
           }
         `}
       >
@@ -144,7 +145,17 @@ function DesktopDocumentsContent({
             ======================================================== */}
 
         <div className="mb-3 flex items-center gap-3">
-          <span className="h-[2px] w-8 bg-[#A855F7]" />
+          <span
+            className={`
+              h-[2px]
+              bg-[#A855F7]
+              transition-all
+              duration-[1600ms]
+              delay-[200ms]
+              ease-[cubic-bezier(0.16,1,0.3,1)]
+              ${contentVisible ? "w-8" : "w-0"}
+            `}
+          />
 
           <span
             className="
@@ -272,7 +283,7 @@ export default function ProductDocuments({
   product,
   layout = "all",
 }: {
-  product: any;
+  product: ProductData;
   layout?: "desktop" | "mobile" | "all";
 }) {
   return (

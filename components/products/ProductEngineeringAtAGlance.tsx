@@ -74,17 +74,37 @@ export default function ProductEngineeringAtAGlance({
             mb-16
             text-center
             transition-all
-            duration-[1100ms]
-            ease-[cubic-bezier(0.22,1,0.36,1)]
-            ${visible ? "translate-y-0 opacity-100" : "translate-y-[24px] opacity-0"}
+            duration-[1800ms]
+            ease-[cubic-bezier(0.16,1,0.3,1)]
+            ${visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}
           `}
         >
           <div className="mb-3.5 flex items-center justify-center gap-3">
-            <span className="h-[2px] w-8 bg-[#A855F7]" />
+            <span
+              className={`
+                h-[2px]
+                bg-[#A855F7]
+                transition-all
+                duration-[1600ms]
+                delay-[200ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${visible ? "w-8" : "w-0"}
+              `}
+            />
             <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.16em] text-[#A855F7]">
               Engineering At a Glance
             </span>
-            <span className="h-[2px] w-8 bg-[#A855F7]" />
+            <span
+              className={`
+                h-[2px]
+                bg-[#A855F7]
+                transition-all
+                duration-[1600ms]
+                delay-[200ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${visible ? "w-8" : "w-0"}
+              `}
+            />
           </div>
 
           <h2
@@ -168,12 +188,12 @@ export default function ProductEngineeringAtAGlance({
                     py-2
                     text-center
                     transition-all
-                    duration-[1100ms]
-                    ease-[cubic-bezier(0.22,1,0.36,1)]
-                    ${visible ? "translate-y-0 opacity-100" : "translate-y-[30px] opacity-0"}
+                    duration-[1800ms]
+                    ease-[cubic-bezier(0.16,1,0.3,1)]
+                    ${visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}
                   `}
                   style={{
-                    transitionDelay: `${index * 100 + 100}ms`,
+                    transitionDelay: `${index * 150 + 100}ms`,
                   }}
                 >
                   {/* Circular Technical Badge */}

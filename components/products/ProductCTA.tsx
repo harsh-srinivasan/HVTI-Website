@@ -1,58 +1,53 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import React, { useEffect, useRef, useState } from "react";
 import { ProductData } from "@/types/product";
 
 /* ================================================================
-   HVTI PRODUCT CTA & CONVERSION SYSTEM
+   HVTI PRODUCT CTA & CONVERSION SYSTEM — COMPACT
    File: components/products/ProductCTA.tsx
-
-   High-impact bottom conversion module.
-   Adapts cleanly whether supporting imagery is present or absent.
    ================================================================ */
 
-function useReveal(threshold = 0.25) {
+function useReveal(threshold = 0.2) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
-
+    const el = ref.current;
+    if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true);
-          observer.unobserve(element);
+          observer.unobserve(el);
         }
       },
       { threshold }
     );
-
-    observer.observe(element);
+    observer.observe(el);
     return () => observer.disconnect();
   }, [threshold]);
 
   return { ref, visible };
 }
 
-function ArrowIcon() {
+function ArrowRightIcon() {
   return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <path d="M13 6L19 12L13 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function DownloadIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M12 3V15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      <path d="M7 11L12 16L17 11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M5 20H19" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <line x1="5" y1="12" x2="19" y2="12" />
+      <polyline points="12 5 19 12 12 19" />
     </svg>
   );
 }
@@ -62,7 +57,7 @@ export default function ProductCTA({
 }: {
   product: ProductData;
 }) {
-  const { ref, visible } = useReveal();
+  const { ref, visible } = useReveal(0.2);
 
   const ctaData = product.cta;
   const title = ctaData?.title || "Need the right solution for your application?";
@@ -83,36 +78,36 @@ export default function ProductCTA({
         w-full
         overflow-hidden
         bg-transparent
-        pb-24
-        pt-16
-        sm:pb-32
-        sm:pt-20
+        pb-12
+        pt-8
+        sm:pb-16
+        sm:pt-10
       "
     >
-      <div className="relative z-10 mx-auto w-full max-w-[1360px] px-6 sm:px-10 lg:px-12">
+      <div className="relative z-10 mx-auto w-full max-w-[960px] px-6 sm:px-10 lg:px-12">
         <div
           ref={ref}
           className={`
             relative
             overflow-hidden
-            rounded-[16px]
+            rounded-2xl
             border
             border-white/[0.12]
             bg-[#080D1A]/90
-            p-8
-            shadow-[0_24px_64px_rgba(0,0,0,0.5)]
+            p-6
+            shadow-[0_16px_40px_rgba(0,0,0,0.6)]
             backdrop-blur-xl
             transition-all
-            duration-[1200ms]
-            ease-[cubic-bezier(0.22,1,0.36,1)]
-            sm:p-12
-            lg:p-16
-            ${visible ? "translate-y-0 opacity-100" : "translate-y-[30px] opacity-0"}
+            duration-[1800ms]
+            ease-[cubic-bezier(0.16,1,0.3,1)]
+            sm:p-8
+            lg:p-9
+            ${visible ? "translate-y-0 opacity-100 scale-100" : "translate-y-8 opacity-0 scale-[0.98]"}
           `}
         >
           {/* Ambient Glow Orbs */}
-          <div className="pointer-events-none absolute -left-20 -top-20 h-[300px] w-[300px] rounded-full bg-[#7C3AED]/15 blur-[100px]" />
-          <div className="pointer-events-none absolute -bottom-20 -right-20 h-[300px] w-[300px] rounded-full bg-[#F97316]/10 blur-[100px]" />
+          <div className="pointer-events-none absolute -left-16 -top-16 h-[220px] w-[220px] rounded-full bg-[#7C3AED]/15 blur-[70px]" />
+          <div className="pointer-events-none absolute -bottom-16 -right-16 h-[220px] w-[220px] rounded-full bg-[#F97316]/10 blur-[70px]" />
 
           <div
             className={`
@@ -120,7 +115,7 @@ export default function ProductCTA({
               z-10
               flex
               flex-col
-              gap-8
+              gap-6
               ${
                 supportingImage
                   ? "lg:grid lg:grid-cols-[1.4fr_1fr] lg:items-center"
@@ -129,10 +124,20 @@ export default function ProductCTA({
             `}
           >
             {/* Left Content */}
-            <div className="max-w-[620px]">
-              <div className="mb-3 flex items-center gap-3">
-                <span className="h-[2px] w-7 bg-[#F97316]" />
-                <span className="font-sans text-[11.5px] font-semibold uppercase tracking-[0.16em] text-[#F97316]">
+            <div className="max-w-[560px]">
+              <div className="mb-2 flex items-center gap-2">
+                <span
+                  className={`
+                    h-[1.5px]
+                    bg-[#F97316]
+                    transition-all
+                    duration-[1600ms]
+                    delay-[200ms]
+                    ease-[cubic-bezier(0.16,1,0.3,1)]
+                    ${visible ? "w-5" : "w-0"}
+                  `}
+                />
+                <span className="font-sans text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[#F97316]">
                   Engineering Consultation
                 </span>
               </div>
@@ -140,98 +145,118 @@ export default function ProductCTA({
               <h2
                 className="
                   font-heading
-                  text-[28px]
+                  text-lg
                   font-bold
-                  leading-[1.12]
                   tracking-[-0.02em]
                   text-white
-                  sm:text-[34px]
-                  xl:text-[38px]
+                  sm:text-xl
+                  lg:text-[23px]
                 "
               >
                 {title}
               </h2>
 
-              <p className="mt-4 font-sans text-[16px] leading-relaxed text-[#CBD5E1] sm:text-[17px]">
+              <p className="mt-2 font-sans text-[12.5px] leading-[1.6] text-[#CBD5E1] sm:text-[13.5px]">
                 {description}
               </p>
 
               {/* Action Buttons */}
-              <div className="mt-8 flex flex-wrap items-center gap-5">
+              <div className="mt-5 flex flex-wrap items-center gap-3">
                 <Link
                   href={primaryLink}
                   className="
                     group
                     inline-flex
-                    h-[54px]
+                    h-[38px]
                     items-center
                     justify-center
-                    gap-3
-                    rounded-[8px]
-                    bg-[#F97316]
-                    px-8
+                    gap-2
+                    rounded-full
+                    border
+                    border-[#FB923C]/60
+                    bg-gradient-to-r
+                    from-[#F97316]
+                    via-[#EA580C]
+                    to-[#C2410C]
+                    px-5
                     font-sans
-                    text-[12.5px]
+                    text-[11.5px]
                     font-semibold
-                    uppercase
-                    tracking-wider
+                    tracking-[0.04em]
                     text-white
-                    shadow-[0_4px_24px_rgba(249,115,22,0.3)]
+                    shadow-[0_0_15px_rgba(249,115,22,0.25)]
                     transition-all
-                    duration-200
-                    hover:bg-[#FB923C]
-                    hover:shadow-[0_0_36px_rgba(249,115,22,0.4)]
+                    duration-300
+                    hover:scale-[1.02]
+                    hover:border-[#FB923C]
+                    hover:shadow-[0_0_25px_rgba(249,115,22,0.45)]
                   "
                 >
                   <span>{primaryText}</span>
-                  <span className="transition-transform duration-200 group-hover:translate-x-1">
-                    <ArrowIcon />
+                  <span className="transition-transform duration-300 group-hover:translate-x-0.5">
+                    <ArrowRightIcon />
                   </span>
                 </Link>
 
-                <Link
-                  href={secondaryLink}
-                  className="
-                    inline-flex
-                    items-center
-                    gap-2.5
-                    rounded-[8px]
-                    border
-                    border-white/[0.15]
-                    bg-white/[0.04]
-                    px-6
-                    py-3.5
-                    font-sans
-                    text-[12.5px]
-                    font-semibold
-                    uppercase
-                    tracking-wider
-                    text-[#A855F7]
-                    transition-all
-                    duration-200
-                    hover:border-[#A855F7]
-                    hover:bg-[#A855F7]/10
-                    hover:text-[#C084FC]
-                  "
-                >
-                  <span>{secondaryText}</span>
-                  <DownloadIcon />
-                </Link>
+                {secondaryText && secondaryLink && (
+                  <Link
+                    href={secondaryLink}
+                    className="
+                      inline-flex
+                      h-[38px]
+                      items-center
+                      justify-center
+                      gap-2
+                      rounded-full
+                      border
+                      border-white/[0.12]
+                      bg-[#05070D]/70
+                      px-4.5
+                      font-sans
+                      text-[11.5px]
+                      font-medium
+                      text-[#CBD5E1]
+                      backdrop-blur-sm
+                      transition-all
+                      duration-300
+                      hover:border-[#A855F7]/60
+                      hover:bg-[#0A0F1D]
+                      hover:text-white
+                    "
+                  >
+                    <span>{secondaryText}</span>
+                  </Link>
+                )}
               </div>
             </div>
 
-            {/* Right Supporting Image (Rendered only when real asset exists) */}
+            {/* Optional Supporting Product Render Image */}
             {supportingImage && (
-              <div className="relative min-h-[280px] overflow-hidden rounded-[12px] border border-white/10 lg:min-h-[340px]">
+              <div className="relative mx-auto aspect-[4/3] w-full max-w-[280px] overflow-hidden rounded-xl border border-white/[0.08] bg-[#05070D]/60 p-3 lg:max-w-none">
                 <Image
                   src={supportingImage}
                   alt={title}
                   fill
-                  className="object-cover object-center"
-                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  className="object-contain"
                 />
               </div>
             )}
+          </div>
+
+          {/* Quick SLA / Compliance Badges */}
+          <div className="mt-5 flex flex-wrap items-center gap-4 border-t border-white/[0.06] pt-3 sm:gap-6">
+            <div className="flex items-center gap-1.5 font-mono text-[10px] text-[#94A3B8]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#22C55E]" />
+              <span>4-Hour Quote Response SLA</span>
+            </div>
+            <div className="flex items-center gap-1.5 font-mono text-[10px] text-[#94A3B8]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#A855F7]" />
+              <span>Direct R&amp;D Engineer Assignment</span>
+            </div>
+            <div className="flex items-center gap-1.5 font-mono text-[10px] text-[#94A3B8]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#38BDF8]" />
+              <span>Custom Voltage &amp; Current Calibration</span>
+            </div>
           </div>
         </div>
       </div>

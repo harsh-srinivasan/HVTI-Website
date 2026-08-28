@@ -13,7 +13,7 @@ import { useEffect, useRef, useState } from "react";
    - Subtle closing facility photograph with soft purple underglow and quality={95}
    ================================================================ */
 
-function useReveal(threshold = 0.1) {
+function useReveal(threshold = 0.2) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
 
@@ -95,8 +95,8 @@ function SustainabilityIcon() {
 }
 
 export default function ManagementOfficeValues() {
-  const { ref: contentRef, visible: contentVisible } = useReveal(0.08);
-  const { ref: imageRef, visible: imageVisible } = useReveal(0.12);
+  const { ref: contentRef, visible: contentVisible } = useReveal(0.2);
+  const { ref: imageRef, visible: imageVisible } = useReveal(0.25);
 
   const values = [
     {
@@ -149,9 +149,9 @@ export default function ManagementOfficeValues() {
           items-center
           text-center
           transition-all
-          duration-[900ms]
-          ease-[cubic-bezier(0.22,1,0.36,1)]
-          ${contentVisible ? "translate-y-0 opacity-100" : "translate-y-[24px] opacity-0"}
+          duration-[1800ms]
+          ease-[cubic-bezier(0.16,1,0.3,1)]
+          ${contentVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}
         `}
       >
         {/* Section Heading */}
@@ -172,7 +172,18 @@ export default function ManagementOfficeValues() {
         </h2>
 
         {/* Orange Accent Line */}
-        <div className="my-3.5 h-[2px] w-12 bg-[#F97316]" />
+        <div
+          className={`
+            my-3.5
+            h-[2px]
+            bg-[#F97316]
+            transition-all
+            duration-[1600ms]
+            delay-[200ms]
+            ease-[cubic-bezier(0.16,1,0.3,1)]
+            ${contentVisible ? "w-12" : "w-0"}
+          `}
+        />
 
         {/* Exact Body Copy */}
         <p className="max-w-[620px] font-sans text-[14px] leading-[1.75] text-[#CBD5E1] drop-shadow-[0_1px_8px_rgba(0,0,0,0.8)] sm:text-[15px]">

@@ -107,18 +107,38 @@ export default function ProductSpecifications({
             mb-10
             text-center
             transition-all
-            duration-[1100ms]
-            ease-[cubic-bezier(0.22,1,0.36,1)]
+            duration-[1800ms]
+            ease-[cubic-bezier(0.16,1,0.3,1)]
             lg:mb-12
-            ${headerVisible ? "translate-y-0 opacity-100" : "translate-y-[24px] opacity-0"}
+            ${headerVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}
           `}
         >
           <div className="mb-3 flex items-center justify-center gap-3">
-            <span className="h-[2px] w-7 bg-[#A855F7]" />
+            <span
+              className={`
+                h-[2px]
+                bg-[#A855F7]
+                transition-all
+                duration-[1600ms]
+                delay-[200ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${headerVisible ? "w-7" : "w-0"}
+              `}
+            />
             <span className="font-sans text-[11.5px] font-semibold uppercase tracking-[0.16em] text-[#A855F7]">
               Technical Specifications
             </span>
-            <span className="h-[2px] w-7 bg-[#A855F7]" />
+            <span
+              className={`
+                h-[2px]
+                bg-[#A855F7]
+                transition-all
+                duration-[1600ms]
+                delay-[200ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${headerVisible ? "w-7" : "w-0"}
+              `}
+            />
           </div>
 
           <h2
@@ -147,9 +167,9 @@ export default function ProductSpecifications({
           className={`
             relative
             transition-all
-            duration-[1200ms]
-            ease-[cubic-bezier(0.22,1,0.36,1)]
-            ${tableVisible ? "translate-y-0 opacity-100" : "translate-y-[30px] opacity-0"}
+            duration-[1800ms]
+            ease-[cubic-bezier(0.16,1,0.3,1)]
+            ${tableVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}
           `}
         >
           {/* Subtle Background Schematics on Large Displays */}

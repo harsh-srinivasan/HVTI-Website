@@ -63,6 +63,24 @@ export interface ProductCTAData {
   supportingImage?: string; // Optional real asset path (never mandatory)
 }
 
+/** Interactive voltage detector / safety simulator configuration */
+export interface ProductSafetySimulatorConfig {
+  enabled: boolean;
+  title?: string;
+  subtitle?: string;
+  badge?: string;
+  description?: string;
+  productModel?: string;
+  defaultVoltage?: number;
+  voltageOptions?: {
+    label: string;
+    value: number;
+    unit: string;
+    category: string;
+    description?: string;
+  }[];
+}
+
 /** Complete product schema */
 export interface ProductData {
   slug: string;
@@ -78,12 +96,15 @@ export interface ProductData {
   // Optional Data-Driven Sections:
   engineeringAtAGlance?: ProductMetric[];
   metrics?: ProductMetric[];
+  atAGlance?: ProductMetric[];
   specificationsTable?: ProductSpecRow[];
   specifications?: { parameter: string; value: string }[];
   specImage?: string;                  // Optional real hardware preview photo
   applications?: (string | ProductApplication)[];
   features?: ProductFeature[];
   benefits?: ProductBenefit[];
+  safetySimulator?: ProductSafetySimulatorConfig; // Interactive safety / voltage verification simulator
   brochure?: string;
   cta?: ProductCTAData;
 }
+

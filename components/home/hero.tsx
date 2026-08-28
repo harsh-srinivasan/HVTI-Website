@@ -1,8 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Hero() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMounted(true);
+    }, 50);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section
       id="hero"
@@ -14,36 +24,47 @@ export default function Hero() {
       "
     >
       {/* ============================================================
-          ============================================================
           DESKTOP HERO
-          ============================================================
           ============================================================ */}
-
       <div className="relative hidden min-h-[806px] lg:block">
-        {/* ============================================================
-            DESKTOP HERO BACKGROUND
-            File:
-            /public/images/hero/electrical-grid-hero.jpg
-            ============================================================ */}
-
+        {/* DESKTOP HERO BACKGROUND */}
         <div
-          className="
+          className={`
             absolute
             inset-0
             bg-cover
             bg-center
             bg-no-repeat
-          "
+            transition-all
+            duration-[2200ms]
+            ease-[cubic-bezier(0.16,1,0.3,1)]
+            ${mounted ? "scale-100 opacity-100" : "scale-105 opacity-0"}
+          `}
           style={{
-            backgroundImage:
-              "url('/images/hero/electrical-grid-hero.jpg')",
+            backgroundImage: "url('/images/hero/electrical-grid-hero.jpg')",
           }}
         />
 
-        {/* ============================================================
-            DESKTOP HERO OVERLAY
-            ============================================================ */}
+        {/* AMBIENT ELECTRICAL AURA */}
+        <div
+          className={`
+            pointer-events-none
+            absolute
+            left-[-100px]
+            top-[15%]
+            h-[500px]
+            w-[650px]
+            rounded-full
+            bg-[radial-gradient(circle_at_30%_30%,rgba(124,58,237,0.18),transparent_70%)]
+            blur-[100px]
+            transition-opacity
+            duration-[2500ms]
+            ease-out
+            ${mounted ? "opacity-100" : "opacity-0"}
+          `}
+        />
 
+        {/* DESKTOP HERO OVERLAYS */}
         <div
           className="
             absolute
@@ -63,10 +84,7 @@ export default function Hero() {
           "
         />
 
-        {/* ============================================================
-            DESKTOP CONTENT
-            ============================================================ */}
-
+        {/* DESKTOP CONTENT */}
         <div
           className="
             relative
@@ -81,10 +99,7 @@ export default function Hero() {
             px-10
           "
         >
-          {/* ========================================================
-              DESKTOP MAIN CONTENT
-              ======================================================== */}
-
+          {/* DESKTOP MAIN CONTENT */}
           <div
             className="
               flex
@@ -96,12 +111,31 @@ export default function Hero() {
               pt-[86px]
             "
           >
-            {/* ======================================================
-                DESKTOP EYEBROW
-                ====================================================== */}
-
-            <div className="mb-6 flex items-center gap-3">
-              <span className="h-[2px] w-11 bg-[#F97316]" />
+            {/* DESKTOP EYEBROW */}
+            <div
+              className={`
+                mb-6
+                flex
+                items-center
+                gap-3
+                transition-all
+                duration-[1000ms]
+                delay-[200ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${mounted ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}
+              `}
+            >
+              <span
+                className={`
+                  h-[2px]
+                  bg-[#F97316]
+                  transition-all
+                  duration-[900ms]
+                  delay-[350ms]
+                  ease-[cubic-bezier(0.16,1,0.3,1)]
+                  ${mounted ? "w-11 opacity-100" : "w-0 opacity-0"}
+                `}
+              />
 
               <span
                 className="
@@ -116,177 +150,174 @@ export default function Hero() {
               </span>
             </div>
 
-            {/* ======================================================
-                DESKTOP HEADING
-                ====================================================== */}
-
+            {/* DESKTOP HEADING */}
             <h1
-              className="
+              className={`
                 max-w-[760px]
                 text-[62px]
                 font-bold
                 leading-[1.05]
                 tracking-[-0.03em]
                 text-white
-              "
+                transition-all
+                duration-[1200ms]
+                delay-[380ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${mounted ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}
+              `}
             >
               Engineering Safety.
               <br />
               Testing Power.
               <br />
-
               <span className="text-[#A855F7]">
                 Monitoring Performance.
               </span>
             </h1>
 
-            {/* ======================================================
-                DESKTOP DESCRIPTION
-                ====================================================== */}
-
+            {/* DESKTOP DESCRIPTION */}
             <p
-              className="
+              className={`
                 mt-7
                 max-w-[620px]
                 text-[17px]
                 leading-7
                 text-[#CBD5E1]
-              "
+                transition-all
+                duration-[1200ms]
+                delay-[580ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${mounted ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}
+              `}
             >
               High-voltage safety, electrical testing and condition
               monitoring solutions engineered and manufactured in India.
             </p>
 
-            {/* ======================================================
-                DESKTOP CTA BUTTONS
-                ====================================================== */}
-
-            <div className="mt-9 flex flex-row gap-4">
-              {/* ====================================================
-                  EXPLORE PRODUCTS
-                  ==================================================== */}
-
+            {/* DESKTOP CTA BUTTONS */}
+            <div
+              className={`
+                mt-9
+                flex
+                flex-row
+                items-center
+                gap-4
+                transition-all
+                duration-[1100ms]
+                delay-[780ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${mounted ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}
+              `}
+            >
+              {/* EXPLORE PRODUCTS */}
               <Link
                 href="/products"
                 className="
+                  group
                   inline-flex
-                  h-[58px]
+                  h-[52px]
                   items-center
                   justify-center
                   gap-3
-                  rounded-md
-                  bg-[#F97316]
-                  px-7
+                  rounded-full
+                  border
+                  border-[#FB923C]/50
+                  bg-gradient-to-r
+                  from-[#F97316]
+                  via-[#EA580C]
+                  to-[#C2410C]
+                  px-8
+                  font-sans
                   text-[13px]
-                  font-semibold
-                  uppercase
-                  tracking-wide
+                  font-bold
+                  tracking-[0.08em]
                   text-white
+                  shadow-[0_0_25px_rgba(249,115,22,0.30)]
                   transition-all
-                  duration-200
-                  hover:bg-[#FB923C]
-                  hover:shadow-[0_0_30px_rgba(249,115,22,0.25)]
+                  duration-300
+                  hover:border-[#FB923C]
+                  hover:shadow-[0_0_35px_rgba(249,115,22,0.55)]
+                  hover:scale-[1.02]
+                  active:scale-[0.98]
                 "
               >
-                <span>Explore Products</span>
-
+                <span>EXPLORE PRODUCTS</span>
                 <svg
-                  width="18"
-                  height="18"
+                  width="16"
+                  height="16"
                   viewBox="0 0 24 24"
                   fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  className="transition-transform duration-200 group-hover:translate-x-1"
                 >
-                  <path
-                    d="M5 12H19"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                  />
-
-                  <path
-                    d="M13 6L19 12L13 18"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
+                  <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </Link>
 
-              {/* ====================================================
-                  TALK TO AN ENGINEER
-                  ==================================================== */}
-
+              {/* TALK TO AN ENGINEER */}
               <Link
                 href="/contact"
                 className="
+                  group
                   inline-flex
-                  h-[58px]
+                  h-[52px]
                   items-center
                   justify-center
                   gap-3
-                  rounded-md
+                  rounded-full
                   border
-                  border-white/50
-                  bg-white/[0.02]
+                  border-white/[0.18]
+                  bg-[#0C1120]/75
                   px-7
+                  font-sans
                   text-[13px]
                   font-semibold
-                  uppercase
-                  tracking-wide
+                  tracking-[0.05em]
                   text-white
-                  backdrop-blur-sm
+                  backdrop-blur-md
                   transition-all
-                  duration-200
-                  hover:border-white
-                  hover:bg-white/[0.06]
+                  duration-300
+                  hover:border-[#A855F7]/50
+                  hover:bg-[#7C3AED]/15
+                  hover:shadow-[0_0_20px_rgba(168,85,247,0.20)]
+                  hover:scale-[1.02]
+                  active:scale-[0.98]
                 "
               >
                 <span>Talk To An Engineer</span>
-
                 <svg
-                  width="18"
-                  height="18"
+                  width="15"
+                  height="15"
                   viewBox="0 0 24 24"
                   fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  className="transition-transform duration-200 group-hover:translate-x-1"
                 >
-                  <path
-                    d="M5 12H19"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                  />
-
-                  <path
-                    d="M13 6L19 12L13 18"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
+                  <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </Link>
             </div>
           </div>
 
-          {/* ============================================================
-              DESKTOP STATS
-              ============================================================ */}
-
+          {/* DESKTOP STATS */}
           <div
-            className="
+            className={`
               grid
               grid-cols-4
               border-t
               border-white/[0.10]
-            "
+              transition-all
+              duration-[1000ms]
+              delay-[920ms]
+              ease-[cubic-bezier(0.16,1,0.3,1)]
+              ${mounted ? "opacity-100" : "opacity-0"}
+            `}
           >
-            {/* ========================================================
-                DESKTOP STAT 1
-                ======================================================== */}
-
+            {/* DESKTOP STAT 1 */}
             <div
-              className="
+              className={`
                 flex
                 min-h-[120px]
                 items-center
@@ -294,7 +325,12 @@ export default function Hero() {
                 border-r
                 border-white/[0.08]
                 px-6
-              "
+                transition-all
+                duration-[1000ms]
+                delay-[960ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${mounted ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}
+              `}
             >
               <div
                 className="
@@ -322,7 +358,6 @@ export default function Hero() {
                     strokeWidth="1.5"
                     strokeLinejoin="round"
                   />
-
                   <path
                     d="M12 14V21"
                     stroke="currentColor"
@@ -336,23 +371,18 @@ export default function Hero() {
                 <div className="text-[27px] font-semibold leading-none text-[#F97316]">
                   30+
                 </div>
-
                 <div className="mt-1 text-[11px] font-semibold uppercase tracking-wide text-white">
                   Years
                 </div>
-
                 <div className="mt-1 text-[12px] text-[#94A3B8]">
                   Industry Experience
                 </div>
               </div>
             </div>
 
-            {/* ========================================================
-                DESKTOP STAT 2
-                ======================================================== */}
-
+            {/* DESKTOP STAT 2 */}
             <div
-              className="
+              className={`
                 flex
                 min-h-[120px]
                 items-center
@@ -360,7 +390,12 @@ export default function Hero() {
                 border-r
                 border-white/[0.08]
                 px-6
-              "
+                transition-all
+                duration-[1000ms]
+                delay-[1080ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${mounted ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}
+              `}
             >
               <div
                 className="
@@ -395,23 +430,18 @@ export default function Hero() {
                 <div className="text-[27px] font-semibold leading-none text-[#F97316]">
                   800 kV
                 </div>
-
                 <div className="mt-1 text-[11px] font-semibold uppercase tracking-wide text-white">
                   High Voltage
                 </div>
-
                 <div className="mt-1 text-[12px] text-[#94A3B8]">
                   Testing Capability
                 </div>
               </div>
             </div>
 
-            {/* ========================================================
-                DESKTOP STAT 3
-                ======================================================== */}
-
+            {/* DESKTOP STAT 3 */}
             <div
-              className="
+              className={`
                 flex
                 min-h-[120px]
                 items-center
@@ -419,7 +449,12 @@ export default function Hero() {
                 border-r
                 border-white/[0.08]
                 px-6
-              "
+                transition-all
+                duration-[1000ms]
+                delay-[1200ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${mounted ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}
+              `}
             >
               <div
                 className="
@@ -446,7 +481,6 @@ export default function Hero() {
                     stroke="currentColor"
                     strokeWidth="1.5"
                   />
-
                   <path
                     d="M9 12L11 14L15 10"
                     stroke="currentColor"
@@ -461,29 +495,29 @@ export default function Hero() {
                 <div className="text-[22px] font-semibold leading-none text-[#F97316]">
                   ISO 9001:2015
                 </div>
-
                 <div className="mt-1 text-[11px] font-semibold uppercase tracking-wide text-white">
                   Certified
                 </div>
-
                 <div className="mt-1 text-[12px] text-[#94A3B8]">
                   Quality Management
                 </div>
               </div>
             </div>
 
-            {/* ========================================================
-                DESKTOP STAT 4
-                ======================================================== */}
-
+            {/* DESKTOP STAT 4 */}
             <div
-              className="
+              className={`
                 flex
                 min-h-[120px]
                 items-center
                 gap-4
                 px-6
-              "
+                transition-all
+                duration-[1000ms]
+                delay-[1320ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${mounted ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}
+              `}
             >
               <div
                 className="
@@ -512,21 +546,18 @@ export default function Hero() {
                     stroke="currentColor"
                     strokeWidth="1.5"
                   />
-
                   <path
                     d="M12 7V17"
                     stroke="currentColor"
                     strokeWidth="1.5"
                     strokeLinecap="round"
                   />
-
                   <path
                     d="M7 12H17"
                     stroke="currentColor"
                     strokeWidth="1.5"
                     strokeLinecap="round"
                   />
-
                   <circle
                     cx="12"
                     cy="12"
@@ -541,11 +572,9 @@ export default function Hero() {
                 <div className="text-[27px] font-semibold leading-none text-[#F97316]">
                   INDIA
                 </div>
-
                 <div className="mt-1 text-[11px] font-semibold uppercase tracking-wide text-white">
                   Designed &
                 </div>
-
                 <div className="text-[12px] text-[#94A3B8]">
                   Manufactured
                 </div>
@@ -556,11 +585,8 @@ export default function Hero() {
       </div>
 
       {/* ============================================================
-          ============================================================
           MOBILE HERO
-          ============================================================
           ============================================================ */}
-
       <div
         className="
           relative
@@ -569,31 +595,26 @@ export default function Hero() {
           lg:hidden
         "
       >
-        {/* ============================================================
-            MOBILE HERO BACKGROUND
-
-            File:
-            /public/images/hero/electrical-grid-hero-mobile.jpg
-            ============================================================ */}
-
+        {/* MOBILE HERO BACKGROUND */}
         <div
-          className="
+          className={`
             absolute
             inset-0
             bg-cover
             bg-center
             bg-no-repeat
-          "
+            transition-all
+            duration-[2200ms]
+            ease-[cubic-bezier(0.16,1,0.3,1)]
+            ${mounted ? "scale-100 opacity-100" : "scale-105 opacity-0"}
+          `}
           style={{
             backgroundImage:
               "url('/images/hero/electrical-grid-hero-mobile.jpg')",
           }}
         />
 
-        {/* ============================================================
-            MOBILE HERO OVERLAY
-            ============================================================ */}
-
+        {/* MOBILE HERO OVERLAY */}
         <div
           className="
             absolute
@@ -602,18 +623,7 @@ export default function Hero() {
           "
         />
 
-        {/* ============================================================
-            MOBILE HERO CONTENT CONTAINER
-
-            IMPORTANT:
-            pt-[102px] is intentionally restored.
-
-            This keeps the hero content below the fixed navbar.
-
-            mt-auto on the stats pushes them toward the bottom while
-            allowing the main content to use its own spacing.
-            ============================================================ */}
-
+        {/* MOBILE HERO CONTENT CONTAINER */}
         <div
           className="
             relative
@@ -631,21 +641,33 @@ export default function Hero() {
             sm:pt-[108px]
           "
         >
-          {/* ========================================================
-              MOBILE MAIN CONTENT
-              ======================================================== */}
-
+          {/* MOBILE MAIN CONTENT */}
           <div className="flex flex-col">
-            {/* ======================================================
-                MOBILE EYEBROW
-
-                Increased bottom spacing.
-                ====================================================== */}
-
-            {/* TAGLINE */}
-
-<div className="mb-10 flex items-center gap-2">
-              <span className="h-[2px] w-6 bg-[#F97316]" />
+            {/* MOBILE EYEBROW */}
+            <div
+              className={`
+                mb-10
+                flex
+                items-center
+                gap-2
+                transition-all
+                duration-[1000ms]
+                delay-[200ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${mounted ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}
+              `}
+            >
+              <span
+                className={`
+                  h-[2px]
+                  bg-[#F97316]
+                  transition-all
+                  duration-[900ms]
+                  delay-[350ms]
+                  ease-[cubic-bezier(0.16,1,0.3,1)]
+                  ${mounted ? "w-6 opacity-100" : "w-0 opacity-0"}
+                `}
+              />
 
               <span
                 className="
@@ -661,200 +683,145 @@ export default function Hero() {
               </span>
             </div>
 
-            {/* MAIN HEADING */}
-
-<h1
-  className="
-    max-w-[390px]
-    text-[36px]
-    font-bold
-    leading-[1.06]
-    tracking-[-0.03em]
-    text-white
-    sm:text-[40px]
-  "
->
+            {/* MOBILE MAIN HEADING */}
+            <h1
+              className={`
+                max-w-[390px]
+                text-[36px]
+                font-bold
+                leading-[1.06]
+                tracking-[-0.03em]
+                text-white
+                sm:text-[40px]
+                transition-all
+                duration-[1200ms]
+                delay-[380ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${mounted ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}
+              `}
+            >
               Engineering Safety.
               <br />
-
               Testing Power.
               <br />
-
               <span className="text-[#A855F7]">
                 Monitoring Performance.
               </span>
             </h1>
 
-            {/* ======================================================
-                MOBILE DESCRIPTION
-
-                More space between heading and description.
-                ====================================================== */}
-
-            {/* DESCRIPTION */}
-
-<p
-  className="
-    mt-9
-    max-w-[390px]
-    text-[15px]
-    leading-[1.65]
-    text-[#CBD5E1]
-    sm:text-[15.5px]
-  "
->
+            {/* MOBILE DESCRIPTION */}
+            <p
+              className={`
+                mt-9
+                max-w-[390px]
+                text-[15px]
+                leading-[1.65]
+                text-[#CBD5E1]
+                sm:text-[15.5px]
+                transition-all
+                duration-[1200ms]
+                delay-[580ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${mounted ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"}
+              `}
+            >
               High-voltage safety, electrical testing and condition
               monitoring solutions engineered and manufactured in India.
             </p>
 
-            {/* ======================================================
-                MOBILE CTA BUTTONS
-
-                More space before buttons.
-                ====================================================== */}
-
-            {/* BUTTONS */}
-
-<div
-  className="
-    mt-10
-    flex
-    w-full
-    max-w-[300px]
-    flex-col
-    gap-3
-  "
->
-              {/* ====================================================
-                  EXPLORE PRODUCTS
-                  ==================================================== */}
-
+            {/* MOBILE CTA BUTTONS */}
+            <div
+              className={`
+                mt-10
+                flex
+                w-full
+                max-w-[300px]
+                flex-col
+                gap-3
+                transition-all
+                duration-[1100ms]
+                delay-[780ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${mounted ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"}
+              `}
+            >
+              {/* EXPLORE PRODUCTS */}
               <Link
                 href="/products"
                 className="
                   flex
-                  h-[44px]
+                  h-[46px]
                   w-full
                   items-center
                   justify-center
                   gap-2
-                  rounded-md
-                  bg-[#F97316]
-                  px-4
-                  text-[10px]
-                  font-semibold
-                  uppercase
+                  rounded-full
+                  bg-gradient-to-r
+                  from-[#F97316]
+                  to-[#EA580C]
+                  px-5
+                  font-sans
+                  text-[12px]
+                  font-bold
                   tracking-wide
                   text-white
-                  transition-all
-                  duration-200
-                  hover:bg-[#FB923C]
+                  shadow-[0_0_20px_rgba(249,115,22,0.30)]
                 "
               >
-                <span>Explore Products</span>
-
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M5 12H19"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                  />
-
-                  <path
-                    d="M13 6L19 12L13 18"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
+                <span>EXPLORE PRODUCTS</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                  <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </Link>
 
-              {/* ====================================================
-                  TALK TO AN ENGINEER
-                  ==================================================== */}
-
+              {/* TALK TO AN ENGINEER */}
               <Link
                 href="/contact"
                 className="
                   flex
-                  h-[44px]
+                  h-[46px]
                   w-full
                   items-center
                   justify-center
                   gap-2
-                  rounded-md
+                  rounded-full
                   border
-                  border-white/50
-                  bg-white/[0.02]
-                  px-4
-                  text-[10px]
+                  border-white/[0.20]
+                  bg-[#0C1120]/80
+                  px-5
+                  font-sans
+                  text-[12px]
                   font-semibold
-                  uppercase
-                  tracking-wide
                   text-white
-                  backdrop-blur-sm
-                  transition-all
-                  duration-200
-                  hover:border-white
-                  hover:bg-white/[0.06]
+                  backdrop-blur-md
                 "
               >
                 <span>Talk To An Engineer</span>
-
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M5 12H19"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                  />
-
-                  <path
-                    d="M13 6L19 12L13 18"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </Link>
             </div>
           </div>
 
-          {/* ============================================================
-              MOBILE HERO STATS
-
-              mt-auto anchors the stats toward the bottom of the
-              available hero space without changing their dimensions.
-              ============================================================ */}
-
+          {/* MOBILE HERO STATS */}
           <div
-            className="
+            className={`
               mt-auto
               grid
               grid-cols-2
               border-t
               border-white/[0.10]
-            "
+              transition-all
+              duration-[1000ms]
+              delay-[920ms]
+              ease-[cubic-bezier(0.16,1,0.3,1)]
+              ${mounted ? "opacity-100" : "opacity-0"}
+            `}
           >
-            {/* ========================================================
-                MOBILE STAT 1 — EXPERIENCE
-                ======================================================== */}
-
+            {/* MOBILE STAT 1 */}
             <div
-              className="
+              className={`
                 flex
                 min-h-[82px]
                 items-center
@@ -863,7 +830,12 @@ export default function Hero() {
                 border-r
                 border-white/[0.08]
                 pr-3
-              "
+                transition-all
+                duration-[900ms]
+                delay-[960ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${mounted ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}
+              `}
             >
               <div
                 className="
@@ -891,7 +863,6 @@ export default function Hero() {
                     strokeWidth="1.5"
                     strokeLinejoin="round"
                   />
-
                   <path
                     d="M12 14V21"
                     stroke="currentColor"
@@ -905,23 +876,18 @@ export default function Hero() {
                 <div className="text-[18px] font-semibold leading-none text-[#F97316]">
                   30+
                 </div>
-
                 <div className="mt-1 text-[8px] font-semibold uppercase tracking-wide text-white">
                   Years
                 </div>
-
                 <div className="mt-0.5 text-[9px] text-[#94A3B8]">
                   Industry Experience
                 </div>
               </div>
             </div>
 
-            {/* ========================================================
-                MOBILE STAT 2 — HIGH VOLTAGE
-                ======================================================== */}
-
+            {/* MOBILE STAT 2 */}
             <div
-              className="
+              className={`
                 flex
                 min-h-[82px]
                 items-center
@@ -929,7 +895,12 @@ export default function Hero() {
                 border-b
                 border-white/[0.08]
                 pl-3
-              "
+                transition-all
+                duration-[900ms]
+                delay-[1080ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${mounted ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}
+              `}
             >
               <div
                 className="
@@ -964,23 +935,18 @@ export default function Hero() {
                 <div className="text-[18px] font-semibold leading-none text-[#F97316]">
                   800 kV
                 </div>
-
                 <div className="mt-1 text-[8px] font-semibold uppercase tracking-wide text-white">
                   High Voltage
                 </div>
-
                 <div className="mt-0.5 text-[9px] text-[#94A3B8]">
                   Testing Capability
                 </div>
               </div>
             </div>
 
-            {/* ========================================================
-                MOBILE STAT 3 — ISO
-                ======================================================== */}
-
+            {/* MOBILE STAT 3 */}
             <div
-              className="
+              className={`
                 flex
                 min-h-[82px]
                 items-center
@@ -988,7 +954,12 @@ export default function Hero() {
                 border-r
                 border-white/[0.08]
                 pr-3
-              "
+                transition-all
+                duration-[900ms]
+                delay-[1200ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${mounted ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}
+              `}
             >
               <div
                 className="
@@ -1015,7 +986,6 @@ export default function Hero() {
                     stroke="currentColor"
                     strokeWidth="1.5"
                   />
-
                   <path
                     d="M9 12L11 14L15 10"
                     stroke="currentColor"
@@ -1030,29 +1000,29 @@ export default function Hero() {
                 <div className="text-[14px] font-semibold leading-none text-[#F97316]">
                   ISO 9001:2015
                 </div>
-
                 <div className="mt-1 text-[8px] font-semibold uppercase tracking-wide text-white">
                   Certified
                 </div>
-
                 <div className="mt-0.5 text-[9px] text-[#94A3B8]">
                   Quality Management
                 </div>
               </div>
             </div>
 
-            {/* ========================================================
-                MOBILE STAT 4 — INDIA
-                ======================================================== */}
-
+            {/* MOBILE STAT 4 */}
             <div
-              className="
+              className={`
                 flex
                 min-h-[82px]
                 items-center
                 gap-2.5
                 pl-3
-              "
+                transition-all
+                duration-[900ms]
+                delay-[1320ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${mounted ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}
+              `}
             >
               <div
                 className="
@@ -1081,21 +1051,18 @@ export default function Hero() {
                     stroke="currentColor"
                     strokeWidth="1.5"
                   />
-
                   <path
                     d="M12 7V17"
                     stroke="currentColor"
                     strokeWidth="1.5"
                     strokeLinecap="round"
                   />
-
                   <path
                     d="M7 12H17"
                     stroke="currentColor"
                     strokeWidth="1.5"
                     strokeLinecap="round"
                   />
-
                   <circle
                     cx="12"
                     cy="12"
@@ -1110,11 +1077,9 @@ export default function Hero() {
                 <div className="text-[18px] font-semibold leading-none text-[#F97316]">
                   INDIA
                 </div>
-
                 <div className="mt-1 text-[8px] font-semibold uppercase tracking-wide text-white">
                   Designed &
                 </div>
-
                 <div className="text-[9px] text-[#94A3B8]">
                   Manufactured
                 </div>

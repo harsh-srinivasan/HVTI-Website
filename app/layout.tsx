@@ -3,6 +3,7 @@ import { IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import ScrollProgressBar from "@/components/ui/ScrollProgressBar";
 
 const ibmPlexSans = IBM_Plex_Sans({
   subsets: ["latin"],
@@ -28,6 +29,7 @@ export default function RootLayout({
       className={ibmPlexSans.variable}
     >
       <body className="bg-[#05070D] font-sans text-white antialiased">
+        <ScrollProgressBar />
         <Navbar />
 
         {children}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { ProductData } from "@/types/product";
 import ProductAtAGlance from "./ProductAtAGlance";
 import ProductEngineeringAtAGlance from "./ProductEngineeringAtAGlance";
 
@@ -33,7 +34,7 @@ function useReveal() {
         }
       },
       {
-        threshold: 0.55,
+        threshold: 0.2,
       }
     );
 
@@ -53,7 +54,7 @@ function useReveal() {
 export default function ProductOverview({
   product,
 }: {
-  product: any;
+  product: ProductData;
 }) {
   const {
     ref: contentRef,
@@ -130,8 +131,8 @@ export default function ProductOverview({
             ref={contentRef}
             className={`
               transition-all
-              duration-[1200ms]
-              ease-[cubic-bezier(0.22,1,0.36,1)]
+              duration-[1800ms]
+              ease-[cubic-bezier(0.16,1,0.3,1)]
 
               motion-reduce:transition-none
               motion-reduce:transform-none
@@ -140,13 +141,23 @@ export default function ProductOverview({
               ${
                 contentVisible
                   ? "translate-x-0 opacity-100"
-                  : "-translate-x-[24px] opacity-0"
+                  : "-translate-x-6 opacity-0"
               }
             `}
           >
             {/* Section Eyebrow */}
             <div className="mb-3 flex items-center gap-3">
-              <span className="h-[2px] w-8 bg-[#A855F7]" />
+              <span
+                className={`
+                  h-[2px]
+                  bg-[#A855F7]
+                  transition-all
+                  duration-[1600ms]
+                  delay-[200ms]
+                  ease-[cubic-bezier(0.16,1,0.3,1)]
+                  ${contentVisible ? "w-8" : "w-0"}
+                `}
+              />
 
               <span
                 className="
@@ -198,7 +209,7 @@ export default function ProductOverview({
           {/* PRODUCT AT A GLANCE — RIGHT */}
           <div className="flex justify-end">
             <ProductAtAGlance
-              items={product.atAGlance || []}
+              items={product.atAGlance || product.engineeringAtAGlance || []}
             />
           </div>
         </div>
@@ -258,7 +269,7 @@ export default function ProductOverview({
 
           <div>
             <ProductAtAGlance
-              items={product.atAGlance || []}
+              items={product.atAGlance || product.engineeringAtAGlance || []}
             />
           </div>
         </div>

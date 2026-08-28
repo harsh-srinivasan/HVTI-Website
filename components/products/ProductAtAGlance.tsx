@@ -46,9 +46,13 @@ function useReveal() {
 }
 
 export type GlanceItem = {
+  id?: string;
   code?: string;
-  label: string;
+  label?: string;
   value: string;
+  description?: string;
+  subtext?: string;
+  highlighted?: boolean;
 };
 
 export default function ProductAtAGlance({

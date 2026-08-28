@@ -6,17 +6,16 @@ import { renderProductIcon } from "./ProductIcons";
 import { OrbitalEnergyRings } from "./ProductSchematics";
 
 /* ================================================================
-   HVTI APPLICATIONS SYSTEM (DYNAMIC ORBITAL & BALANCED LAYOUTS)
+   HVTI APPLICATIONS SYSTEM (UNIVERSAL ORBITAL ENERGY LOOP ENGINE)
    File: components/products/ProductApplications.tsx
 
-   Dynamically adapts based on application count:
-   - 5 items: Iconic centered orbital energy ellipse
-   - 3-4 items: Balanced triangular / radial composition
-   - 2 items: Centered paired composition
-   - 6+ items: Clean engineering tile grid
+   - Automatically renders the iconic cosmic orbital energy rings for ALL products
+   - Supports 3, 4, 5, 6, 7+ items with tailored orbital coordinate math
+   - Central highlighted hub with pulsing orange/purple safety glow
+   - Orbiting satellite nodes with high-voltage neon icons & hover scaling
    ================================================================ */
 
-function useReveal(threshold = 0.25) {
+function useReveal(threshold = 0.2) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
 
@@ -41,6 +40,40 @@ function useReveal(threshold = 0.25) {
   return { ref, visible };
 }
 
+// Preset tailored orbital coordinates for 2, 3, 4, 5, 6 satellite nodes
+const orbitalPresets: Record<number, { left: string; top: string }[]> = {
+  2: [
+    { left: "18%", top: "45%" },
+    { left: "82%", top: "45%" },
+  ],
+  3: [
+    { left: "20%", top: "18%" },
+    { left: "80%", top: "18%" },
+    { left: "50%", top: "82%" },
+  ],
+  4: [
+    { left: "16%", top: "15%" },
+    { left: "84%", top: "15%" },
+    { left: "18%", top: "80%" },
+    { left: "82%", top: "80%" },
+  ],
+  5: [
+    { left: "14%", top: "20%" },
+    { left: "86%", top: "20%" },
+    { left: "22%", top: "80%" },
+    { left: "78%", top: "80%" },
+    { left: "50%", top: "10%" },
+  ],
+  6: [
+    { left: "14%", top: "18%" },
+    { left: "50%", top: "10%" },
+    { left: "86%", top: "18%" },
+    { left: "16%", top: "80%" },
+    { left: "50%", top: "88%" },
+    { left: "84%", top: "80%" },
+  ],
+};
+
 export default function ProductApplications({
   applications,
 }: {
@@ -60,16 +93,30 @@ export default function ProductApplications({
         id: app.toLowerCase().replace(/\s+/g, "-"),
         title: app,
         icon: app.toLowerCase(),
-        isCenter: idx === 0 && applications.length === 5,
+        isCenter: idx === 0,
       };
     }
     return app;
   });
 
-  const count = items.length;
-  // If count is 5, identify center item (first item marked isCenter, or item 0)
+  // Identify central hub (item with isCenter=true, or fallback to first item)
   const centerItem = items.find((it) => it.isCenter) || items[0];
   const orbitItems = items.filter((it) => it !== centerItem);
+  const orbitCount = orbitItems.length;
+
+  // Calculate satellite positions (preset coordinates or trigonometric circle)
+  const getPosition = (index: number) => {
+    if (orbitalPresets[orbitCount] && orbitalPresets[orbitCount][index]) {
+      return orbitalPresets[orbitCount][index];
+    }
+    // Fallback: Trigonometric elliptical distribution
+    const angle = (index / orbitCount) * 2 * Math.PI - Math.PI / 2;
+    const rx = 36; // horizontal radius in %
+    const ry = 32; // vertical radius in %
+    const left = `${50 + rx * Math.cos(angle)}%`;
+    const top = `${50 + ry * Math.sin(angle)}%`;
+    return { left, top };
+  };
 
   return (
     <section
@@ -79,9 +126,9 @@ export default function ProductApplications({
         w-full
         overflow-hidden
         bg-transparent
-        py-20
-        sm:py-24
-        lg:py-32
+        py-16
+        sm:py-20
+        lg:py-24
       "
     >
       <div className="relative z-10 mx-auto w-full max-w-[1360px] px-6 sm:px-10 lg:px-12">
@@ -91,20 +138,40 @@ export default function ProductApplications({
         <div
           ref={headerRef}
           className={`
-            mb-14
+            mb-12
             text-center
             transition-all
-            duration-[1100ms]
-            ease-[cubic-bezier(0.22,1,0.36,1)]
-            ${headerVisible ? "translate-y-0 opacity-100" : "translate-y-[24px] opacity-0"}
+            duration-[1800ms]
+            ease-[cubic-bezier(0.16,1,0.3,1)]
+            ${headerVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}
           `}
         >
-          <div className="mb-3.5 flex items-center justify-center gap-3">
-            <span className="h-[2px] w-8 bg-[#A855F7]" />
-            <span className="font-sans text-[12px] font-semibold uppercase tracking-[0.16em] text-[#A855F7]">
+          <div className="mb-3 flex items-center justify-center gap-2.5">
+            <span
+              className={`
+                h-[1.5px]
+                bg-[#A855F7]
+                transition-all
+                duration-[1600ms]
+                delay-[200ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${headerVisible ? "w-6" : "w-0"}
+              `}
+            />
+            <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[#A855F7]">
               Applications
             </span>
-            <span className="h-[2px] w-8 bg-[#A855F7]" />
+            <span
+              className={`
+                h-[1.5px]
+                bg-[#A855F7]
+                transition-all
+                duration-[1600ms]
+                delay-[200ms]
+                ease-[cubic-bezier(0.16,1,0.3,1)]
+                ${headerVisible ? "w-6" : "w-0"}
+              `}
+            />
           </div>
 
           <h2
@@ -112,21 +179,21 @@ export default function ProductApplications({
               mx-auto
               max-w-[720px]
               font-heading
-              text-[32px]
-              font-semibold
-              leading-[1.15]
+              text-[28px]
+              font-bold
+              leading-[1.18]
               tracking-[-0.025em]
               text-white
-              sm:text-[38px]
-              xl:text-[42px]
+              sm:text-[34px]
+              lg:text-[38px]
             "
           >
-            Designed for critical applications.
+            Designed for Critical High-Voltage Applications
           </h2>
         </div>
 
         {/* ========================================================
-            DESKTOP COMPOSITION ENGINE (>= lg)
+            UNIVERSAL ORBITAL ENERGY RING STAGE (DESKTOP >= lg)
             ======================================================== */}
         <div
           ref={orbitRef}
@@ -135,278 +202,118 @@ export default function ProductApplications({
             hidden
             w-full
             transition-all
-            duration-[1200ms]
-            ease-[cubic-bezier(0.22,1,0.36,1)]
+            duration-[1800ms]
+            ease-[cubic-bezier(0.16,1,0.3,1)]
             lg:block
-            ${orbitVisible ? "translate-y-0 opacity-100" : "translate-y-[30px] opacity-0"}
+            ${orbitVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}
           `}
         >
-          {/* SCENARIO A: EXACT 5 ITEMS — ICONIC ORBITAL ENERGY LOOP */}
-          {count === 5 && (
-            <div className="relative mx-auto h-[460px] w-full max-w-[980px]">
-              {/* Background Orbital Rings */}
-              <div className="pointer-events-none absolute inset-0">
-                <OrbitalEnergyRings opacity={0.35} />
-              </div>
-
-              {/* Center Application Badge: e.g. Motors */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
-                <div
-                  className="
-                    group
-                    relative
-                    mx-auto
-                    flex
-                    h-[130px]
-                    w-[130px]
-                    items-center
-                    justify-center
-                    rounded-full
-                    border-2
-                    border-[#A855F7]
-                    bg-[#100B24]
-                    text-[#C084FC]
-                    shadow-[0_0_50px_rgba(168,85,247,0.45)]
-                    transition-all
-                    duration-300
-                    hover:scale-110
-                    hover:shadow-[0_0_70px_rgba(168,85,247,0.7)]
-                  "
-                >
-                  <div className="absolute inset-[-8px] animate-pulse rounded-full border border-[#F97316]/50" />
-                  {renderProductIcon(centerItem.icon || centerItem.title, {
-                    className: "h-14 w-14 text-current transition-transform duration-300 group-hover:scale-110",
-                    strokeWidth: 1.6,
-                  })}
-                </div>
-                <p className="mt-4 font-heading text-[20px] font-bold tracking-tight text-white">
-                  {centerItem.title}
-                </p>
-              </div>
-
-              {/* Orbit Item 1: Top Left (e.g. Generators) */}
-              <div className="absolute left-[14%] top-[12%] text-center">
-                <div
-                  className="
-                    group
-                    mx-auto
-                    flex
-                    h-[80px]
-                    w-[80px]
-                    items-center
-                    justify-center
-                    rounded-full
-                    border
-                    border-white/[0.15]
-                    bg-[#090F1E]
-                    text-[#A855F7]
-                    shadow-[0_0_24px_rgba(168,85,247,0.2)]
-                    transition-all
-                    duration-300
-                    hover:scale-110
-                    hover:border-[#A855F7]
-                    hover:bg-[#120B24]
-                    hover:text-[#C084FC]
-                    hover:shadow-[0_0_36px_rgba(168,85,247,0.4)]
-                  "
-                >
-                  {renderProductIcon(orbitItems[0]?.icon || orbitItems[0]?.title, {
-                    className: "h-9 w-9 text-current",
-                    strokeWidth: 1.6,
-                  })}
-                </div>
-                <p className="mt-2.5 font-heading text-[15.5px] font-semibold text-white">
-                  {orbitItems[0]?.title}
-                </p>
-              </div>
-
-              {/* Orbit Item 2: Top Right (e.g. Switchgears) */}
-              <div className="absolute right-[14%] top-[12%] text-center">
-                <div
-                  className="
-                    group
-                    mx-auto
-                    flex
-                    h-[80px]
-                    w-[80px]
-                    items-center
-                    justify-center
-                    rounded-full
-                    border
-                    border-white/[0.15]
-                    bg-[#090F1E]
-                    text-[#A855F7]
-                    shadow-[0_0_24px_rgba(168,85,247,0.2)]
-                    transition-all
-                    duration-300
-                    hover:scale-110
-                    hover:border-[#A855F7]
-                    hover:bg-[#120B24]
-                    hover:text-[#C084FC]
-                    hover:shadow-[0_0_36px_rgba(168,85,247,0.4)]
-                  "
-                >
-                  {renderProductIcon(orbitItems[1]?.icon || orbitItems[1]?.title, {
-                    className: "h-9 w-9 text-current",
-                    strokeWidth: 1.6,
-                  })}
-                </div>
-                <p className="mt-2.5 font-heading text-[15.5px] font-semibold text-white">
-                  {orbitItems[1]?.title}
-                </p>
-              </div>
-
-              {/* Orbit Item 3: Bottom Left (e.g. Cables) */}
-              <div className="absolute bottom-[8%] left-[20%] text-center">
-                <div
-                  className="
-                    group
-                    mx-auto
-                    flex
-                    h-[80px]
-                    w-[80px]
-                    items-center
-                    justify-center
-                    rounded-full
-                    border
-                    border-white/[0.15]
-                    bg-[#090F1E]
-                    text-[#A855F7]
-                    shadow-[0_0_24px_rgba(168,85,247,0.2)]
-                    transition-all
-                    duration-300
-                    hover:scale-110
-                    hover:border-[#A855F7]
-                    hover:bg-[#120B24]
-                    hover:text-[#C084FC]
-                    hover:shadow-[0_0_36px_rgba(168,85,247,0.4)]
-                  "
-                >
-                  {renderProductIcon(orbitItems[2]?.icon || orbitItems[2]?.title, {
-                    className: "h-9 w-9 text-current",
-                    strokeWidth: 1.6,
-                  })}
-                </div>
-                <p className="mt-2.5 font-heading text-[15.5px] font-semibold text-white">
-                  {orbitItems[2]?.title}
-                </p>
-              </div>
-
-              {/* Orbit Item 4: Bottom Right (e.g. Transformers) */}
-              <div className="absolute bottom-[8%] right-[20%] text-center">
-                <div
-                  className="
-                    group
-                    mx-auto
-                    flex
-                    h-[80px]
-                    w-[80px]
-                    items-center
-                    justify-center
-                    rounded-full
-                    border
-                    border-white/[0.15]
-                    bg-[#090F1E]
-                    text-[#A855F7]
-                    shadow-[0_0_24px_rgba(168,85,247,0.2)]
-                    transition-all
-                    duration-300
-                    hover:scale-110
-                    hover:border-[#A855F7]
-                    hover:bg-[#120B24]
-                    hover:text-[#C084FC]
-                    hover:shadow-[0_0_36px_rgba(168,85,247,0.4)]
-                  "
-                >
-                  {renderProductIcon(orbitItems[3]?.icon || orbitItems[3]?.title, {
-                    className: "h-9 w-9 text-current",
-                    strokeWidth: 1.6,
-                  })}
-                </div>
-                <p className="mt-2.5 font-heading text-[15.5px] font-semibold text-white">
-                  {orbitItems[3]?.title}
-                </p>
-              </div>
+          <div className="relative mx-auto h-[460px] w-full max-w-[980px]">
+            {/* Background Cosmic Energy Ellipses */}
+            <div className="pointer-events-none absolute inset-0">
+              <OrbitalEnergyRings opacity={0.35} />
             </div>
-          )}
 
-          {/* SCENARIO B: 2 TO 4 OR 6+ ITEMS — BALANCED RADIAL / GRID LAYOUT */}
-          {count !== 5 && (
-            <div
-              className="
-                mx-auto
-                grid
-                max-w-[1100px]
-                items-center
-                justify-center
-                gap-8
-              "
-              style={{
-                gridTemplateColumns: `repeat(${Math.min(count, 4)}, minmax(180px, 1fr))`,
-              }}
-            >
-              {items.map((app, index) => (
+            {/* Central Primary Hub (e.g. Substations / Motors) */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
+              <div
+                className="
+                  group
+                  relative
+                  mx-auto
+                  flex
+                  h-[124px]
+                  w-[124px]
+                  items-center
+                  justify-center
+                  rounded-full
+                  border-2
+                  border-[#A855F7]
+                  bg-[#100B24]
+                  text-[#C084FC]
+                  shadow-[0_0_50px_rgba(168,85,247,0.45)]
+                  transition-all
+                  duration-300
+                  hover:scale-110
+                  hover:shadow-[0_0_70px_rgba(168,85,247,0.7)]
+                "
+              >
+                {/* Pulsing Outer Orange Energy Ring */}
+                <div className="absolute inset-[-8px] animate-pulse rounded-full border border-[#F97316]/50" />
+                {renderProductIcon(centerItem.icon || centerItem.title, {
+                  className: "h-12 w-12 text-current transition-transform duration-300 group-hover:scale-110",
+                  strokeWidth: 1.6,
+                })}
+              </div>
+              <p className="mt-3.5 font-heading text-[18px] font-bold tracking-tight text-white">
+                {centerItem.title}
+              </p>
+              {centerItem.description && (
+                <p className="mx-auto mt-1 max-w-[180px] font-sans text-[12px] text-[#94A3B8] line-clamp-1">
+                  {centerItem.description}
+                </p>
+              )}
+            </div>
+
+            {/* Orbiting Satellite Application Nodes */}
+            {orbitItems.map((app, index) => {
+              const pos = getPosition(index);
+
+              return (
                 <div
                   key={`${app.title}-${index}`}
-                  className="
-                    group
-                    flex
-                    flex-col
-                    items-center
-                    p-4
-                    text-center
-                    transition-all
-                    duration-300
-                  "
+                  className="absolute -translate-x-1/2 -translate-y-1/2 text-center transition-transform duration-300"
+                  style={{ left: pos.left, top: pos.top }}
                 >
                   <div
                     className="
-                      mb-4
+                      group
+                      mx-auto
                       flex
-                      h-[88px]
-                      w-[88px]
+                      h-[78px]
+                      w-[78px]
                       items-center
                       justify-center
                       rounded-full
                       border
-                      border-white/[0.14]
-                      bg-[#080E1C]
+                      border-white/[0.15]
+                      bg-[#090F1E]
                       text-[#A855F7]
-                      shadow-[0_0_28px_rgba(168,85,247,0.2)]
+                      shadow-[0_0_24px_rgba(168,85,247,0.2)]
                       transition-all
                       duration-300
-                      group-hover:scale-110
-                      group-hover:border-[#A855F7]
-                      group-hover:bg-[#110B24]
-                      group-hover:text-[#C084FC]
-                      group-hover:shadow-[0_0_40px_rgba(168,85,247,0.45)]
+                      hover:scale-110
+                      hover:border-[#A855F7]
+                      hover:bg-[#120B24]
+                      hover:text-[#C084FC]
+                      hover:shadow-[0_0_36px_rgba(168,85,247,0.4)]
                     "
                   >
                     {renderProductIcon(app.icon || app.title, {
-                      className: "h-10 w-10 text-current",
+                      className: "h-8 w-8 text-current",
                       strokeWidth: 1.6,
                     })}
                   </div>
-                  <h3 className="font-heading text-[17px] font-semibold text-white">
+                  <p className="mt-2 font-heading text-[14.5px] font-semibold text-white">
                     {app.title}
-                  </h3>
+                  </p>
                   {app.description && (
-                    <p className="mt-1.5 max-w-[200px] font-sans text-[13.5px] text-[#94A3B8]">
+                    <p className="mx-auto mt-0.5 max-w-[160px] font-sans text-[11.5px] text-[#94A3B8] line-clamp-1">
                       {app.description}
                     </p>
                   )}
                 </div>
-              ))}
-            </div>
-          )}
+              );
+            })}
+          </div>
         </div>
 
         {/* ========================================================
-            MOBILE COMPOSITION (< lg)
+            RESPONSIVE MOBILE COMPOSITION (< lg)
             ======================================================== */}
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:hidden">
+        <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-3 lg:hidden">
           {items.map((app, index) => {
-            const isHighlighted = app.isCenter ?? (index === 0 && count === 5);
+            const isHighlighted = app.isCenter ?? (index === 0);
 
             return (
               <div
@@ -415,9 +322,9 @@ export default function ProductApplications({
                   flex
                   flex-col
                   items-center
-                  rounded-[12px]
+                  rounded-xl
                   border
-                  p-5
+                  p-4
                   text-center
                   ${
                     isHighlighted
@@ -428,10 +335,10 @@ export default function ProductApplications({
               >
                 <div
                   className={`
-                    mb-3
+                    mb-2.5
                     flex
-                    h-[60px]
-                    w-[60px]
+                    h-[54px]
+                    w-[54px]
                     items-center
                     justify-center
                     rounded-full
@@ -443,13 +350,18 @@ export default function ProductApplications({
                   `}
                 >
                   {renderProductIcon(app.icon || app.title, {
-                    className: "h-7 w-7 text-current",
+                    className: "h-6 w-6 text-current",
                     strokeWidth: 1.6,
                   })}
                 </div>
-                <h3 className="font-heading text-[15px] font-semibold text-white">
+                <h3 className="font-heading text-[14px] font-semibold text-white">
                   {app.title}
                 </h3>
+                {app.description && (
+                  <p className="mt-1 font-sans text-[11.5px] text-[#94A3B8] line-clamp-2">
+                    {app.description}
+                  </p>
+                )}
               </div>
             );
           })}

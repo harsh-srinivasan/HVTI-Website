@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import ManagementOfficeAtmosphere from "./ManagementOfficeAtmosphere";
+import GeometricAtmosphere from "@/components/ui/GeometricAtmosphere";
 import ManagementOfficeHero from "./ManagementOfficeHero";
 import ManagementOfficeSection from "./ManagementOfficeSection";
 import ManagementOfficeValues from "./ManagementOfficeValues";
@@ -23,7 +23,7 @@ export default function ManagementOfficePage() {
   return (
     <main className="relative min-h-screen w-full overflow-x-hidden bg-[#05070D]">
       {/* Continuous Architectural Blueprint Atmospheric Background */}
-      <ManagementOfficeAtmosphere />
+      <GeometricAtmosphere variant="office" />
 
       {/* Viewport 1 — Hero */}
       <ManagementOfficeHero />
