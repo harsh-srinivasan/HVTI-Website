@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import ProductHighlights from "./ProductHighlights";
 import HVACTestingKitRender from "@/components/renders/HVACTestingKitRender";
 import VoltageDetectorTPS9Render from "@/components/renders/VoltageDetectorTPS9Render";
+import HelmetDetectorViewer from "@/components/renders/HelmetDetectorViewer";
 import { ProductData } from "@/types/product";
 
 /* ================================================================
@@ -65,6 +66,14 @@ function DownloadIcon() {
 function render3DModel(product: ProductData) {
   if (product.modelUrl === "/models/hv-ac-testing-kit.glb") {
     return <HVACTestingKitRender />;
+  }
+  if (
+    product.slug === "helmet-mounted-voltage-detector" ||
+    product.modelUrl?.includes("detector_helmet_mounted") ||
+    product.modelUrl?.includes("helmet_detector") ||
+    product.modelUrl?.includes("helmet_mounted")
+  ) {
+    return <HelmetDetectorViewer />;
   }
   return <VoltageDetectorTPS9Render modelUrl={product.modelUrl} />;
 }

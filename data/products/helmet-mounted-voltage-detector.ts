@@ -22,7 +22,8 @@ const helmetMountedVoltageDetector: ProductData = {
     "Rechargeable Battery with USB Type-C Fast Charging",
   ],
 
-  renderType: "image",
+  renderType: "3d",
+  modelUrl: "/models/detector_helmet_mounted.glb",
   image: "/images/products/helmet-mounted-voltage-detector.jpg",
   specImage: "/images/products/product-safety.jpg",
 
@@ -207,6 +208,85 @@ const helmetMountedVoltageDetector: ProductData = {
         "Affordable personal protective equipment (PPE) enhancement easily deployed to every utility lineman and contractor.",
     },
   ],
+
+  safetySimulator: {
+    enabled: true,
+    type: "proximity",
+    badge: "Interactive Proximity Simulator",
+    title: "Hands-Free Electric Field Hazard & Proximity Simulator",
+    subtitle:
+      "Simulate technician movement near energized high-voltage panels to experience 360° electrostatic proximity detection in real time.",
+    description:
+      "Move the avatar along the walking path towards the energized high-voltage panel on the right. When the technician enters the electrostatic hazard radius of the charged equipment, the helmet detector immediately triggers high-decibel audible beeping and red strobe warnings.",
+    productModel: "HVTI Helmet Mounted Voltage Detector (HMD)",
+    defaultVoltage: 33,
+    voltageOptions: [
+      {
+        label: "1 kV",
+        value: 1,
+        unit: "kV",
+        category: "Low Voltage Distribution",
+        description: "1 kV auxiliary power panel & motor control center",
+        warningDistanceMeters: 0.4,
+      },
+      {
+        label: "3.3 kV",
+        value: 3.3,
+        unit: "kV",
+        category: "Medium Voltage Plant",
+        description: "3.3 kV industrial plant distribution switchboard",
+        warningDistanceMeters: 0.7,
+      },
+      {
+        label: "11 kV",
+        value: 11,
+        unit: "kV",
+        category: "Distribution Feeder",
+        description: "11 kV overhead distribution line / kiosk breaker",
+        warningDistanceMeters: 1.1,
+      },
+      {
+        label: "33 kV",
+        value: 33,
+        unit: "kV",
+        category: "Substation Incomer",
+        description: "33 kV primary substation switchgear panel",
+        warningDistanceMeters: 1.6,
+      },
+      {
+        label: "66 kV",
+        value: 66,
+        unit: "kV",
+        category: "Sub-Transmission",
+        description: "66 kV regional transformer terminal bay",
+        warningDistanceMeters: 2.4,
+      },
+      {
+        label: "132 kV",
+        value: 132,
+        unit: "kV",
+        category: "Grid Transmission",
+        description: "132 kV outdoor switchyard busbar & gantry",
+        warningDistanceMeters: 3.5,
+      },
+      {
+        label: "220 kV",
+        value: 220,
+        unit: "kV",
+        category: "Bulk Transmission",
+        description: "220 kV substation interconnector bay",
+        warningDistanceMeters: 4.6,
+      },
+      {
+        label: "500 kV",
+        value: 500,
+        unit: "kV",
+        category: "Extra High Voltage (EHV)",
+        description: "500 kV bulk grid transmission corridor",
+        warningDistanceMeters: 6.2,
+      },
+    ],
+  },
 
   cta: {
     title: "Equip your field crews with helmet-mounted voltage detectors?",

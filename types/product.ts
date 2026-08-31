@@ -66,6 +66,7 @@ export interface ProductCTAData {
 /** Interactive voltage detector / safety simulator configuration */
 export interface ProductSafetySimulatorConfig {
   enabled: boolean;
+  type?: "stick" | "proximity"; // "stick" for TP-S9 telescopic stick, "proximity" for HMD walking avatar
   title?: string;
   subtitle?: string;
   badge?: string;
@@ -78,6 +79,7 @@ export interface ProductSafetySimulatorConfig {
     unit: string;
     category: string;
     description?: string;
+    warningDistanceMeters?: number; // Distance in meters at which alarm triggers
   }[];
 }
 

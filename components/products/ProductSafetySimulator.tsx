@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import { ProductData } from "@/types/product";
+import HelmetProximitySimulator from "./HelmetProximitySimulator";
 
 /* ================================================================
    HVTI PRODUCT SAFETY SIMULATOR: HIGH VOLTAGE DETECTOR MODEL TP-S9
@@ -38,6 +39,11 @@ export default function ProductSafetySimulator({
   product: ProductData;
 }) {
   const config = product.safetySimulator;
+
+  if (config?.type === "proximity" || product.slug === "helmet-mounted-voltage-detector") {
+    return <HelmetProximitySimulator product={product} />;
+  }
+
   const voltageList = config?.voltageOptions || VOLTAGE_OPTIONS;
 
   // Simulation Controls & States
