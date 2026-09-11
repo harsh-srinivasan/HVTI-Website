@@ -24,7 +24,7 @@ import AboutCTA from "./AboutCTA";
 
 export default function AboutPage() {
   return (
-    <main className="relative min-h-screen w-full overflow-x-hidden bg-[#05070D]">
+    <main className="relative min-h-screen w-full overflow-x-clip bg-[#05070D]">
       {/* 1. Continuous Reusable Architectural Blueprint Atmospheric Background */}
       <GeometricAtmosphere variant="about" />
 

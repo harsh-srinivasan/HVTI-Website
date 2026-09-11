@@ -732,12 +732,13 @@ export default function Hero() {
             {/* MOBILE CTA BUTTONS */}
             <div
               className={`
-                mt-10
+                mt-8
+                mb-12
                 flex
                 w-full
-                max-w-[300px]
+                max-w-[270px]
                 flex-col
-                gap-3
+                gap-2.5
                 transition-all
                 duration-[1100ms]
                 delay-[780ms]
@@ -750,7 +751,7 @@ export default function Hero() {
                 href="/products"
                 className="
                   flex
-                  h-[46px]
+                  h-[40px]
                   w-full
                   items-center
                   justify-center
@@ -759,17 +760,19 @@ export default function Hero() {
                   bg-gradient-to-r
                   from-[#F97316]
                   to-[#EA580C]
-                  px-5
+                  px-4.5
                   font-sans
-                  text-[12px]
+                  text-[11.5px]
                   font-bold
                   tracking-wide
                   text-white
-                  shadow-[0_0_20px_rgba(249,115,22,0.30)]
+                  shadow-[0_0_18px_rgba(249,115,22,0.28)]
+                  transition-transform
+                  active:scale-[0.98]
                 "
               >
                 <span>EXPLORE PRODUCTS</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
                   <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </Link>
@@ -779,7 +782,7 @@ export default function Hero() {
                 href="/contact"
                 className="
                   flex
-                  h-[46px]
+                  h-[40px]
                   w-full
                   items-center
                   justify-center
@@ -788,16 +791,18 @@ export default function Hero() {
                   border
                   border-white/[0.20]
                   bg-[#0C1120]/80
-                  px-5
+                  px-4.5
                   font-sans
-                  text-[12px]
+                  text-[11.5px]
                   font-semibold
                   text-white
                   backdrop-blur-md
+                  transition-transform
+                  active:scale-[0.98]
                 "
               >
                 <span>Talk To An Engineer</span>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </Link>
@@ -808,6 +813,7 @@ export default function Hero() {
           <div
             className={`
               mt-auto
+              pt-4
               grid
               grid-cols-2
               border-t

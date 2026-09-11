@@ -169,17 +169,9 @@ export default function ProductAtmosphere() {
               <stop offset="68%" stopColor="#A855F7" stopOpacity="0.5" />
               <stop offset="100%" stopColor="#C084FC" stopOpacity="0.3" />
             </linearGradient>
-
-            <filter id="energyGlow" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="4.5" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
           </defs>
 
-          {/* Outer Glow Path */}
+          {/* Outer Soft Glow Layer */}
           <path
             d="
               M -40 380
@@ -196,10 +188,9 @@ export default function ProductAtmosphere() {
               C 1320 4840, 980 5000, 720 5140
             "
             stroke="url(#hvEnergyGradMain)"
-            strokeWidth="5"
+            strokeWidth="6"
             strokeLinecap="round"
-            strokeOpacity="0.45"
-            filter="url(#energyGlow)"
+            strokeOpacity="0.25"
           />
 
           {/* Primary Trace */}
@@ -341,17 +332,9 @@ export default function ProductAtmosphere() {
               <stop offset="86%" stopColor="#F97316" stopOpacity="0.90" />
               <stop offset="100%" stopColor="#A855F7" stopOpacity="0.4" />
             </linearGradient>
-
-            <filter id="energyGlowMobile" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="3.5" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
           </defs>
 
-          {/* Layer 1: Glow */}
+          {/* Layer 1: Soft Glow */}
           <path
             d="
               M 410 120
@@ -369,10 +352,9 @@ export default function ProductAtmosphere() {
               C 20 5050, 80 5270, 200 5380
             "
             stroke="url(#hvEnergyGradMobile)"
-            strokeWidth="4.5"
+            strokeWidth="5.5"
             strokeLinecap="round"
-            strokeOpacity="0.40"
-            filter="url(#energyGlowMobile)"
+            strokeOpacity="0.25"
           />
 
           {/* Layer 2: Core Trace */}

@@ -1,5 +1,7 @@
 import Hero from "@/components/home/hero";
 import DesktopProductCard from "@/components/home/ProductTypes";
+import FlagshipProducts from "@/components/home/FlagshipProducts";
+import UpcomingProductTeaser from "@/components/home/UpcomingProductTeaser";
 import HomeFacilities from "@/components/home/HomeFacilities";
 import TrustedOrganizations from "@/components/home/TrustedOrganization";
 import CustomEngineering from "@/components/home/CustomEngineering";
@@ -7,7 +9,7 @@ import ViewAllCanvas from "@/components/viewAll/ViewAllCanvas";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen w-full overflow-x-hidden bg-[#05070D]">
+    <main className="relative min-h-screen w-full overflow-x-clip bg-[#05070D]">
       {/* 0. Continuous Minimalist Stardust Canvas */}
       <ViewAllCanvas />
 
@@ -17,13 +19,19 @@ export default function Home() {
       {/* 2. Product Categories Showcase */}
       <DesktopProductCard />
 
-      {/* 3. World-Class Facilities & Infrastructure (Management Office & Laboratory) */}
+      {/* 3. Flagship Products Showcase (TP-S9 & HMVD) */}
+      <FlagshipProducts />
+
+      {/* 4. Upcoming Next-Gen Launch Teaser (HVTI-HMD+) */}
+      <UpcomingProductTeaser />
+
+      {/* 5. World-Class Facilities & Infrastructure (Management Office & Laboratory) */}
       <HomeFacilities />
 
-      {/* 4. Trusted Organizations Marquee */}
+      {/* 6. Trusted Organizations Marquee */}
       <TrustedOrganizations />
 
-      {/* 5. Custom Engineering & Direct Inquiries */}
+      {/* 7. Custom Engineering & Direct Inquiries */}
       <CustomEngineering />
     </main>
   );

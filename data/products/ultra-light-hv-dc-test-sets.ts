@@ -23,7 +23,7 @@ const ultraLightHVDCTestSets: ProductData = {
   ],
 
   renderType: "image",
-  image: "/images/products/ultra-light-hv-dc-test-sets.jpg",
+  image: "/images/products/ultra-light-hv-dc-test-sets-hd.webp",
   specImage: "/images/products/product-testing.jpg",
 
   engineeringAtAGlance: [

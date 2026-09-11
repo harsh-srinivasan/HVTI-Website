@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useSmoothScroll } from "@/components/providers/SmoothScrollProvider";
 
 /* ================================================================
    VIEWALL-STYLE VERTICALLY CENTERED STICKY TABLE OF CONTENTS
@@ -30,15 +31,15 @@ export default function BlogTableOfContents({
   activeId,
   onItemClick,
 }: BlogTableOfContentsProps) {
+  const { scrollTo } = useSmoothScroll();
+
   const handleClick = (id: string) => {
     if (onItemClick) {
       onItemClick(id);
     } else {
       const el = document.getElementById(id);
       if (el) {
-        const yOffset = -95;
-        const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
-        window.scrollTo({ top: y, behavior: "smooth" });
+        scrollTo(el, { offset: -95, duration: 1.15 });
       }
     }
   };

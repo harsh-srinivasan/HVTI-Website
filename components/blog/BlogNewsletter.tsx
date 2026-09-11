@@ -80,8 +80,12 @@ export default function BlogNewsletter() {
             ✓ Thank you for subscribing to HVTI Technical Insights.
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="mx-auto mt-5 flex max-w-[440px] flex-col gap-2.5 sm:flex-row">
+          <form onSubmit={handleSubmit} className="mx-auto mt-5 flex max-w-[440px] flex-col gap-2.5 sm:flex-row" suppressHydrationWarning>
             <input
+              id="newsletter-email"
+              name="email"
+              autoComplete="email"
+              suppressHydrationWarning
               type="email"
               required
               value={email}

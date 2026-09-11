@@ -71,15 +71,14 @@ export default function ProductSpecifications({
         relative
         flex
         w-full
-        min-h-[calc(100vh-80px)]
         flex-col
         justify-center
         overflow-hidden
         bg-transparent
-        py-16
-        sm:py-20
-        lg:py-20
-        xl:py-24
+        py-12
+        sm:py-16
+        lg:py-16
+        xl:py-20
       "
     >
       {/* Background ambient lighting */}
@@ -89,8 +88,8 @@ export default function ProductSpecifications({
           absolute
           left-1/2
           top-1/2
-          h-[700px]
-          w-[1000px]
+          h-[600px]
+          w-[900px]
           -translate-x-1/2
           -translate-y-1/2
           bg-[radial-gradient(ellipse_at_50%_50%,rgba(168,85,247,0.035),transparent_65%)]
@@ -104,16 +103,16 @@ export default function ProductSpecifications({
         <div
           ref={headerRef}
           className={`
-            mb-10
+            mb-6
             text-center
             transition-all
             duration-[1800ms]
             ease-[cubic-bezier(0.16,1,0.3,1)]
-            lg:mb-12
-            ${headerVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}
+            lg:mb-8
+            ${headerVisible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}
           `}
         >
-          <div className="mb-3 flex items-center justify-center gap-3">
+          <div className="mb-2.5 flex items-center justify-center gap-3">
             <span
               className={`
                 h-[2px]
@@ -146,13 +145,13 @@ export default function ProductSpecifications({
               mx-auto
               max-w-[760px]
               font-heading
-              text-[30px]
+              text-[26px]
               font-semibold
               leading-[1.15]
               tracking-[-0.025em]
               text-white
-              sm:text-[36px]
-              xl:text-[40px]
+              sm:text-[32px]
+              xl:text-[36px]
             "
           >
             Detailed specifications for precise performance.
@@ -183,8 +182,8 @@ export default function ProductSpecifications({
           <div
             className={`
               grid
-              gap-6
-              xl:gap-8
+              gap-5
+              xl:gap-7
               ${specImage ? "lg:grid-cols-[1.45fr_1fr] lg:items-stretch" : "grid-cols-1 max-w-[1020px] mx-auto"}
             `}
           >
@@ -207,13 +206,13 @@ export default function ProductSpecifications({
                 <table className="w-full border-collapse">
                   <thead>
                     <tr className="border-b border-white/[0.08] bg-white/[0.035]">
-                      <th className="px-5 py-3 text-left font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[#A855F7] xl:px-6 xl:py-3.5">
+                      <th className="px-5 py-2.5 text-left font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[#A855F7] xl:px-6 xl:py-3">
                         Parameter
                       </th>
-                      <th className="px-5 py-3 text-left font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[#A855F7] xl:px-6 xl:py-3.5">
+                      <th className="px-5 py-2.5 text-left font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[#A855F7] xl:px-6 xl:py-3">
                         Details
                       </th>
-                      <th className="px-5 py-3 text-left font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[#A855F7] xl:px-6 xl:py-3.5">
+                      <th className="px-5 py-2.5 text-left font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-[#A855F7] xl:px-6 xl:py-3">
                         Range / Options
                       </th>
                     </tr>
@@ -229,13 +228,13 @@ export default function ProductSpecifications({
                           ${index % 2 === 0 ? "bg-transparent" : "bg-white/[0.015]"}
                         `}
                       >
-                        <td className="border-t border-white/[0.06] px-5 py-2.5 font-sans text-[13.5px] font-semibold text-white xl:px-6 xl:py-3 xl:text-[14px]">
+                        <td className="border-t border-white/[0.06] px-5 py-2 font-sans text-[13px] font-semibold text-white xl:px-6 xl:py-2.5 xl:text-[13.5px]">
                           {row.parameter}
                         </td>
-                        <td className="border-t border-white/[0.06] px-5 py-2.5 font-sans text-[13px] text-[#CBD5E1] xl:px-6 xl:py-3 xl:text-[13.5px]">
+                        <td className="border-t border-white/[0.06] px-5 py-2 font-sans text-[12.5px] text-[#E2E8F0] xl:px-6 xl:py-2.5 xl:text-[13px]">
                           {row.details || "—"}
                         </td>
-                        <td className="border-t border-white/[0.06] px-5 py-2.5 font-sans text-[13px] text-[#94A3B8] xl:px-6 xl:py-3 xl:text-[13.5px]">
+                        <td className="border-t border-white/[0.06] px-5 py-2 font-sans text-[12.5px] text-[#CBD5E1] xl:px-6 xl:py-2.5 xl:text-[13px]">
                           {row.range || row.value || "—"}
                         </td>
                       </tr>

@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 /* ================================================================
    VIEWPORT 3 — ABOUT / IN MEMORY OF OUR VISIONARY (MR. UMED SINGH)
@@ -14,31 +15,9 @@ import React, { useEffect, useRef, useState } from "react";
    - Recognition highlight: British Fellowship recipient (1985)
    ================================================================ */
 
-function useReveal(threshold = 0.25) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.unobserve(el);
-        }
-      },
-      { threshold }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
-
-  return { ref, visible };
-}
-
 export default function AboutVisionary() {
-  const { ref: sectionRef, visible: sectionVisible } = useReveal(0.2);
+  const { ref: sectionRef, visible: sectionVisible } = useScrollReveal({ threshold: 0.1 });
+
 
   return (
     <section

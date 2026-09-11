@@ -10,6 +10,7 @@ import InteractivePowerCapacityChart from "./InteractivePowerCapacityChart";
 import SolarParksInteractiveTable from "./SolarParksInteractiveTable";
 import EquipmentHighlightCard from "./EquipmentHighlightCard";
 import BlogTableOfContents, { TocItem } from "./BlogTableOfContents";
+import { useSmoothScroll } from "@/components/providers/SmoothScrollProvider";
 
 /* ================================================================
    WORLD-CLASS TECHNICAL ARTICLE READER
@@ -29,48 +30,53 @@ interface BlogArticleReaderProps {
 export default function BlogArticleReader({ post }: BlogArticleReaderProps) {
   const relatedPosts = getRelatedBlogPosts(post.slug, 2);
   const isResilientEnergyPost = post.slug === "empowering-a-resilient-energy-future";
+  const { scrollTo } = useSmoothScroll();
 
   // Define structured TOC items for navigation
   const tocItems: TocItem[] = isResilientEnergyPost
     ? [
-        { id: "section-summary", title: "Executive Summary & Overview", shortTitle: "Executive Summary & Grid Challenges" },
-        { id: "section-capacity", title: "National Grid Capacity Dynamics", shortTitle: "India Power Capacity (Jan 2025)" },
-        { id: "section-solar-parks", title: "Ultra-Mega Solar Parks Matrix", shortTitle: "Ultra-Mega Solar Parks Matrix" },
-        { id: "section-safety", title: "Live-Line Safety & TP-S9 Detector", shortTitle: "Live-Line High Voltage Safety" },
-        { id: "section-monitoring", title: "Condition Monitoring & SCADA", shortTitle: "Condition Monitoring & Smart Grid" },
+        { id: "grid-stability", title: "1. Advanced Grid Stability & Resilient Infrastructure", shortTitle: "1. Grid Stability" },
+        { id: "testing-equipment", title: "2. Mission-Critical High-Voltage Testing Solutions", shortTitle: "2. Testing Solutions" },
+        { id: "safety-standards", title: "3. Rigorous Safety Standards & Compliance", shortTitle: "3. Safety & Compliance" },
+        { id: "future-outlook", title: "4. The Road Ahead: Smart & Sustainable Grids", shortTitle: "4. Future Outlook" },
       ]
-    : post.sections.map((s, idx) => ({
-        id: `section-${idx}`,
-        title: s.heading || `Section ${idx + 1}`,
-      }));
+    : [
+        { id: "section-1", title: "1. High-Voltage Infrastructure Overview", shortTitle: "1. Overview" },
+        { id: "section-2", title: "2. Technical Analysis & Innovations", shortTitle: "2. Analysis" },
+        { id: "section-3", title: "3. Case Studies & Real-World Deployments", shortTitle: "3. Deployments" },
+        { id: "section-4", title: "4. Engineering Takeaways & Best Practices", shortTitle: "4. Best Practices" },
+      ];
 
-  const [activeSection, setActiveSection] = useState<string>(tocItems[0]?.id || "section-summary");
+  const [activeSection, setActiveSection] = useState<string>(tocItems[0]?.id ?? "");
   const [copied, setCopied] = useState(false);
 
-  // High-precision real-time scroll tracking
+  /*
+   * High-precision real-time scroll tracking
+   */
   const updateActiveSection = useCallback(() => {
-    const sectionIds = tocItems.map((item) => item.id);
+    const sections = document.querySelectorAll<HTMLElement>("[data-article-section]");
+    if (!sections.length) return;
+
     const targetLine = window.innerHeight * 0.35; // 35% from top of viewport
     let currentId = "";
 
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) {
-        const rect = el.getBoundingClientRect();
-        if (rect.top <= targetLine && rect.bottom > targetLine) {
-          currentId = id;
-        }
+    sections.forEach((section) => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top <= targetLine && rect.bottom > targetLine) {
+        currentId = section.getAttribute("data-section-id") || "";
       }
     });
 
-    if (!currentId && sectionIds.length > 0) {
-      const firstEl = document.getElementById(sectionIds[0]);
-      if (firstEl && firstEl.getBoundingClientRect().top > targetLine) {
-        currentId = sectionIds[0];
+    // Fallback if before first or after last
+    if (!currentId) {
+      const firstRect = sections[0].getBoundingClientRect();
+      if (firstRect.top > targetLine) {
+        currentId = sections[0].getAttribute("data-section-id") || "";
       } else {
-        const lastEl = document.getElementById(sectionIds[sectionIds.length - 1]);
-        if (lastEl && lastEl.getBoundingClientRect().bottom <= targetLine) {
-          currentId = sectionIds[sectionIds.length - 1];
+        const lastSection = sections[sections.length - 1];
+        const lastRect = lastSection.getBoundingClientRect();
+        if (lastRect.bottom <= targetLine) {
+          currentId = lastSection.getAttribute("data-section-id") || "";
         }
       }
     }
@@ -78,7 +84,7 @@ export default function BlogArticleReader({ post }: BlogArticleReaderProps) {
     if (currentId && currentId !== activeSection) {
       setActiveSection(currentId);
     }
-  }, [tocItems, activeSection]);
+  }, [activeSection]);
 
   useEffect(() => {
     let ticking = false;
@@ -107,14 +113,7 @@ export default function BlogArticleReader({ post }: BlogArticleReaderProps) {
     setActiveSection(id);
     const el = document.getElementById(id);
     if (el) {
-      const navOffset = 95;
-      const elementPosition = el.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - navOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
+      scrollTo(el, { offset: -95, duration: 1.15 });
     }
   };
 
@@ -147,7 +146,7 @@ export default function BlogArticleReader({ post }: BlogArticleReaderProps) {
   const scrollToContent = () => {
     const el = document.getElementById("article-content-start");
     if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+      scrollTo(el, { offset: -85, duration: 1.15 });
     }
   };
 

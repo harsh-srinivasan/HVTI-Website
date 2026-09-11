@@ -11,13 +11,19 @@ import ProductBenefits from "./ProductBenefits";
 import ProductSafetySimulator from "./ProductSafetySimulator";
 import ProductCTA from "./ProductCTA";
 
+import MultiProductHero from "./MultiProductHero";
+import ProductRangeSelector from "./ProductRangeSelector";
+import ComparisonMatrix from "./ComparisonMatrix";
+import GasDetectionFeatures from "./GasDetectionFeatures";
+import DedicatedConsultationCTA from "./DedicatedConsultationCTA";
+
 /* ================================================================
    HVTI PRODUCT PAGE SYSTEM — PIPELINE ORCHESTRATOR
    File: components/products/ProductPage.tsx
 
    Data-driven, reusable product page pipeline.
-   Every section below the Hero is conditionally rendered based on
-   actual product data.
+   Supports both single-product engineering deep-dives and
+   multi-product category comparison pages.
    ================================================================ */
 
 export default function ProductPage({
@@ -25,8 +31,102 @@ export default function ProductPage({
 }: {
   product: ProductData;
 }) {
+  const isMultiProduct =
+    Boolean(product.rangeGroups?.length) ||
+    Boolean(product.productVariants?.length) ||
+    Boolean(product.comparisonMatrix);
+
+  const isGasDetection = product.slug === "sat-v90-gas-detection-camera" || product.slug === "gas-detection-camera";
+
+  if (isGasDetection) {
+    return (
+      <main className="relative min-h-screen w-full overflow-x-clip bg-[#05070D] text-white">
+        <ProductAtmosphere />
+        <div className="relative z-10 w-full">
+          {/* 01 — HERO */}
+          <MultiProductHero
+            product={product}
+            breadcrumbCategory="Cameras & Imaging"
+            ctaText="Request a Quote"
+            ctaLink="/contact?subject=SAT%20V90%20Gas%20Detection%20Camera%20Inquiry"
+          />
+
+          {/* 02 — ENGINEERING AT A GLANCE */}
+          {product.engineeringAtAGlance && product.engineeringAtAGlance.length > 0 && (
+            <ProductEngineeringAtAGlance items={product.engineeringAtAGlance} />
+          )}
+
+          {/* 03 — TECHNICAL SPECIFICATIONS (TPS9 3-COLUMN TABLE + HARDWARE PREVIEW) */}
+          <ProductSpecifications product={product} />
+
+          {/* 04 — APPLICATIONS (ORBITAL ENERGY LOOP) */}
+          {product.applications && product.applications.length > 0 && (
+            <ProductApplications applications={product.applications} />
+          )}
+
+          {/* 05 — SPECIALIZED FEATURES */}
+          <GasDetectionFeatures product={product} />
+
+          {/* 06 — BENEFITS / WHY HVTI */}
+          {product.benefits && (
+            <ProductBenefits benefits={product.benefits} />
+          )}
+
+          {/* 07 — CONSULTATION CTA */}
+          <DedicatedConsultationCTA
+            cta={product.cta}
+            defaultTitle="Need a solution for gas leak detection?"
+            defaultDescription="Request a technical demonstration, consultation, or formal quotation for the SAT V90 Optical Gas Imaging camera."
+            supportingImage="/images/products/sat-v90.png"
+          />
+        </div>
+      </main>
+    );
+  }
+
+  if (isMultiProduct) {
+    return (
+      <main className="relative min-h-screen w-full overflow-x-clip bg-[#05070D] text-white">
+        <ProductAtmosphere />
+        <div className="relative z-10 w-full">
+          {/* 01 — HERO */}
+          <MultiProductHero product={product} />
+
+          {/* 02 — ENGINEERING AT A GLANCE */}
+          {product.engineeringAtAGlance && product.engineeringAtAGlance.length > 0 && (
+            <ProductEngineeringAtAGlance items={product.engineeringAtAGlance} />
+          )}
+
+          {/* 03 — RANGE / VARIANT SELECTOR */}
+          <ProductRangeSelector product={product} />
+
+          {/* 04 — COMPARISON MATRIX */}
+          <ComparisonMatrix product={product} />
+
+          {/* 05 — APPLICATIONS (ORBITAL ENERGY LOOP) */}
+          {product.applications && product.applications.length > 0 && (
+            <ProductApplications applications={product.applications} />
+          )}
+
+          {/* 06 — FEATURES (Render only if configured) */}
+          {product.features && product.features.length > 0 && (
+            <ProductFeatures features={product.features} />
+          )}
+
+          {/* 07 — BENEFITS / WHY HVTI */}
+          {product.benefits && product.benefits.length > 0 && (
+            <ProductBenefits benefits={product.benefits} />
+          )}
+
+          {/* 08 — CONSULTATION CTA */}
+          <DedicatedConsultationCTA cta={product.cta} supportingImage={product.image} />
+        </div>
+      </main>
+    );
+  }
+
   return (
-    <main className="relative w-full overflow-hidden bg-[#05070D] text-white">
+    <main className="relative w-full overflow-x-clip bg-[#05070D] text-white">
       {/* ==========================================================
           CONTINUOUS ATMOSPHERIC BACKGROUND SYSTEM
           ========================================================== */}

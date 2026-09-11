@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { CategoryProduct } from "@/types/category";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 /* ================================================================
    VIEW ALL — SINGLE PRODUCT SECTION COMPONENT
@@ -14,37 +15,15 @@ import { CategoryProduct } from "@/types/category";
    - High-voltage capsule CTA button
    ================================================================ */
 
-function useReveal(threshold = 0.2) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.unobserve(el);
-        }
-      },
-      { threshold }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
-
-  return { ref, visible };
-}
-
 export default function Product({
   product,
 }: {
   product: CategoryProduct;
 }) {
-  const { ref: sectionRef, visible: sectionVisible } = useReveal(0.2);
+  const { ref: sectionRef, visible: sectionVisible } = useScrollReveal({ threshold: 0.1 });
   const targetHref = product.slug ? `/products/${product.slug}` : `/contact?subject=${encodeURIComponent(product.title)}`;
-  const actionLabel = product.slug ? "View Product" : "Inquire Product";
+  const actionLabel = product.button || (product.slug ? "View Product" : "Inquire Product");
+
 
   return (
     <div
@@ -208,37 +187,40 @@ export default function Product({
         </div>
 
         {/* =====================================================
-            RIGHT SIDE — PRODUCT IMAGE FRAME
+            RIGHT SIDE — FLOATING PRODUCT STAGE
             ===================================================== */}
-        <div className="relative mx-auto w-full max-w-[460px] lg:max-w-none">
-          {/* Subtle Purple Underglow */}
+        <div className="relative mx-auto flex w-full max-w-[540px] items-center justify-center lg:max-w-none">
+          {/* Subtle Ambient Ground Glow */}
           <div
             className="
               pointer-events-none
               absolute
-              -inset-2
-              rounded-[20px]
-              bg-[radial-gradient(ellipse_at_50%_100%,rgba(168,85,247,0.28),rgba(124,58,237,0.08)_50%,transparent_75%)]
-              blur-[20px]
+              bottom-[8%]
+              left-1/2
+              h-[240px]
+              w-[420px]
+              -translate-x-1/2
+              rounded-full
+              bg-[radial-gradient(ellipse_at_50%_60%,rgba(168,85,247,0.14),rgba(249,115,22,0.04)_45%,transparent_70%)]
+              blur-[36px]
             "
+            aria-hidden="true"
           />
 
-          {/* Clean Thin Border Frame */}
+          {/* Floating Product Image Stage (No enclosing card/border container) */}
           <div
             className="
+              group
               relative
-              aspect-[4/3.2]
+              aspect-[16/10]
               w-full
-              overflow-hidden
-              rounded-[14px]
-              border
-              border-white/[0.10]
-              bg-[#080D1A]
-              p-6
-              shadow-[0_16px_40px_rgba(0,0,0,0.7),0_0_24px_rgba(168,85,247,0.12)]
-              transition-all
-              duration-500
-              hover:border-[#A855F7]/40
+              flex
+              items-center
+              justify-center
+              transition-transform
+              duration-700
+              ease-out
+              hover:scale-[1.03]
             "
           >
             <Image
@@ -248,14 +230,13 @@ export default function Product({
               quality={95}
               className="
                 object-contain
-                p-4
                 transition-transform
                 duration-700
-                hover:scale-105
+                ease-out
               "
-              sizes="(max-width: 768px) 100vw, 480px"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 560px"
+              priority={product.id === "ultra-light-hv-dc-test-sets"}
             />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#080D1A] via-transparent to-transparent opacity-30" />
           </div>
         </div>
       </div>

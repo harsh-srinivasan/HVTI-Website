@@ -303,7 +303,21 @@ export default function HelmetProximitySimulator({
     initAudio();
     if (isAutoPatrol) setIsAutoPatrol(false);
     setIsDragging(true);
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch {
+      // safe fallback
+    }
     handlePointerMove(e);
+  };
+
+  const handleSvgPointerUp = (e: React.PointerEvent<SVGSVGElement>) => {
+    setIsDragging(false);
+    try {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    } catch {
+      // safe fallback
+    }
   };
 
   const handlePointerMove = (e: React.PointerEvent<SVGSVGElement>) => {
@@ -323,56 +337,35 @@ export default function HelmetProximitySimulator({
   return (
     <section
       id="product-safety-simulator"
-      className="relative w-full overflow-hidden bg-[#030712] py-20 text-white"
+      className="relative w-full overflow-hidden bg-transparent py-12 sm:py-16 lg:py-20"
     >
-      {/* Background Atmosphere Glow */}
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        <div className="absolute -top-32 left-1/4 h-[500px] w-[500px] rounded-full bg-[#6366F1]/10 blur-[130px]" />
-        <div className="absolute top-1/3 -right-32 h-[550px] w-[550px] rounded-full bg-[#EC4899]/10 blur-[140px]" />
-        <div className="absolute -bottom-32 left-1/3 h-[500px] w-[500px] rounded-full bg-[#F59E0B]/8 blur-[120px]" />
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-            backgroundSize: "32px 32px",
-          }}
-        />
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
         {/* ========================================================
-            HEADER SECTION
+            SECTION HEADER (MATCHING TP-S9 COCKPIT STYLING)
             ======================================================== */}
-        <div className="mb-10 text-center">
-          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1.5 backdrop-blur-md">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500" />
-            </span>
-            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-300">
+        <div className="mb-8 text-center sm:mb-10">
+          <div className="mb-2 flex items-center justify-center gap-3">
+            <span className="h-[2px] w-8 bg-[#A855F7]" />
+            <span className="font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-[#A855F7]">
               {config?.badge || "Interactive Proximity Simulator"}
             </span>
+            <span className="h-[2px] w-8 bg-[#A855F7]" />
           </div>
 
-          <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
+          <h2 className="mx-auto max-w-[840px] font-heading text-[28px] font-bold leading-tight tracking-tight text-white sm:text-[34px] xl:text-[38px]">
             {config?.title ||
               "Hands-Free Electric Field Hazard & Proximity Simulator"}
           </h2>
-
-          <p className="mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-slate-400 sm:text-base">
-            {config?.subtitle ||
-              "Simulate technician movement near energized high-voltage panels to experience 360° electrostatic proximity detection in real time."}
-          </p>
         </div>
 
         {/* ========================================================
             3-COLUMN COCKPIT CONTAINER
             ======================================================== */}
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-12 lg:gap-5 xl:gap-6 items-start">
           {/* ------------------------------------------------------
               LEFT COLUMN: ENVIRONMENT CONTROLS & SWITCHBOARD (3 Cols)
               ------------------------------------------------------ */}
-          <div className="flex flex-col gap-5 rounded-2xl border border-white/10 bg-slate-900/70 p-5 shadow-2xl backdrop-blur-xl lg:col-span-3">
+          <div className="flex flex-col gap-5 rounded-2xl border border-white/10 bg-[#0B101B]/90 p-4 sm:p-5 backdrop-blur-xl shadow-xl lg:col-span-3">
             <div>
               <div className="mb-3 flex items-center justify-between">
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
@@ -388,6 +381,7 @@ export default function HelmetProximitySimulator({
                   <span
                     className={`h-1.5 w-1.5 rounded-full ${
                       isPanelEnergized
+
                         ? "animate-ping bg-red-400"
                         : "bg-emerald-400"
                     }`}
@@ -575,7 +569,8 @@ export default function HelmetProximitySimulator({
           {/* ------------------------------------------------------
               CENTER COLUMN: SUBSTATION YARD CANVAS (6 Cols)
               ------------------------------------------------------ */}
-          <div className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-slate-900/70 p-5 shadow-2xl backdrop-blur-xl lg:col-span-6">
+          <div className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-[#0B101B]/90 p-4 sm:p-5 backdrop-blur-xl shadow-xl lg:col-span-6">
+
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
@@ -600,16 +595,15 @@ export default function HelmetProximitySimulator({
             </div>
 
             {/* Interactive High-Fidelity SVG Canvas (Direct 60fps Dragging) */}
-            <div className="relative h-[380px] w-full select-none overflow-hidden rounded-xl border border-slate-800 bg-[#050814]">
+            <div className="relative w-full select-none overflow-hidden rounded-xl border border-slate-800 bg-[#050814] shadow-2xl">
               <svg
                 ref={svgRef}
                 viewBox="0 0 920 440"
-                className="h-full w-full cursor-ew-resize"
-                preserveAspectRatio="xMidYMid meet"
+                className="w-full h-auto block select-none cursor-ew-resize"
                 onPointerDown={handleSvgPointerDown}
                 onPointerMove={handlePointerMove}
-                onPointerUp={() => setIsDragging(false)}
-                onPointerLeave={() => setIsDragging(false)}
+                onPointerUp={handleSvgPointerUp}
+                onPointerLeave={handleSvgPointerUp}
               >
                 <defs>
                   {/* Sky Gradient */}
@@ -1025,6 +1019,9 @@ export default function HelmetProximitySimulator({
                 </span>
               </div>
               <input
+                id="helmet-avatar-slider"
+                name="avatarPosition"
+                suppressHydrationWarning
                 type="range"
                 min="0"
                 max="100"
@@ -1079,7 +1076,8 @@ export default function HelmetProximitySimulator({
           {/* ------------------------------------------------------
               RIGHT COLUMN: HARDWARE STROBE & REAL-TIME TELEMETRY (3 Cols)
               ------------------------------------------------------ */}
-          <div className="flex flex-col gap-5 rounded-2xl border border-white/10 bg-slate-900/70 p-5 shadow-2xl backdrop-blur-xl lg:col-span-3">
+          <div className="flex flex-col gap-5 rounded-2xl border border-white/10 bg-[#0B101B]/90 p-4 sm:p-5 backdrop-blur-xl shadow-xl lg:col-span-3">
+
             {/* Live Hardware Replica Indicator */}
             <div>
               <div className="mb-3 flex items-center justify-between">

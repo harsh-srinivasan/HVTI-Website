@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import { useSmoothScroll } from "@/components/providers/SmoothScrollProvider";
 
 /* ================================================================
    VIEW ALL — STICKY SIDEBAR PRODUCT NAVIGATION (AUTO-SCROLLING)
@@ -12,8 +13,13 @@ import React, { useEffect, useRef } from "react";
    - Smooth click-to-scroll to corresponding product section
    ================================================================ */
 
+interface NavItem {
+  id: string;
+  title: string;
+}
+
 interface ProductNavigationProps {
-  items: { id: string; title: string }[];
+  items: NavItem[];
   activeId: string;
   onItemClick?: (id: string) => void;
 }
@@ -24,10 +30,11 @@ export default function ProductNavigation({
   onItemClick,
 }: ProductNavigationProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const { scrollTo } = useSmoothScroll();
 
-  // Automatically scroll the sidebar container whenever active product changes
+  // Scroll active item into comfortable view within the sidebar container
   useEffect(() => {
-    if (!activeId || !containerRef.current) return;
+    if (!containerRef.current) return;
     const container = containerRef.current;
     const activeBtn = container.querySelector<HTMLElement>(`[data-nav-id="${activeId}"]`);
 
@@ -58,9 +65,7 @@ export default function ProductNavigation({
     } else {
       const el = document.getElementById(`product-${id}`);
       if (el) {
-        const yOffset = -90;
-        const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
-        window.scrollTo({ top: y, behavior: "smooth" });
+        scrollTo(el, { offset: -90, duration: 1.15 });
       }
     }
   };
@@ -83,10 +88,11 @@ export default function ProductNavigation({
         ref={containerRef}
         className="
           flex
-          max-h-[calc(100vh-200px)]
+          max-h-[min(65vh,480px)]
           flex-col
-          space-y-5
+          space-y-4
           overflow-y-auto
+          py-1
           pr-3
           [scrollbar-width:thin]
           [scrollbar-color:rgba(255,255,255,0.12)_transparent]

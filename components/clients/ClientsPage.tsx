@@ -15,7 +15,7 @@ import ClientCTA from "./ClientCTA";
 
 export default function ClientsPage() {
   return (
-    <main className="relative min-h-screen w-full overflow-x-hidden bg-[#05070D]">
+    <main className="relative min-h-screen w-full overflow-x-clip bg-[#05070D]">
       {/* 1. Procedural Geometric Atmosphere Canvas */}
       <GeometricAtmosphere variant="default" />
 

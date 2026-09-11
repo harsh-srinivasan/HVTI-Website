@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 /* ================================================================
    VIEWPORT 5 — OUR 5 FOUNDATIONAL CORE VALUES
@@ -13,29 +14,6 @@ import React, { useEffect, useRef, useState } from "react";
      4. Cohesive Teamwork
      5. Passion & Professionalism
    ================================================================ */
-
-function useReveal(threshold = 0.25) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.unobserve(el);
-        }
-      },
-      { threshold }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
-
-  return { ref, visible };
-}
 
 const coreValues = [
   {
@@ -81,8 +59,9 @@ const coreValues = [
 ];
 
 export default function AboutValues() {
-  const { ref: headerRef, visible: headerVisible } = useReveal(0.2);
-  const { ref: gridRef, visible: gridVisible } = useReveal(0.2);
+  const { ref: headerRef, visible: headerVisible } = useScrollReveal({ threshold: 0.1 });
+  const { ref: gridRef, visible: gridVisible } = useScrollReveal({ threshold: 0.1 });
+
 
   return (
     <section

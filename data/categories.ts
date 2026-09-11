@@ -23,12 +23,12 @@ export const categoriesData: Record<string, CategoryData> = {
     ],
     products: [
       {
-        id: "hv-ac-dc-testing-kits",
-        slug: "high-voltage-ac-testing-kits",
-        title: "High Voltage AC / DC Testing Kits (HIPOT KITS)",
-        subtitle: "Motors, Generators, Cables & Transformers",
+        id: "high-voltage-ac-dc-testing-systems",
+        slug: "high-voltage-ac-dc-testing-systems",
+        title: "High Voltage AC & DC Testing Systems",
+        subtitle: "Dielectric Withstand & Insulation Integrity up to 300 kV",
         description:
-          "High-voltage AC and DC hipot test kits engineered for proof testing and dielectric withstand diagnostics of electrical apparatus, generators, cables, and power transformers.",
+          "High-voltage AC and DC test systems engineered for proof testing and dielectric withstand diagnostics of electrical apparatus, generators, cables, and power transformers.",
         features: [
           {
             title: "AC & DC High Voltage Testing",
@@ -39,110 +39,194 @@ export const categoriesData: Record<string, CategoryData> = {
             description: "Equipped with motorized voltage control, digital timing, and customizable rate of voltage rise (dV/dt).",
           },
           {
-            title: "PD-Free & High-Precision Design",
-            description: "Ultra-low partial discharge baseline for laboratory grade and rugged on-site field insulation diagnostics.",
+            title: "Resin-Cast & Oil-Filled Designs",
+            description: "Dry-type resin cast transformers (25–150 kV) and heavy-duty oil-filled transformers (50–300 kV) with ultra-low PD baseline.",
           },
         ],
-        button: "View Product",
+        button: "View Category",
         image: "/images/products/hv-ac-dc-testing-kits.png",
-        badge: "25 – 300 kV AC",
+        badge: "25 – 300 kV AC/DC",
         categorySlug: "electrical-testing-equipment",
         categoryTitle: "Electrical Testing Equipment",
         isAvailable: true,
       },
       {
-        id: "ultra-light-hv-dc-test-sets",
-        slug: "ultra-light-hv-dc-test-sets",
-        title: "Ultra Light High Voltage DC Test Sets",
-        subtitle: "Field Portable High-Voltage DC Diagnostics",
+        id: "high-voltage-measurement-dividers",
+        slug: "high-voltage-measurement-dividers",
+        title: "High Voltage Measurement & Dividers",
+        subtitle: "Precision AC/DC Dividers, Digital kV Meters & Sphere Gaps",
         description:
-          "Ultra-lightweight, field-portable DC high-voltage test sets designed for on-site cable testing, surge arresters, and electrical utility maintenance.",
-        features: [
-          {
-            title: "Ultra-Lightweight Form Factor",
-            description: "Optimized power-to-weight ratio for easy one-man field transportation and rapid on-site setup.",
-          },
-          {
-            title: "Digital Voltage & Current Monitoring",
-            description: "Precision digital metering displaying breakdown voltage, leakage current, and automatic trip threshold.",
-          },
-          {
-            title: "Automatic Cable Discharge Protection",
-            description: "Integrated high-capacity internal discharge resistor for safe discharge of capacitive loads upon test completion.",
-          },
-        ],
-        button: "View Product",
-        image: "/images/products/ultra-light-hv-dc-test-sets.jpg",
-        badge: "Lightweight DC",
-        categorySlug: "electrical-testing-equipment",
-        categoryTitle: "Electrical Testing Equipment",
-        isAvailable: true,
-      },
-      {
-        id: "hv-ac-dc-dividers",
-        slug: "hv-ac-dc-dividers",
-        title: "High Voltage AC/DC Dividers",
-        subtitle: "Precision High-Voltage Calibration & Measurement",
-        description:
-          "High-precision resistive and capacitive voltage dividers engineered for accurate laboratory and field measurement of AC, DC, and impulse high-voltage waveforms.",
+          "High-precision resistive and capacitive voltage dividers and standard sphere gaps engineered for accurate laboratory and field measurement of AC, DC, and impulse high-voltage waveforms.",
         features: [
           {
             title: "Universal AC & DC Voltage Measurement",
-            description: "Compatible with power frequency AC, pure DC, and high-frequency transient impulse voltage verification.",
+            description: "Compatible with power frequency AC, pure DC, and high-frequency transient impulse voltage verification up to 300 kV.",
           },
           {
-            title: "Ultra-Low Temperature Coefficient",
-            description: "Built with high-stability precision elements ensuring minimal drift across wide temperature variations.",
+            title: "High Accuracy Classes 0.5 / 1.0",
+            description: "Built with high-stability precision elements ensuring minimal temperature drift across wide ranges.",
           },
           {
-            title: "Standard BNC Signal Output",
-            description: "Direct connection to digital oscilloscopes, data loggers, and precision voltmeter instrumentation.",
+            title: "Standard Sphere Gaps (20–1500 mm)",
+            description: "Absolute standards for high-voltage measurement and calibration with motorized automated controls.",
           },
         ],
-        button: "View Product",
+        button: "View Category",
         image: "/images/products/hv-ac-dc-dividers.jpg",
-        badge: "Precision Measurement",
+        badge: "Class 0.5 / 1.0",
         categorySlug: "electrical-testing-equipment",
         categoryTitle: "Electrical Testing Equipment",
         isAvailable: true,
       },
       {
-        id: "current-injection-testing-sets",
-        slug: "current-injection-testing-sets",
-        title: "Primary & Secondary Current Injection Testing Sets",
-        subtitle: "Relay, CT & Circuit Breaker Commissioning",
+        id: "current-injection-protection-testing",
+        slug: "current-injection-protection-testing",
+        title: "Current Injection & Protection Testing",
+        subtitle: "Primary (500 A–10,000 A) & Secondary (30 A–200 A) Testing Sets",
         shortDescription:
           "Heavy-duty primary and secondary current injection sets for testing protective relays, current transformers (CTs), switchgears, and circuit breaker trip units.",
         description:
           "Heavy-duty primary and secondary current injection sets for testing protective relays, current transformers (CTs), switchgears, and circuit breaker trip units under real load conditions.",
         features: [
           {
-            title: "High Current Injection Capacity",
-            description: "Continuous and short-duration injection up to 5000 Amperes for high-voltage substation commissioning.",
+            title: "Primary Injection up to 10,000 A",
+            description: "High-current injection for circuit breakers, busbars, CT ratio/magnetization, MCCs, and PCCs.",
           },
           {
-            title: "Integrated Digital Timer & Phase Angle Meter",
-            description: "High-accuracy timing measurement to milliseconds for tripping characteristics and phase-shift verification.",
+            title: "Secondary Injection 30 A – 200 A",
+            description: "High-precision testing of static, induction, thermal, and directional protective relays with millisecond timing.",
           },
           {
             title: "Rugged Transportable Enclosure",
             description: "Castor-mounted industrial chassis built for harsh substation yards and switchgear testing bays.",
           },
         ],
-        button: "View Product",
+        button: "View Category",
         image: "/images/products/current-injection-testing-sets.jpg",
-        badge: "High Current Injection",
+        badge: "Up to 10,000 A",
         categorySlug: "electrical-testing-equipment",
         categoryTitle: "Electrical Testing Equipment",
         isAvailable: true,
       },
       {
-        id: "dc-earth-fault-locator",
-        slug: "dc-earth-fault-locator",
-        title: "DC Earth Fault Locator",
-        subtitle: "Online Substation DC Floating Battery System Diagnostics",
+        id: "circuit-breaker-testing-analysis",
+        slug: "circuit-breaker-testing-analysis",
+        title: "Circuit Breaker Testing & Analysis",
+        subtitle: "Micro-ohmmeters & SA Series Switchgear Dynamic Analyzers",
         description:
-          "Online ground fault detection system for locating earth faults in control, protection, and DC floating battery supply circuits without shutting down power.",
+          "Comprehensive diagnostic platform combining DRM/LRM/MM series micro-ohmmeters for contact resistance with SA series analyzers for timing, travel, and dynamic motion profiling.",
+        features: [
+          {
+            title: "Contact Resistance (DRM / LRM / MM)",
+            description: "High-current micro-ohm measurement from 0.01 µΩ to 200 Ω with test currents up to 900 A.",
+          },
+          {
+            title: "Dynamic Timing & Motion Analysis",
+            description: "Measures main/resistive contact timing, stroke velocity, damping, over-travel, and coil current profiles.",
+          },
+          {
+            title: "Automated Compliance Reports",
+            description: "Generates standardized fingerprint comparison and switchgear health assessments.",
+          },
+        ],
+        button: "View Category",
+        image: "/images/products/circuit-breaker-testing.jpg",
+        badge: "0.1 ms / 1 µΩ",
+        categorySlug: "electrical-testing-equipment",
+        categoryTitle: "Electrical Testing Equipment",
+        isAvailable: true,
+      },
+      {
+        id: "partial-discharge-solutions",
+        slug: "partial-discharge-solutions",
+        title: "Partial Discharge Solutions",
+        subtitle: "Online Spot Detection, 3D Acoustic Localization & 24/7 Monitoring",
+        description:
+          "Unified Partial Discharge ecosystem spanning handheld spot detectors (PD-LT, PDS, ADD), portable analyzers (XDP-II), acoustic 3D tank localization (AE-150), and continuous online monitoring networks.",
+        features: [
+          {
+            title: "Online Spot Detection & Corona",
+            description: "Non-invasive detection across overhead lines, underground cables, and ultrasonic corona inspection (ULD-40).",
+          },
+          {
+            title: "3D Acoustic Tank Localization (AE-150)",
+            description: "Simultaneous acoustic and electrical sensor processing for sub-millimeter coordinate fault triangulation.",
+          },
+          {
+            title: "Continuous 24/7 Online Monitoring",
+            description: "Multi-channel continuous PD trending and annunciator alert networks for transformers and GIS.",
+          },
+        ],
+        button: "View Category",
+        image: "/images/products/partial-discharge-transformer-testing.jpg",
+        badge: "Complete Ecosystem",
+        categorySlug: "electrical-testing-equipment",
+        categoryTitle: "Electrical Testing Equipment",
+        isAvailable: true,
+      },
+      {
+        id: "transformer-testing-diagnostics",
+        slug: "transformer-testing-diagnostics",
+        title: "Transformer Testing & Diagnostics",
+        subtitle: "Turns Ratio, Winding Resistance, Oil BDV & Moisture",
+        description:
+          "Dedicated instruments for comprehensive transformer health evaluation, including 3-phase turns ratio (ART-3D), DC winding resistance (WRT-10D), CT test sets (CTTx2/5), oil BDV testers (OTS series), and moisture analysis.",
+        features: [
+          {
+            title: "Automatic Turns Ratio (ART-3D)",
+            description: "Turns ratio up to 10000:1 with phase angle and excitation current measurement.",
+          },
+          {
+            title: "Dual-Channel Winding Resistance (WRT-10D)",
+            description: "Rapid demagnetization and temperature-compensated resistance calculation.",
+          },
+          {
+            title: "Automated Oil BDV Breakdown (OTS)",
+            description: "Fully automatic breakdown voltage testing according to IEC/ASTM standards.",
+          },
+        ],
+        button: "View Category",
+        image: "/images/products/transformer-testing-benches-hd.png",
+        badge: "Comprehensive",
+        categorySlug: "electrical-testing-equipment",
+        categoryTitle: "Electrical Testing Equipment",
+        isAvailable: true,
+      },
+      {
+        id: "cable-fault-location-testing",
+        slug: "cable-fault-location-testing",
+        title: "Cable Fault Location & Testing",
+        subtitle: "Pre-Location, Thumping & Acoustic Pinpointing",
+        description:
+          "Advanced underground power cable fault location equipment utilizing Time Domain Reflectometry (TDR), capacitive surge pulse discharge, and acoustic pin-pointing technologies.",
+        features: [
+          {
+            title: "TDR Cable Fault Pre-Locators",
+            description: "High-resolution pulse echo reflectometry for pinpointing open-circuit and short-circuit cable faults.",
+          },
+          {
+            title: "High-Energy Surge Generators",
+            description: "Multi-stage capacitive discharge thumpers for flashing intermittent and high-resistance faults.",
+          },
+          {
+            title: "Acoustic Pin-Pointing Receivers",
+            description: "Ground microphone acoustic and magnetic field correlation for exact surface pin-pointing.",
+          },
+        ],
+        button: "View Category",
+        image: "/images/products/miscellaneous-testing-equipment-hd.png",
+        badge: "TDR & Thumpers",
+        categorySlug: "electrical-testing-equipment",
+        categoryTitle: "Electrical Testing Equipment",
+        isAvailable: true,
+      },
+      {
+        id: "specialized-electrical-testing-equipment",
+        slug: "specialized-electrical-testing-equipment",
+        title: "Specialized Electrical Testing Equipment",
+        subtitle: "DC Earth Faults, Digital Time Interval Meters & SF6 Handling",
+        description:
+          "Specialized utility diagnostic tools including online DC earth fault locators for floating battery circuits, digital time interval meters, SF6 gas handling systems, and relay calibration toolkits.",
         features: [
           {
             title: "Live Non-Invasive Fault Tracking",
@@ -153,125 +237,13 @@ export const categoriesData: Record<string, CategoryData> = {
             description: "Capable of detecting high-resistance ground faults up to hundreds of kilo-ohms with pinpoint direction.",
           },
           {
-            title: "Directional Clamp-On Current Sensor",
-            description: "Easy-to-use handheld sensor indicating the exact feeder branch and physical location of the fault.",
+            title: "Digital Time Interval Meters (DTIM)",
+            description: "Microsecond timing precision for relay coils, contactors, and protection schemes.",
           },
         ],
-        button: "View Product",
-        image: "/images/products/dc-earth-fault-locator.jpg",
-        badge: "Online Fault Detection",
-        categorySlug: "electrical-testing-equipment",
-        categoryTitle: "Electrical Testing Equipment",
-        isAvailable: true,
-      },
-      {
-        id: "partial-discharge-transformer-testing",
-        slug: "partial-discharge-transformer-testing",
-        title: "Partial Discharge Testing & Localization System",
-        subtitle: "Power Transformer & Cable Insulation Health",
-        description:
-          "High-sensitivity multi-channel partial discharge detection and acoustic/electrical localization system for power transformers, GIS, and HV cables.",
-        features: [
-          {
-            title: "Multi-Channel Synchronous PD Acquisition",
-            description: "Simultaneous acoustic and electrical sensor processing for 3D coordinate fault localization.",
-          },
-          {
-            title: "Intelligent Pattern Recognition (PRPD/PRPS)",
-            description: "Automated classification distinguishing between corona, internal void discharge, and surface tracking.",
-          },
-          {
-            title: "Ultra-Wide Frequency Bandwidth",
-            description: "Advanced digital filtering eliminating ambient substation electromagnetic noise and harmonics.",
-          },
-        ],
-        button: "View Product",
-        image: "/images/products/partial-discharge-transformer-testing.jpg",
-        badge: "PD Localization",
-        categorySlug: "electrical-testing-equipment",
-        categoryTitle: "Electrical Testing Equipment",
-        isAvailable: true,
-      },
-      {
-        id: "transformer-testing-benches",
-        slug: "transformer-testing-benches",
-        title: "Transformer Testing Equipment & Benches",
-        subtitle: "Loss, Ratio, Winding Resistance & Impedance Testing",
-        description:
-          "Integrated test benches for routine, type, and diagnostic testing of distribution and power transformers, including turn ratio, winding resistance, and no-load loss measurements.",
-        features: [
-          {
-            title: "Comprehensive Parameter Verification",
-            description: "Automated measurement of voltage ratio, phase displacement, magnetizing current, and copper losses.",
-          },
-          {
-            title: "Dual-Channel Winding Resistance",
-            description: "Built-in rapid core demagnetization and temperature-compensated resistance calculation.",
-          },
-          {
-            title: "Automated Data Logging & Reports",
-            description: "Generates standardized compliance test certificates for utility and manufacturing QA records.",
-          },
-        ],
-        button: "View Product",
-        image: "/images/products/transformer-testing-benches.jpg",
-        badge: "Complete Bench Setup",
-        categorySlug: "electrical-testing-equipment",
-        categoryTitle: "Electrical Testing Equipment",
-        isAvailable: true,
-      },
-      {
-        id: "circuit-breaker-testing",
-        slug: "circuit-breaker-testing",
-        title: "Circuit Breaker Testing Sets",
-        subtitle: "Dynamic Timing, Contact Resistance & Travel Analysis",
-        description:
-          "Microprocessor-based dynamic timing analyzers and micro-ohmmeters for evaluating opening/closing times, bounce, synchronization, and dynamic resistance of VCBs and SF6 breakers.",
-        features: [
-          {
-            title: "12-Channel Main & Resistive Contact Timing",
-            description: "Simultaneous timing capture across all three poles with microsecond resolution.",
-          },
-          {
-            title: "Dynamic Contact Resistance Measurement (DCRM)",
-            description: "Evaluates contact wear and arc erosion without dismantling the breaker interrupter.",
-          },
-          {
-            title: "Linear & Rotary Travel Transducer",
-            description: "Calculates stroke velocity, damping, over-travel, and rebound characteristics.",
-          },
-        ],
-        button: "View Product",
-        image: "/images/products/circuit-breaker-testing.jpg",
-        badge: "Dynamic Timing",
-        categorySlug: "electrical-testing-equipment",
-        categoryTitle: "Electrical Testing Equipment",
-        isAvailable: true,
-      },
-      {
-        id: "miscellaneous-testing-equipment",
-        slug: "miscellaneous-testing-equipment",
-        title: "Miscellaneous Testing Equipment",
-        subtitle: "Vacuum Bottle Testers, Oil BDV Sets & Custom Test Rigs",
-        description:
-          "Tailored custom test rigs, vacuum interrupter bottle testers, transformer oil breakdown voltage (BDV) testers, and specialized diagnostic instruments for industrial utilities.",
-        features: [
-          {
-            title: "VCB Vacuum Bottle Integrity Testers",
-            description: "Quickly verifies vacuum pressure and dielectric integrity inside sealed vacuum interrupters.",
-          },
-          {
-            title: "Transformer Insulating Oil BDV Testers",
-            description: "Precision automated high-voltage spark-gap oil breakdown testers up to 100 kV.",
-          },
-          {
-            title: "Customized High-Voltage Engineering Rigs",
-            description: "Built-to-order test systems configured to specific utility standards and plant specifications.",
-          },
-        ],
-        button: "View Product",
-        image: "/images/products/miscellaneous-testing-equipment.jpg",
-        badge: "Custom Engineering",
+        button: "View Category",
+        image: "/images/products/dc-earth-fault-locator-hd.png",
+        badge: "Specialized Tools",
         categorySlug: "electrical-testing-equipment",
         categoryTitle: "Electrical Testing Equipment",
         isAvailable: true,
@@ -604,33 +576,117 @@ export const categoriesData: Record<string, CategoryData> = {
     stats: [
       { value: "Daylight Solar-Blind", label: "UV Corona Localization" },
       { value: "High Thermal Res", label: "Infrared Hotspot Accuracy" },
-      { value: "Field Ergonomic", label: "Rugged Lightweight Form Factor" },
+      { value: "Cooled QWIP OGI", label: "VOC Gas Leak Detection" },
     ],
     products: [
       {
-        id: "thermal-imaging-cameras",
-        slug: "thermal-imaging-cameras",
-        title: "Thermal Imaging Cameras",
-        subtitle: "High-Resolution Infrared Inspection for Substations",
+        id: "industrial-thermal-cameras",
+        slug: "industrial-thermal-cameras",
+        title: "Industrial & Electrical Thermal Imaging Cameras",
+        subtitle: "High-Performance Infrared Inspection for Substations & Plants",
         description:
-          "Professional high-definition thermal imaging cameras with wide temperature ranges and intuitive analytics for pinpointing loose contacts, overloaded phases, and transformer hot spots.",
+          "Professional high-definition thermal imaging cameras (PK-80, PK-160, Hotfind S, D300, D500, G96) with NETD down to < 30 mK, Duo-Vision fusion, and automated hotspot analytics.",
         features: [
           {
             title: "Ultra-Sensitive Thermal Sensor (NETD < 30 mK)",
-            description: "Detects subtle thermal gradients and overheating connectors with razor-sharp infrared clarity.",
+            description: "Detects subtle thermal gradients, loose bolted connections, and overloaded switchgear with razor-sharp infrared clarity.",
           },
           {
-            title: "Dual Visual & Thermal Image Blending",
-            description: "Overlays thermal heatmaps onto high-resolution optical photographs for instant problem identification.",
+            title: "Wide Range Portfolio (Tablet to 640×480 Console)",
+            description: "From Android smart tablets to motorized laser auto-focus cameras and detachable remote-control consoles for hazardous areas.",
           },
           {
-            title: "Automated Hot & Cold Spot Tracking",
-            description: "Dynamic on-screen cursor automatically tracks the hottest temperature point in real time.",
+            title: "Dual Visual & Thermal Fusion Blending",
+            description: "Overlays radiometric thermal heatmaps onto high-resolution optical photographs for instant electrical component identification.",
+          },
+        ],
+        button: "View Product Range",
+        image: "/images/products/satir-hotfind-s.png",
+        badge: "Infrared Thermal",
+        categorySlug: "cameras-and-imaging-systems",
+        categoryTitle: "Cameras and Imaging Systems",
+        isAvailable: true,
+      },
+      {
+        id: "automotive-thermal-imaging-systems",
+        slug: "automotive-thermal-imaging-systems",
+        title: "Automotive Thermal Imaging Systems",
+        subtitle: "Vehicle Night Vision & Adverse Weather Safety",
+        description:
+          "Vehicle-mounted thermal imaging systems (SATIR NV618S & NV618W / La Moon) for enhanced driver visibility through pitch darkness, dense fog, heavy rain, and oncoming headlight glare.",
+        features: [
+          {
+            title: "Dual-Channel Thermal & Night Vision Sensor",
+            description: "Combines 384×288 thermal IR with low-light optical technology for comprehensive all-weather road situational awareness.",
+          },
+          {
+            title: "Intelligent Pedestrian & Obstacle Analytics",
+            description: "Real-time visual and audible warnings alerting drivers to pedestrians, cyclists, and animals beyond headlight range.",
+          },
+          {
+            title: "Wireless Touchscreen Tablet Integration",
+            description: "Convenient dash installation with high-resolution wireless display receivers and standard video output interfacing.",
+          },
+        ],
+        button: "View Product Range",
+        image: "/images/products/satir-nv618s.png",
+        badge: "Vehicle Night Vision",
+        categorySlug: "cameras-and-imaging-systems",
+        categoryTitle: "Cameras and Imaging Systems",
+        isAvailable: true,
+      },
+      {
+        id: "thermal-surveillance-observation-systems",
+        slug: "thermal-surveillance-observation-systems",
+        title: "Thermal Surveillance & Observation Systems",
+        subtitle: "Tactical Long-Range Perimeter & Security Solutions",
+        description:
+          "Specialized tactical thermal surveillance cameras and binoculars (SATIR UMTI & UTR50/75) for 24/7 security, border patrolling, utility perimeter monitoring, and search & rescue operations.",
+        features: [
+          {
+            title: "Long-Range Observation (Up to 2.5 km)",
+            description: "High-resolution UFPA sensors and interchangeable 50mm/100mm optics for detecting vehicle and human thermal signatures at long range.",
+          },
+          {
+            title: "Handheld Monoculars & Binocular Viewers",
+            description: "Lightweight, ruggedized form factors with high-definition OLED displays and integrated MP4 thermal video recording.",
+          },
+          {
+            title: "MIL-STD-810 Rugged Weatherproof Enclosure",
+            description: "Pressurized anti-fog eyepieces and military-grade encapsulation for covert tactical field operations in extreme environments.",
+          },
+        ],
+        button: "View Product Range",
+        image: "/images/products/satir-utr50.png",
+        badge: "Tactical Observation",
+        categorySlug: "cameras-and-imaging-systems",
+        categoryTitle: "Cameras and Imaging Systems",
+        isAvailable: true,
+      },
+      {
+        id: "sat-v90-gas-detection-camera",
+        slug: "sat-v90-gas-detection-camera",
+        title: "SAT V90 Gas Detection Camera",
+        subtitle: "Cooled QWIP Optical Gas Imaging (OGI) for VOC Leaks",
+        description:
+          "Advanced optical gas imaging camera with cryogenic cooled QWIP detector (3.2–3.5 μm) for visualizing and tracing invisible VOC gas leaks down to 0.001 ml/s in petrochemical facilities.",
+        features: [
+          {
+            title: "Visualize Invisible VOC & Hydrocarbon Plumes",
+            description: "Real-time optical gas imaging renders methane, benzene, propane, and 20+ hydrocarbon gas leaks visible without plant shutdowns.",
+          },
+          {
+            title: "Ultra-High Sensitivity Cooled QWIP (NETD 15 mK)",
+            description: "Stirling cryocooler core achieves exceptional thermal sensitivity for detecting micro-leaks in low thermal contrast conditions.",
+          },
+          {
+            title: "EPA LDAR Compliant & ATEX Certified Design",
+            description: "Engineered for hazardous explosive atmospheres with dual radiometric thermography and 5MP Duo-Vision Plus fusion.",
           },
         ],
         button: "View Product",
-        image: "/images/products/thermal-imaging-cameras.jpg",
-        badge: "Infrared Thermal",
+        image: "/images/products/sat-v90.png",
+        badge: "Cooled QWIP OGI",
         categorySlug: "cameras-and-imaging-systems",
         categoryTitle: "Cameras and Imaging Systems",
         isAvailable: true,
@@ -641,23 +697,23 @@ export const categoriesData: Record<string, CategoryData> = {
         title: "Solar-Blind UV Corona Cameras",
         subtitle: "Daylight High-Voltage Discharge & Arc Localization",
         description:
-          "State-of-the-art solar-blind ultraviolet corona cameras for detecting, recording, and pinpointing invisible high-voltage partial discharge, arcing, and insulation degradation in full sunlight.",
+          "World-renowned CoroCAM® series (CoroCAM 6D, 7, and Tri-Spectral 8) for detecting, recording, and pinpointing invisible high-voltage partial discharge, arcing, and insulation degradation in broad daylight.",
         features: [
           {
-            title: "100% Solar-Blind Optical Channel",
-            description: "Specialized solar-blind UV filter allows daylight operation without false triggers from sunlight.",
+            title: "100% Solar-Blind Optical Channel (240–280 nm)",
+            description: "Specialized solar-blind optical filters completely block daylight, enabling zero false triggers under blazing midday sunlight.",
           },
           {
-            title: "Real-Time UV Photon Overlay on Video",
-            description: "Directly overlays glowing UV discharge events onto full-color visible video for precise fault localization.",
+            title: "Tri-Spectral CoroCAM 8 (UV + IR + HD Video)",
+            description: "Simultaneous co-location of electrical corona discharges, radiometric FLIR thermal hotspots, and Sony HD video in one frame.",
           },
           {
-            title: "High Optical Zoom for Transmission Towers",
-            description: "Inspect high-voltage insulators, switchgear, and overhead lines safely from ground level.",
+            title: "Calibrated Photon Counting & Distance Compensation",
+            description: "Quantitative discharge metrics with synchronized optical/digital zoom and integrated GPS environmental data logging.",
           },
         ],
-        button: "View Product",
-        image: "/images/products/corona-cameras.jpg",
+        button: "View Product Range",
+        image: "/images/products/corocam-8.png",
         badge: "Solar-Blind UV",
         categorySlug: "cameras-and-imaging-systems",
         categoryTitle: "Cameras and Imaging Systems",

@@ -21,7 +21,7 @@ import ManagementOfficeValues from "./ManagementOfficeValues";
 
 export default function ManagementOfficePage() {
   return (
-    <main className="relative min-h-screen w-full overflow-x-hidden bg-[#05070D]">
+    <main className="relative min-h-screen w-full overflow-x-clip bg-[#05070D]">
       {/* Continuous Architectural Blueprint Atmospheric Background */}
       <GeometricAtmosphere variant="office" />
 

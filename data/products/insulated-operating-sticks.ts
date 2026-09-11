@@ -213,6 +213,18 @@ const insulatedOperatingSticks: ProductData = {
     },
   ],
 
+  safetySimulator: {
+    enabled: true,
+    type: "hotstick",
+    badge: "INTERACTIVE REACH & INSULATION SIMULATOR",
+    title: "Insulated Telescopic Hot Stick Reach & Dielectric Clearance Simulator",
+    subtitle:
+      "Simulate live-line tower heights, stick extension sections, and dielectric safety standoff up to 800 kV.",
+    description:
+      "Select your overhead structure height and system voltage, then configure the insulated hot stick model and section count. Extend the stick to observe live operator reach, remaining air gap, certified 100 kV/foot dielectric proof strength, and OSHA/IEEE 516 safe clearance compliance.",
+    productModel: "HVTI Telescopic & Sectional Hot Sticks (IEC 60855 / ASTM F711)",
+  },
+
   cta: {
     title: "Need certified telescopic or sectional hot sticks?",
     description:

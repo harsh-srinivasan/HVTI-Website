@@ -126,9 +126,9 @@ export default function ProductApplications({
         w-full
         overflow-hidden
         bg-transparent
-        py-16
-        sm:py-20
-        lg:py-24
+        py-20
+        sm:py-24
+        lg:py-28
       "
     >
       <div className="relative z-10 mx-auto w-full max-w-[1360px] px-6 sm:px-10 lg:px-12">
@@ -277,14 +277,15 @@ export default function ProductApplications({
                       rounded-full
                       border
                       border-white/[0.15]
-                      bg-[#090F1E]
+                      bg-white/[0.04]
                       text-[#A855F7]
                       shadow-[0_0_24px_rgba(168,85,247,0.2)]
+                      backdrop-blur-xl
                       transition-all
                       duration-300
                       hover:scale-110
                       hover:border-[#A855F7]
-                      hover:bg-[#120B24]
+                      hover:bg-purple-950/40
                       hover:text-[#C084FC]
                       hover:shadow-[0_0_36px_rgba(168,85,247,0.4)]
                     "
@@ -326,10 +327,11 @@ export default function ProductApplications({
                   border
                   p-4
                   text-center
+                  backdrop-blur-xl
                   ${
                     isHighlighted
-                      ? "border-[#A855F7]/50 bg-[#120B24]/70 shadow-[0_0_24px_rgba(168,85,247,0.2)]"
-                      : "border-white/[0.08] bg-[#080D17]/70"
+                      ? "border-[#A855F7]/50 bg-white/[0.03] shadow-[0_0_24px_rgba(168,85,247,0.2)]"
+                      : "border-white/[0.08] bg-white/[0.02]"
                   }
                 `}
               >
@@ -342,10 +344,11 @@ export default function ProductApplications({
                     items-center
                     justify-center
                     rounded-full
+                    backdrop-blur-md
                     ${
                       isHighlighted
                         ? "border border-[#A855F7] bg-[#A855F7]/20 text-[#C084FC]"
-                        : "border border-white/10 bg-[#0A1020] text-[#A855F7]"
+                        : "border border-white/10 bg-white/[0.04] text-[#A855F7]"
                     }
                   `}
                 >

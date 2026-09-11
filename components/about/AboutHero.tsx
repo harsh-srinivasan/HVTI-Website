@@ -1,35 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 /* ================================================================
    VIEWPORT 1 — ABOUT / COMPANY OVERVIEW HERO (FULL MOBILE VIEWPORT)
    File: components/about/AboutHero.tsx
    ================================================================ */
-
-function useReveal(threshold = 0.25) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.unobserve(el);
-        }
-      },
-      { threshold }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
-
-  return { ref, visible };
-}
 
 function LocationPinIcon() {
   return (
@@ -50,8 +28,9 @@ function LocationPinIcon() {
 }
 
 export default function AboutHero() {
-  const { ref: contentRef, visible: contentVisible } = useReveal(0.2);
-  const { ref: imageRef, visible: imageVisible } = useReveal(0.25);
+  const { ref: contentRef, visible: contentVisible } = useScrollReveal({ threshold: 0.1 });
+  const { ref: imageRef, visible: imageVisible } = useScrollReveal({ threshold: 0.1 });
+
 
   return (
     <section

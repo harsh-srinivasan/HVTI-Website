@@ -38,6 +38,8 @@ function useReveal(threshold = 0.08) {
   return { ref, visible };
 }
 
+import { useSmoothScroll } from "@/components/providers/SmoothScrollProvider";
+
 export default function BlogHero({
   activeCategory,
   onSelectCategory,
@@ -45,11 +47,12 @@ export default function BlogHero({
   onSearchChange,
 }: BlogHeroProps) {
   const { ref: heroRef, visible: heroVisible } = useReveal(0.08);
+  const { scrollTo } = useSmoothScroll();
 
   const scrollToArticles = () => {
     const el = document.getElementById("blog-articles");
     if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+      scrollTo(el, { offset: -80, duration: 1.15 });
     }
   };
 
@@ -131,6 +134,10 @@ export default function BlogHero({
         {/* Search Bar */}
         <div className="relative mt-7 w-full max-w-[520px]">
           <input
+            id="blog-search-input"
+            name="blogSearch"
+            autoComplete="off"
+            suppressHydrationWarning
             type="text"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}

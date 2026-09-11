@@ -114,9 +114,27 @@ export default function InfrastructureMatrix<T extends { id?: string | number }>
     checkScroll();
     const el = tableContainerRef.current;
     if (!el) return;
+
+    // Direct wheel / trackpad scroll isolation for nested table
+    const handleWheel = (e: WheelEvent) => {
+      const isScrollable = el.scrollHeight > el.clientHeight;
+      if (!isScrollable) return;
+
+      const atTop = el.scrollTop <= 0 && e.deltaY < 0;
+      const atBottom =
+        el.scrollTop + el.clientHeight >= el.scrollHeight - 1 && e.deltaY > 0;
+
+      // When within table scroll boundaries, isolate wheel event to the table
+      if (!atTop && !atBottom) {
+        e.stopPropagation();
+      }
+    };
+
+    el.addEventListener("wheel", handleWheel, { passive: false });
     el.addEventListener("scroll", checkScroll, { passive: true });
     window.addEventListener("resize", checkScroll);
     return () => {
+      el.removeEventListener("wheel", handleWheel);
       el.removeEventListener("scroll", checkScroll);
       window.removeEventListener("resize", checkScroll);
     };
@@ -224,6 +242,10 @@ export default function InfrastructureMatrix<T extends { id?: string | number }>
             {searchKeys.length > 0 && (
               <div className="relative w-full sm:w-52">
                 <input
+                  id="infra-matrix-search"
+                  name="filterKeyword"
+                  autoComplete="off"
+                  suppressHydrationWarning
                   type="text"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
@@ -272,7 +294,9 @@ export default function InfrastructureMatrix<T extends { id?: string | number }>
             {/* The Scrollable Table Box with Custom Glowing Scrollbar */}
             <div
               ref={tableContainerRef}
+              data-lenis-prevent="true"
               className={`
+                lenis-prevent
                 overflow-x-auto
                 overflow-y-auto
                 rounded-xl

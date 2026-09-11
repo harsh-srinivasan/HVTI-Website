@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 /* ================================================================
    VIEWPORT 4 — CEO'S MESSAGE (RAGHBINDRA SINGH)
@@ -13,31 +14,9 @@ import React, { useEffect, useRef, useState } from "react";
    - Sits directly over the continuous architectural canvas
    ================================================================ */
 
-function useReveal(threshold = 0.25) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.unobserve(el);
-        }
-      },
-      { threshold }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
-
-  return { ref, visible };
-}
-
 export default function AboutCEO() {
-  const { ref: sectionRef, visible: sectionVisible } = useReveal(0.2);
+  const { ref: sectionRef, visible: sectionVisible } = useScrollReveal({ threshold: 0.1 });
+
 
   return (
     <section

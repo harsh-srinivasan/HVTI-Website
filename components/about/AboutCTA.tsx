@@ -1,38 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 /* ================================================================
    HVTI COMPANY OVERVIEW — FACILITIES & CAMPUS GATEWAY CTA
    File: components/about/AboutCTA.tsx
    ================================================================ */
 
-function useReveal(threshold = 0.25) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.unobserve(el);
-        }
-      },
-      { threshold }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
-
-  return { ref, visible };
-}
-
 export default function AboutCTA() {
-  const { ref: ctaRef, visible: ctaVisible } = useReveal(0.25);
+  const { ref: ctaRef, visible: ctaVisible } = useScrollReveal({ threshold: 0.1 });
+
 
   return (
     <section

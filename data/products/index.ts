@@ -22,8 +22,21 @@ import rescueSticks from "./rescue-sticks";
 import temperatureMonitoringSystem from "./temperature-monitoring-system";
 import partialDischargeOnlineMonitoring from "./partial-discharge-online-monitoring";
 
-import thermalImagingCameras from "./thermal-imaging-cameras";
+import industrialThermalCameras from "./industrial-thermal-cameras";
+import automotiveThermalImagingSystems from "./automotive-thermal-imaging-systems";
+import thermalSurveillanceObservationSystems from "./thermal-surveillance-observation-systems";
+import satV90GasDetectionCamera from "./sat-v90-gas-detection-camera";
 import coronaCameras from "./corona-cameras";
+import thermalImagingCameras from "./thermal-imaging-cameras";
+
+import highVoltageAcDcTestingSystems from "./high-voltage-ac-dc-testing-systems";
+import highVoltageMeasurementDividers from "./high-voltage-measurement-dividers";
+import currentInjectionProtectionTesting from "./current-injection-protection-testing";
+import circuitBreakerTestingAnalysis from "./circuit-breaker-testing-analysis";
+import partialDischargeSolutions from "./partial-discharge-solutions";
+import transformerTestingDiagnostics from "./transformer-testing-diagnostics";
+import cableFaultLocationTesting from "./cable-fault-location-testing";
+import specializedElectricalTestingEquipment from "./specialized-electrical-testing-equipment";
 
 /* ================================================================
    HVTI MASTER PRODUCT REGISTRY
@@ -33,16 +46,31 @@ import coronaCameras from "./corona-cameras";
    ================================================================ */
 
 export const allProductsData: Record<string, ProductData> = {
-  // Electrical Testing Equipment
+  // Electrical Testing Equipment — Complete 8 Destination Suite
+  "high-voltage-ac-dc-testing-systems": highVoltageAcDcTestingSystems,
+  "high-voltage-ac-dc-testing-kits-hipot-kits": highVoltageAcDcTestingSystems,
+  "high-voltage-measurement-dividers": highVoltageMeasurementDividers,
+  "high-voltage-ac-dc-dividers": highVoltageMeasurementDividers,
+  "current-injection-protection-testing": currentInjectionProtectionTesting,
+  "primary-secondary-current-injection-testing-sets": currentInjectionProtectionTesting,
+  "circuit-breaker-testing-analysis": circuitBreakerTestingAnalysis,
+  "circuit-breaker-testing": circuitBreakerTestingAnalysis,
+  "partial-discharge-solutions": partialDischargeSolutions,
+  "partial-discharge-testing-of-transformer-localization-system": partialDischargeSolutions,
+  "transformer-testing-diagnostics": transformerTestingDiagnostics,
+  "transformer-testing-benches": transformerTestingDiagnostics,
+  "transformer-testing": transformerTestingDiagnostics,
+  "cable-fault-location-testing": cableFaultLocationTesting,
+  "cable-fault-locating-equipment": cableFaultLocationTesting,
+  "miscellaneous-testing-equipment": cableFaultLocationTesting,
+  "specialized-electrical-testing-equipment": specializedElectricalTestingEquipment,
+  "dc-earth-fault-locator": specializedElectricalTestingEquipment,
+
+  // Legacy Electrical Testing Equipment routes / Single datasets
   "high-voltage-ac-testing-kits": highVoltageACTestingKits,
   "ultra-light-hv-dc-test-sets": ultraLightHVDCTestSets,
-  "hv-ac-dc-dividers": hvACDCDividers,
-  "current-injection-testing-sets": currentInjectionTestingSets,
-  "dc-earth-fault-locator": dcEarthFaultLocator,
-  "partial-discharge-transformer-testing": partialDischargeTransformerTesting,
-  "transformer-testing-benches": transformerTestingBenches,
-  "circuit-breaker-testing": circuitBreakerTesting,
-  "miscellaneous-testing-equipment": miscellaneousTestingEquipment,
+  "ultra-light-high-voltage-dc-test-sets": ultraLightHVDCTestSets,
+  "partial-discharge-transformer-testing": partialDischargeSolutions,
 
   // Electrical Safety Equipments
   "high-voltage-detector-tp-s9": highVoltageDetectorTPS9,
@@ -58,9 +86,18 @@ export const allProductsData: Record<string, ProductData> = {
   "temperature-monitoring-system": temperatureMonitoringSystem,
   "partial-discharge-online-monitoring": partialDischargeOnlineMonitoring,
 
-  // Cameras and Imaging Systems
-  "thermal-imaging-cameras": thermalImagingCameras,
+  // Cameras and Imaging Systems — 5 Core Architecture Destinations
+  "industrial-thermal-cameras": industrialThermalCameras,
+  "industrial-electrical-thermal-imaging-cameras": industrialThermalCameras,
+  "automotive-thermal-imaging-systems": automotiveThermalImagingSystems,
+  "thermal-surveillance-observation-systems": thermalSurveillanceObservationSystems,
+  "thermal-surveillance-systems": thermalSurveillanceObservationSystems,
+  "sat-v90-gas-detection-camera": satV90GasDetectionCamera,
+  "gas-detection-camera": satV90GasDetectionCamera,
   "corona-cameras": coronaCameras,
+
+  // Legacy fallbacks
+  "thermal-imaging-cameras": industrialThermalCameras,
 };
 
 export const allProductsList: ProductData[] = Object.values(allProductsData);
@@ -99,6 +136,18 @@ export {
   rescueSticks,
   temperatureMonitoringSystem,
   partialDischargeOnlineMonitoring,
-  thermalImagingCameras,
+  industrialThermalCameras,
+  automotiveThermalImagingSystems,
+  thermalSurveillanceObservationSystems,
+  satV90GasDetectionCamera,
   coronaCameras,
+  thermalImagingCameras,
+  highVoltageAcDcTestingSystems,
+  highVoltageMeasurementDividers,
+  currentInjectionProtectionTesting,
+  circuitBreakerTestingAnalysis,
+  partialDischargeSolutions,
+  transformerTestingDiagnostics,
+  cableFaultLocationTesting,
+  specializedElectricalTestingEquipment,
 };

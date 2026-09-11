@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import GeometricAtmosphere from "@/components/ui/GeometricAtmosphere";
 import { PAST_EVENTS, PastEvent } from "@/data/events";
+import { useSmoothScroll } from "@/components/providers/SmoothScrollProvider";
 
 /* ================================================================
    HVTI PAST EVENTS & EXHIBITIONS — ACCORDION VIEWPORT ARCHITECTURE
@@ -27,6 +28,7 @@ export default function PastEventsPage() {
   } | null>(null);
 
   const eventRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const { scrollTo } = useSmoothScroll();
 
   const handleToggleEvent = (id: string) => {
     setOpenEventId((prev) => (prev === id ? null : id));
@@ -38,14 +40,14 @@ export default function PastEventsPage() {
       const el = eventRefs.current[openEventId];
       if (el) {
         setTimeout(() => {
-          el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          scrollTo(el, { offset: -95, duration: 1.0 });
         }, 150);
       }
     }
-  }, [openEventId]);
+  }, [openEventId, scrollTo]);
 
   return (
-    <main className="relative min-h-screen w-full overflow-x-hidden bg-[#05070D]">
+    <main className="relative min-h-screen w-full overflow-x-clip bg-[#05070D]">
       {/* 1. Procedural Geometric Atmosphere Canvas */}
       <GeometricAtmosphere variant="default" />
 

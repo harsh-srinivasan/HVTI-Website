@@ -208,29 +208,32 @@ const highVoltageDetectorTPS9: ProductData = {
 
   safetySimulator: {
     enabled: true,
-    badge: "Interactive Testing Simulator",
-    title: "Live vs. Dead Voltage Verification Simulator",
+    badge: "Interactive Proximity & Sensing Simulator",
+    title: "Model TP-S9 Multi-Voltage Sensing Distance Simulator",
     subtitle:
-      "Experience how the Model TP-S9 detector senses live overhead lines and confirms de-energized circuits before maintenance.",
+      "Experience how the Model TP-S9's 12-position rotary sensitivity switch and capacitive sensor detect live high-voltage fields from 240 V up to 500 kV.",
     description:
-      "Operate the insulated telescopic hot stick from the ground to test overhead conductors. Toggle line energization, adjust grid voltage, or trigger the proving unit self-test to see the capacitive sensor's dual light and sound indication in real time.",
+      "Calibrate the TP-S9 detector across 10 voltage selector settings (plus OFF and Battery TEST). Raise the insulated telescopic hot stick to observe real-time sensing distances, electric field aura expansion, and dual light & sound indication calibrated to authentic manufacturer specifications.",
     productModel: "Model TP-S9 High Voltage Detector",
     defaultVoltage: 33,
     voltageOptions: [
-      { label: "11 kV", value: 11, unit: "kV", category: "Distribution Line", description: "Standard medium voltage feeder" },
-      { label: "33 kV", value: 33, unit: "kV", category: "Substation Incomer", description: "Primary distribution busbar" },
-      { label: "66 kV", value: 66, unit: "kV", category: "Sub-Transmission", description: "High voltage regional line" },
-      { label: "132 kV", value: 132, unit: "kV", category: "Grid Transmission", description: "Heavy industrial transmission line" },
-      { label: "220 kV", value: 220, unit: "kV", category: "Regional Interconnector", description: "Bulk grid transmission line" },
-      { label: "400 kV", value: 400, unit: "kV", category: "Extra High Voltage (EHV)", description: "National grid interstate line" },
-      { label: "765 kV", value: 765, unit: "kV", category: "Ultra High Voltage (UHV)", description: "Super-grid bulk transmission corridor" },
+      { label: "240 V", value: 0.24, unit: "kV", category: "Low Voltage", description: "240 V (P-N: 240 V) single-phase / low-voltage line", warningDistanceMeters: 0.05 },
+      { label: "2 kV", value: 2, unit: "kV", category: "Medium Voltage", description: "2 kV Line (P-N: 1.15 kV) industrial feeder", warningDistanceMeters: 0.2 },
+      { label: "11 kV", value: 11, unit: "kV", category: "Distribution Feeder", description: "11 kV Line (P-N: 6.3 kV) utility distribution feeder", warningDistanceMeters: 0.2 },
+      { label: "22 kV", value: 22, unit: "kV", category: "Distribution Feeder", description: "22 kV Line (P-N: 12.7 kV) primary distribution line", warningDistanceMeters: 0.2 },
+      { label: "33 kV", value: 33, unit: "kV", category: "Substation Incomer", description: "33 kV Line (P-N: 19.0 kV) substation busbar incomer", warningDistanceMeters: 0.2 },
+      { label: "66 kV", value: 66, unit: "kV", category: "Sub-Transmission", description: "66 kV Line (P-N: 38.1 kV) regional sub-transmission line", warningDistanceMeters: 0.2 },
+      { label: "132 kV", value: 132, unit: "kV", category: "Grid Transmission", description: "132 kV Line (P-N: 76.2 kV) high-voltage transmission circuit", warningDistanceMeters: 0.2 },
+      { label: "230 kV", value: 230, unit: "kV", category: "Bulk Transmission", description: "230 kV Line (P-N: 133 kV) bulk interconnector line", warningDistanceMeters: 0.2 },
+      { label: "400 kV", value: 400, unit: "kV", category: "Extra High Voltage (EHV)", description: "400 kV Line (P-N: 231 kV) national grid EHV line", warningDistanceMeters: 0.2 },
+      { label: "500 kV", value: 500, unit: "kV", category: "Super Grid Transmission", description: "500 kV Line (P-N: 289 kV) ultra-high-voltage corridor", warningDistanceMeters: 0.2 },
     ],
   },
 
   cta: {
     title: "Need reliable high-voltage safety equipment?",
     description:
-      "Our engineering team will help you select the ideal voltage detector and insulated extension setup for your utility or industrial installation.",
+      "Our engineering team will help you select the ideal voltage detector, sensitivity calibration, and insulated extension setup for your utility or industrial installation.",
     primaryButtonText: "Talk to an Engineer",
     primaryButtonLink: "/contact",
   },

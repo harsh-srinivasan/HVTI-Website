@@ -71,7 +71,9 @@ export default function HelmetDetectorViewer({
             "auto-rotate": true,
             "rotation-per-second": "16deg",
             "camera-controls": true,
-            "interaction-prompt": "auto",
+            "disable-zoom": true,
+            "touch-action": "pan-y",
+            "interaction-prompt": "none",
             "shadow-intensity": "1.2",
             "shadow-softness": "0.75",
             exposure: "1.15",
@@ -86,6 +88,7 @@ export default function HelmetDetectorViewer({
               height: "100%",
               backgroundColor: "transparent",
               outline: "none",
+              touchAction: "pan-y",
             },
           })
         ) : (

@@ -9,8 +9,8 @@ import { clientLogos } from "@/data/clients";
    File: components/home/TrustedOrganization.tsx
 
    - Clean card-free borderless client partner logos
-   - Increased logo sizing for prominent visibility
-   - Smooth continuous infinite marquee with pause on hover
+   - Smooth continuous infinite marquee stream (both mobile & desktop)
+   - Sleek luxury capsule CTA button
    - Direct link to full Our Clients & Partners page
    ================================================================ */
 
@@ -21,16 +21,16 @@ export default function TrustedBy() {
   return (
     <section
       id="trusted-by"
-      className="relative w-full overflow-hidden bg-transparent"
+      className="relative w-full overflow-hidden bg-transparent pt-16 pb-20 sm:py-12 lg:py-16"
     >
       {/* ============================================================
           TRUSTED BY HEADER
           ============================================================ */}
-      <div className="mx-auto w-full max-w-[1440px] px-6 py-9 sm:px-8 sm:py-11 lg:px-10">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-4">
-            <span className="h-px w-10 bg-[#A855F7]" />
-            <p className="font-mono text-[13px] font-bold uppercase tracking-[0.20em] text-[#94A3B8] sm:text-[14px]">
+      <div className="mx-auto w-full max-w-[1440px] px-5 pb-4 sm:px-8 sm:pb-8 lg:px-10">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-2.5 sm:gap-4">
+            <span className="h-[2px] w-6 sm:w-10 bg-[#A855F7]" />
+            <p className="font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-[#94A3B8] sm:text-[13px] sm:tracking-[0.20em]">
               Trusted By Power Utilities &amp; Industry Leaders
             </p>
           </div>
@@ -40,28 +40,45 @@ export default function TrustedBy() {
             className="
               group
               inline-flex
+              h-[30px]
+              sm:h-[34px]
+              self-start
+              sm:self-auto
               items-center
-              gap-2
+              gap-1.5
+              rounded-full
+              border
+              border-white/[0.14]
+              bg-[#0B101D]/90
+              px-3.5
+              sm:px-4
               font-mono
-              text-[12px]
+              text-[9.5px]
+              sm:text-[10.5px]
               font-bold
               tracking-wider
-              text-[#F97316]
+              text-slate-200
+              shadow-[0_2px_12px_rgba(0,0,0,0.4)]
+              backdrop-blur-md
               transition-all
-              duration-200
-              hover:text-[#FB923C]
+              duration-300
+              hover:border-[#A855F7]/70
+              hover:bg-[#0E1526]
+              hover:text-white
+              hover:shadow-[0_0_16px_rgba(168,85,247,0.25)]
+              active:scale-[0.97]
             "
           >
             <span>VIEW ALL CLIENTS</span>
             <svg
-              width="13"
-              height="13"
+              width="10"
+              height="10"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2.2"
+              strokeWidth="2.4"
               aria-hidden="true"
-              className="transition-transform duration-200 group-hover:translate-x-1"
+              className="text-[#F97316] transition-transform duration-200 group-hover:translate-x-1"
             >
               <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
@@ -70,33 +87,33 @@ export default function TrustedBy() {
       </div>
 
       {/* ============================================================
-          LOGO MARQUEE (CARD-FREE, 0.8x SIZED LOGOS)
+          LOGO MARQUEE (CONTINUOUS SMOOTH INFINITE SCROLL)
           One continuous visual row moving from RIGHT → LEFT.
           ============================================================ */}
-      <div className="relative w-full overflow-hidden pb-12 pt-2">
+      <div className="relative w-full overflow-hidden py-6 sm:py-10 lg:py-14">
         {/* Left Fade */}
-        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-[#05070D] via-[#05070D]/80 to-transparent sm:w-40 lg:w-56" />
+        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-20 bg-gradient-to-r from-[#05070D] via-[#05070D]/85 to-transparent sm:w-44 lg:w-60" />
 
         {/* Right Fade */}
-        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-[#05070D] via-[#05070D]/80 to-transparent sm:w-40 lg:w-56" />
+        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-20 bg-gradient-to-l from-[#05070D] via-[#05070D]/85 to-transparent sm:w-44 lg:w-60" />
 
         {/* Marquee Viewport */}
         <div className="w-full overflow-hidden">
-          <div className="trusted-marquee">
+          <div className="flex overflow-hidden select-none gap-8 sm:gap-12">
             {/* FIRST LOGO SEQUENCE */}
-            <div className="trusted-marquee-group">
+            <div className="flex shrink-0 items-center justify-around gap-8 sm:gap-12 min-w-full animate-marquee-scroll">
               {marqueeLogos.map((org, index) => (
                 <div
                   key={`first-${org.id}-${index}`}
-                  className="group relative flex h-[54px] w-[145px] shrink-0 items-center justify-center sm:h-[64px] sm:w-[176px] lg:h-[70px] lg:w-[200px]"
+                  className="group relative flex h-[54px] w-[145px] shrink-0 items-center justify-center sm:h-[76px] sm:w-[195px] lg:h-[84px] lg:w-[230px]"
                 >
                   <div className="relative h-full w-full">
                     <Image
                       src={org.logo}
                       alt={org.name}
                       fill
-                      sizes="(max-width: 640px) 145px, (max-width: 1024px) 176px, 200px"
-                      className="object-contain opacity-80 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] transition-all duration-300 group-hover:scale-110 group-hover:opacity-100 group-hover:brightness-110"
+                      sizes="(max-width: 640px) 145px, (max-width: 1024px) 195px, 230px"
+                      className="object-contain opacity-85 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] transition-all duration-300 group-hover:scale-110 group-hover:opacity-100 group-hover:brightness-110"
                     />
                   </div>
                 </div>
@@ -104,19 +121,19 @@ export default function TrustedBy() {
             </div>
 
             {/* SECOND LOGO SEQUENCE (Seamless loop duplicate) */}
-            <div className="trusted-marquee-group" aria-hidden="true">
+            <div className="flex shrink-0 items-center justify-around gap-8 sm:gap-12 min-w-full animate-marquee-scroll" aria-hidden="true">
               {marqueeLogos.map((org, index) => (
                 <div
                   key={`second-${org.id}-${index}`}
-                  className="group relative flex h-[54px] w-[145px] shrink-0 items-center justify-center sm:h-[64px] sm:w-[176px] lg:h-[70px] lg:w-[200px]"
+                  className="group relative flex h-[54px] w-[145px] shrink-0 items-center justify-center sm:h-[76px] sm:w-[195px] lg:h-[84px] lg:w-[230px]"
                 >
                   <div className="relative h-full w-full">
                     <Image
                       src={org.logo}
                       alt={org.name}
                       fill
-                      sizes="(max-width: 640px) 145px, (max-width: 1024px) 176px, 200px"
-                      className="object-contain opacity-80 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] transition-all duration-300 group-hover:scale-110 group-hover:opacity-100 group-hover:brightness-110"
+                      sizes="(max-width: 640px) 145px, (max-width: 1024px) 195px, 230px"
+                      className="object-contain opacity-85 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] transition-all duration-300 group-hover:scale-110 group-hover:opacity-100 group-hover:brightness-110"
                     />
                   </div>
                 </div>
@@ -125,41 +142,6 @@ export default function TrustedBy() {
           </div>
         </div>
       </div>
-
-      {/* ============================================================
-          MARQUEE STYLES
-          ============================================================ */}
-      <style jsx>{`
-        .trusted-marquee {
-          display: flex;
-          overflow: hidden;
-          user-select: none;
-          gap: 36px;
-        }
-
-        .trusted-marquee:hover .trusted-marquee-group {
-          animation-play-state: paused;
-        }
-
-        .trusted-marquee-group {
-          flex-shrink: 0;
-          display: flex;
-          align-items: center;
-          justify-content: space-around;
-          gap: 36px;
-          min-width: 100%;
-          animation: scroll 38s linear infinite;
-        }
-
-        @keyframes scroll {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(calc(-100% - 36px));
-          }
-        }
-      `}</style>
     </section>
   );
 }

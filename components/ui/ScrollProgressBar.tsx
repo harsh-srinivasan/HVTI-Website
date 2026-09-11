@@ -1,84 +1,68 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
+import { useLenis } from "lenis/react";
 
 /* ================================================================
-   GLOBAL SCROLL PROGRESS BAR (PREMIUM MINIMALIST TOUCH)
+   GLOBAL SCROLL PROGRESS BAR (DUAL-ENGINE HARDWARE-ACCELERATED)
    File: components/ui/ScrollProgressBar.tsx
 
-   - Ultra-thin 2px height for a subtle, state-of-the-art feel
-   - Brand theme gradient: Electric Orange (#F97316) -> Royal Purple (#A855F7) -> Deep Violet (#7C3AED)
-   - Subtle soft leading glow
-   - Smooth 60fps frame interpolation
+   - Dual-Engine Sync: hooks into Lenis RAF loop + native window scroll
+   - GPU-accelerated direct matrix scaleX transform (0 React re-renders)
+   - High visibility z-[999] top hairline with glowing brand gradient
+   - Automatically resets to 0% upon route navigation
    ================================================================ */
 
 export default function ScrollProgressBar() {
-  const [progress, setProgress] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
+  const barRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
+  const updateProgress = (progress: number) => {
+    if (!barRef.current) return;
+    const clamped = Math.min(1, Math.max(0, isNaN(progress) ? 0 : progress));
+    barRef.current.style.transform = `scaleX(${clamped})`;
+  };
+
+  // Reset to 0 upon route change
   useEffect(() => {
-    let ticking = false;
+    updateProgress(0);
+  }, [pathname]);
 
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const totalHeight =
-            document.documentElement.scrollHeight - window.innerHeight;
-          if (totalHeight > 0) {
-            const current = (window.scrollY / totalHeight) * 100;
-            const clamped = Math.min(100, Math.max(0, current));
-            setProgress(clamped);
-            setIsVisible(clamped > 0.5);
-          } else {
-            setIsVisible(false);
-          }
-          ticking = false;
-        });
-        ticking = true;
+  // 1. Primary hook directly into Lenis frame updates
+  useLenis((lenis) => {
+    if (lenis && typeof lenis.progress === "number") {
+      updateProgress(lenis.progress);
+    }
+  });
+
+  // 2. Initial synchronization on route change
+  useEffect(() => {
+    const handleInitialSync = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0) {
+        updateProgress(window.scrollY / totalHeight);
       }
     };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll, { passive: true });
-    handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
-    };
-  }, []);
+    handleInitialSync();
+  }, [pathname]);
 
   return (
     <div
-      className={`
-        fixed
-        left-0
-        top-0
-        z-[100]
-        h-[2px]
-        w-full
-        pointer-events-none
-        bg-transparent
-        transition-opacity
-        duration-300
-        ${isVisible ? "opacity-100" : "opacity-0"}
-      `}
+      className="fixed left-0 top-0 z-[999] h-[3.5px] w-full pointer-events-none bg-white/[0.04]"
       aria-hidden="true"
     >
       <div
-        className="
-          h-full
-          bg-gradient-to-r
-          from-[#F97316]
-          via-[#A855F7]
-          to-[#7C3AED]
-          shadow-[0_0_8px_rgba(249,115,22,0.45),0_0_14px_rgba(168,85,247,0.30)]
-          transition-[width]
-          duration-150
-          ease-out
-        "
-        style={{ width: `${progress}%` }}
+        ref={barRef}
+        className="h-full w-full origin-left bg-gradient-to-r from-[#F97316] via-[#EA580C] to-[#A855F7] shadow-[0_0_14px_rgba(249,115,22,0.9),0_0_22px_rgba(168,85,247,0.7)] will-change-transform"
+        style={{
+          transform: "scaleX(0)",
+          transformOrigin: "left center",
+        }}
       />
     </div>
   );
 }
+
+
+

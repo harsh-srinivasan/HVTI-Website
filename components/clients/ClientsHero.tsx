@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { useSmoothScroll } from "@/components/providers/SmoothScrollProvider";
 
 /* ================================================================
    HVTI CLIENTS — FULL-VIEWPORT HERO SECTION
@@ -32,11 +33,12 @@ function useReveal(threshold = 0.2) {
 
 export default function ClientsHero() {
   const { ref: heroRef, visible: heroVisible } = useReveal(0.2);
+  const { scrollTo } = useSmoothScroll();
 
   const scrollToGrid = () => {
     const el = document.getElementById("clients-grid");
     if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+      scrollTo(el, { offset: -80, duration: 1.15 });
     }
   };
 

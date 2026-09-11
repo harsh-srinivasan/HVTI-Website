@@ -190,12 +190,12 @@ export default function HVACTestingKitRender() {
 
     container.appendChild(renderer.domElement);
 
-    // 4. OrbitControls with smooth damping
+    // 4. OrbitControls with smooth damping (zoom disabled for smooth page scrolling)
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
     controls.enablePan = false;
-    controls.enableZoom = true;
+    controls.enableZoom = false;
     controls.minDistance = 2.4;
     controls.maxDistance = 7.5;
     controls.minPolarAngle = Math.PI * 0.18; // 32 deg

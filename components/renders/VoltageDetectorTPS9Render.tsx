@@ -48,7 +48,9 @@ export default function VoltageDetectorTPS9Render({
           "auto-rotate": true,
           "rotation-per-second": "20deg",
           "camera-controls": true,
-          "interaction-prompt": "auto",
+          "disable-zoom": true,
+          "touch-action": "pan-y",
+          "interaction-prompt": "none",
           "shadow-intensity": "1.0",
           "shadow-softness": "0.7",
           exposure: "1.0",
@@ -62,6 +64,7 @@ export default function VoltageDetectorTPS9Render({
             height: "100%",
             backgroundColor: "transparent",
             outline: "none",
+            touchAction: "pan-y",
           },
         })
       ) : (

@@ -5,7 +5,7 @@ import { categoriesData } from "@/data/categories";
 export const metadata: Metadata = {
   title: "Electrical Testing Equipment | HVTI",
   description:
-    "Explore HVTI's comprehensive range of electrical testing equipment: High Voltage AC/DC Testing Kits, Current Injection Sets, PD Testers, and Transformer Test Benches.",
+    "Explore HVTI's comprehensive range of electrical testing equipment: High Voltage AC/DC Testing Systems, Measurement Dividers, Current Injection, Circuit Breakers, and Partial Discharge Solutions.",
 };
 
 export default function Page() {

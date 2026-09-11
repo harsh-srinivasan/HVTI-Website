@@ -205,12 +205,13 @@ export default function ProductEngineeringAtAGlance({
                       items-center
                       justify-center
                       rounded-full
+                      backdrop-blur-xl
                       transition-all
                       duration-300
                       ${
                         isCenterHighlight
-                          ? `h-[88px] w-[88px] border-2 border-[#A855F7] bg-[#110B22] text-[#C084FC] shadow-[0_0_36px_rgba(168,85,247,0.35)] group-hover:scale-110 group-hover:border-[#C084FC] group-hover:shadow-[0_0_50px_rgba(168,85,247,0.55)]`
-                          : `h-[68px] w-[68px] border border-white/[0.12] bg-[#0A0F1D] text-[#A855F7] group-hover:scale-110 group-hover:border-[#A855F7]/60 group-hover:bg-[#110B22] group-hover:text-[#C084FC] group-hover:shadow-[0_0_24px_rgba(168,85,247,0.25)]`
+                          ? `h-[88px] w-[88px] border-2 border-[#A855F7] bg-purple-950/40 text-[#C084FC] shadow-[0_0_36px_rgba(168,85,247,0.35)] group-hover:scale-110 group-hover:border-[#C084FC] group-hover:shadow-[0_0_50px_rgba(168,85,247,0.55)]`
+                          : `h-[68px] w-[68px] border border-white/[0.12] bg-white/[0.04] text-[#A855F7] group-hover:scale-110 group-hover:border-[#A855F7]/60 group-hover:bg-purple-950/40 group-hover:text-[#C084FC] group-hover:shadow-[0_0_24px_rgba(168,85,247,0.25)]`
                       }
                     `}
                   >
@@ -220,24 +221,21 @@ export default function ProductEngineeringAtAGlance({
                     )}
 
                     {renderProductIcon(item.icon || item.id, {
-                      className: isCenterHighlight ? "h-9 w-9 text-current" : "h-7 w-7 text-current",
-                      strokeWidth: 1.7,
+                      className: isCenterHighlight ? "h-10 w-10 text-current" : "h-7 w-7 text-current",
+                      strokeWidth: 1.6,
                     })}
                   </div>
 
-                  {/* Value / Headline */}
+                  {/* Value / Heading */}
                   <h3
                     className={`
                       font-heading
                       font-semibold
-                      leading-snug
-                      tracking-[-0.02em]
+                      tracking-tight
                       text-white
-                      ${
-                        isCenterHighlight
-                          ? "text-[20px] xl:text-[22px] text-[#F8FAFC]"
-                          : "text-[16.5px] xl:text-[17.5px]"
-                      }
+                      transition-colors
+                      group-hover:text-white
+                      ${isCenterHighlight ? "text-[18px] sm:text-[20px]" : "text-[16px] sm:text-[17px]"}
                     `}
                   >
                     {item.value}
@@ -283,11 +281,12 @@ export default function ProductEngineeringAtAGlance({
                   rounded-[12px]
                   border
                   p-5
+                  backdrop-blur-xl
                   transition-all
                   ${
                     isCenterHighlight
-                      ? "border-[#A855F7]/40 bg-[#110B22]/70 shadow-[0_0_24px_rgba(168,85,247,0.15)]"
-                      : "border-white/[0.08] bg-[#080D17]/70"
+                      ? "border-[#A855F7]/40 bg-white/[0.03] shadow-[0_0_24px_rgba(168,85,247,0.15)]"
+                      : "border-white/[0.08] bg-white/[0.02]"
                   }
                 `}
               >
@@ -301,10 +300,11 @@ export default function ProductEngineeringAtAGlance({
                     items-center
                     justify-center
                     rounded-full
+                    backdrop-blur-md
                     ${
                       isCenterHighlight
                         ? "border border-[#A855F7] bg-[#A855F7]/20 text-[#C084FC]"
-                        : "border border-white/10 bg-[#0E1526] text-[#A855F7]"
+                        : "border border-white/10 bg-white/[0.04] text-[#A855F7]"
                     }
                   `}
                 >

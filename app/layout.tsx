@@ -4,6 +4,8 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ScrollProgressBar from "@/components/ui/ScrollProgressBar";
+import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
+import PageTransitionProvider from "@/components/providers/PageTransitionProvider";
 
 const ibmPlexSans = IBM_Plex_Sans({
   subsets: ["latin"],
@@ -13,6 +15,7 @@ const ibmPlexSans = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("http://localhost:3000"),
   title: "HVTI | High Voltage Testing & Engineering",
   description:
     "HVTI provides high-voltage testing, electrical safety, condition monitoring and engineering solutions.",
@@ -27,14 +30,24 @@ export default function RootLayout({
     <html
       lang="en"
       className={ibmPlexSans.variable}
+      suppressHydrationWarning
     >
-      <body className="bg-[#05070D] font-sans text-white antialiased">
-        <ScrollProgressBar />
-        <Navbar />
+      <body className="bg-[#05070D] font-sans text-white antialiased" suppressHydrationWarning>
+        <SmoothScrollProvider>
+          {/* 1. Global Viewport-Fixed Scroll Progress Bar */}
+          <ScrollProgressBar />
 
-        {children}
+          {/* 2. Global Viewport-Fixed Master Navbar */}
+          <Navbar />
 
-        <Footer />
+          {/* 3. Luxury Cinematic Page Transition & Dynamic Content */}
+          <PageTransitionProvider>
+            {children}
+          </PageTransitionProvider>
+
+          {/* 4. Global Footer */}
+          <Footer />
+        </SmoothScrollProvider>
       </body>
     </html>
   );

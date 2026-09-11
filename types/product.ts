@@ -66,7 +66,7 @@ export interface ProductCTAData {
 /** Interactive voltage detector / safety simulator configuration */
 export interface ProductSafetySimulatorConfig {
   enabled: boolean;
-  type?: "stick" | "proximity"; // "stick" for TP-S9 telescopic stick, "proximity" for HMD walking avatar
+  type?: "stick" | "proximity" | "hotstick"; // "stick" for TP-S9 detector, "proximity" for HMD, "hotstick" for Insulated Hot Stick Reach Simulator
   title?: string;
   subtitle?: string;
   badge?: string;
@@ -81,6 +81,39 @@ export interface ProductSafetySimulatorConfig {
     description?: string;
     warningDistanceMeters?: number; // Distance in meters at which alarm triggers
   }[];
+}
+
+export interface ProductVariant {
+  id?: string;
+  name: string;
+  model?: string;
+  subtitle?: string;
+  badge?: string;
+  image?: string;
+  images?: string[];
+  description?: string;
+  highlights?: string[];
+  bulletPoints?: string[];
+  applications?: string[];
+  specs?: { parameter: string; value: string }[];
+  productUrl?: string;
+  ctaText?: string;
+  ctaLink?: string;
+}
+
+export interface WorkflowStep {
+  step: string;
+  title: string;
+  description: string;
+  icon?: string;
+  image?: string;
+  tag?: string;
+  technicalDetails?: string[];
+}
+
+export interface DetailedSpecSection {
+  title: string;
+  specs: { parameter: string; value: string; details?: string }[];
 }
 
 /** Complete product schema */
@@ -108,5 +141,60 @@ export interface ProductData {
   safetySimulator?: ProductSafetySimulatorConfig; // Interactive safety / voltage verification simulator
   brochure?: string;
   cta?: ProductCTAData;
+
+  // Multi-product page extensions
+  tagline?: string;
+  categoryHref?: string;
+  slogan?: string;
+  longDescription?: string[];
+  rangeEyebrow?: string;
+  rangeHeading?: string;
+  rangeSubtitle?: string;
+  rangeGroups?: {
+    index: string;
+    title: string;
+    description?: string;
+    products: { name: string; image: string; tag?: string; link?: string }[];
+    ctaText?: string;
+    ctaLink?: string;
+  }[];
+  variants?: ProductVariant[];
+  productVariants?: {
+    id: string;
+    name: string;
+    subtitle?: string;
+    badge?: string;
+    image: string;
+    images?: string[];
+    description?: string;
+    bulletPoints: string[];
+    ctaText?: string;
+    ctaLink?: string;
+  }[];
+  comparisonMatrix?: {
+    title?: string;
+    fullSpecLink?: string;
+    columns: { id: string; name: string; tag?: string; image?: string; ctaLink?: string }[];
+    rows: { parameter: string; values: Record<string, string>; highlight?: boolean }[];
+  };
+
+  // Workflow & Expandable Specs for Category Pages
+  workflow?: {
+    categorySlug?: string;
+    eyebrow?: string;
+    heading?: string;
+    steps: WorkflowStep[];
+  };
+  keyTechnicalRanges?: {
+    title?: string;
+    description?: string;
+    headers?: string[];
+    rows: { col1: string; col2: string; col3?: string; col4?: string; col5?: string; col6?: string }[];
+  };
+  fullTechnicalSpecs?: {
+    sections: DetailedSpecSection[];
+  };
 }
+
+
 

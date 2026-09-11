@@ -4,6 +4,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { CategoryProduct } from "@/types/category";
 import Product from "./Product";
 import ProductNavigation from "./ProductNavigation";
+import { useSmoothScroll } from "@/components/providers/SmoothScrollProvider";
 
 /* ================================================================
    VIEW ALL — PRODUCT LIST WITH STICKY SCROLL-TRACKING NAVIGATION
@@ -20,6 +21,7 @@ export default function ProductList({
   products: CategoryProduct[];
 }) {
   const [activeId, setActiveId] = useState<string>(products[0]?.id ?? "");
+  const { scrollTo } = useSmoothScroll();
 
   /*
    * High-precision real-time scroll tracking
@@ -89,14 +91,7 @@ export default function ProductList({
     setActiveId(id);
     const el = document.getElementById(`product-${id}`);
     if (el) {
-      const navOffset = 95;
-      const elementPosition = el.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - navOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
+      scrollTo(el, { offset: -95, duration: 1.15 });
     }
   };
 
@@ -134,7 +129,7 @@ export default function ProductList({
             self-stretch ensures aside spans the full product column height!
             =================================================== */}
         <aside className="hidden lg:block lg:self-stretch">
-          <div className="sticky top-[110px]">
+          <div className="sticky top-[74px] flex h-[calc(100dvh-74px)] flex-col justify-center pb-8">
             <ProductNavigation
               items={navItems}
               activeId={activeId}

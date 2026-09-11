@@ -40,7 +40,7 @@ export default function GeometricAtmosphere({
       <div className="absolute inset-0 bg-[#05070D]" />
 
       {/* ==========================================================
-          2. ATMOSPHERIC NEBULA GLOW FIELDS (CSS Radial Gradients)
+          2. HARDWARE-ACCELERATED ATMOSPHERIC NEBULA GLOW FIELDS
           ========================================================== */}
       {/* Top-Left Deep Violet Nebula (Upper Hero Corner) */}
       <div
@@ -51,8 +51,8 @@ export default function GeometricAtmosphere({
           h-[800px]
           w-[580px]
           rounded-full
-          bg-[radial-gradient(ellipse_at_25%_25%,rgba(124,58,237,0.12),rgba(76,29,149,0.04)_50%,transparent_70%)]
-          blur-[95px]
+          bg-[radial-gradient(circle_at_30%_30%,rgba(124,58,237,0.12)_0%,rgba(76,29,149,0.04)_40%,transparent_70%)]
+          [transform:translateZ(0)]
         "
       />
 
@@ -65,8 +65,8 @@ export default function GeometricAtmosphere({
           h-[850px]
           w-[580px]
           rounded-full
-          bg-[radial-gradient(ellipse_at_75%_45%,rgba(168,85,247,0.12),rgba(124,58,237,0.04)_45%,transparent_70%)]
-          blur-[95px]
+          bg-[radial-gradient(circle_at_70%_40%,rgba(168,85,247,0.12)_0%,rgba(124,58,237,0.04)_40%,transparent_70%)]
+          [transform:translateZ(0)]
         "
       />
 
@@ -79,8 +79,8 @@ export default function GeometricAtmosphere({
           h-[950px]
           w-[580px]
           rounded-full
-          bg-[radial-gradient(ellipse_at_25%_50%,rgba(124,58,237,0.10),transparent_65%)]
-          blur-[100px]
+          bg-[radial-gradient(circle_at_30%_50%,rgba(124,58,237,0.10)_0%,transparent_65%)]
+          [transform:translateZ(0)]
         "
       />
 
@@ -93,8 +93,8 @@ export default function GeometricAtmosphere({
           h-[950px]
           w-[620px]
           rounded-full
-          bg-[radial-gradient(ellipse_at_75%_50%,rgba(168,85,247,0.10),rgba(249,115,22,0.025)_50%,transparent_65%)]
-          blur-[105px]
+          bg-[radial-gradient(circle_at_70%_50%,rgba(168,85,247,0.10)_0%,rgba(249,115,22,0.025)_40%,transparent_65%)]
+          [transform:translateZ(0)]
         "
       />
 
@@ -107,8 +107,8 @@ export default function GeometricAtmosphere({
           h-[900px]
           w-[580px]
           rounded-full
-          bg-[radial-gradient(ellipse_at_30%_50%,rgba(76,29,149,0.09),transparent_65%)]
-          blur-[110px]
+          bg-[radial-gradient(circle_at_30%_50%,rgba(76,29,149,0.09)_0%,transparent_65%)]
+          [transform:translateZ(0)]
         "
       />
 
@@ -121,8 +121,8 @@ export default function GeometricAtmosphere({
           h-[850px]
           w-[650px]
           rounded-full
-          bg-[radial-gradient(ellipse_at_70%_55%,rgba(168,85,247,0.12),rgba(249,115,22,0.03)_50%,transparent_75%)]
-          blur-[95px]
+          bg-[radial-gradient(circle_at_70%_50%,rgba(168,85,247,0.12)_0%,rgba(249,115,22,0.03)_40%,transparent_75%)]
+          [transform:translateZ(0)]
         "
       />
 
@@ -136,8 +136,8 @@ export default function GeometricAtmosphere({
           w-[900px]
           -translate-x-1/2
           rounded-full
-          bg-[radial-gradient(ellipse_at_50%_70%,rgba(124,58,237,0.08),transparent_70%)]
-          blur-[90px]
+          bg-[radial-gradient(ellipse_at_50%_70%,rgba(124,58,237,0.08)_0%,transparent_70%)]
+          [transform:translateZ(0)]
         "
       />
 

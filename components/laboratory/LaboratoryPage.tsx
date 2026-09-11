@@ -22,7 +22,7 @@ import LaboratorySection from "./LaboratorySection";
 
 export default function LaboratoryPage() {
   return (
-    <main className="relative min-h-screen w-full overflow-x-hidden bg-[#05070D]">
+    <main className="relative min-h-screen w-full overflow-x-clip bg-[#05070D]">
       {/* 1. Continuous Architectural Blueprint Atmospheric Background */}
       <GeometricAtmosphere variant="laboratory" />
 

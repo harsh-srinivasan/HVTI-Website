@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="relative min-h-screen w-full overflow-x-hidden bg-[#05070D] pt-[95px] pb-24 sm:pt-[110px]">
+    <main className="relative min-h-screen w-full overflow-x-clip bg-[#05070D] pt-[95px] pb-24 sm:pt-[110px]">
       {/* 1. Geometric Background Canvas */}
       <GeometricAtmosphere variant="office" />
 
@@ -53,13 +53,17 @@ export default function ContactPage() {
               Our engineering specialists typically respond within 24 business hours.
             </p>
 
-            <form className="mt-8 flex flex-col gap-5">
+            <form className="mt-8 flex flex-col gap-5" suppressHydrationWarning>
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div>
-                  <label className="mb-2 block font-mono text-[11px] font-semibold uppercase tracking-wider text-[#CBD5E1]">
+                  <label htmlFor="contact-name" className="mb-2 block font-mono text-[11px] font-semibold uppercase tracking-wider text-[#CBD5E1]">
                     Full Name *
                   </label>
                   <input
+                    id="contact-name"
+                    name="name"
+                    autoComplete="name"
+                    suppressHydrationWarning
                     type="text"
                     required
                     placeholder="e.g. Rajesh Sharma"
@@ -68,10 +72,14 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label className="mb-2 block font-mono text-[11px] font-semibold uppercase tracking-wider text-[#CBD5E1]">
+                  <label htmlFor="contact-email" className="mb-2 block font-mono text-[11px] font-semibold uppercase tracking-wider text-[#CBD5E1]">
                     Official Email *
                   </label>
                   <input
+                    id="contact-email"
+                    name="email"
+                    autoComplete="email"
+                    suppressHydrationWarning
                     type="email"
                     required
                     placeholder="name@company.com"
@@ -82,10 +90,14 @@ export default function ContactPage() {
 
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div>
-                  <label className="mb-2 block font-mono text-[11px] font-semibold uppercase tracking-wider text-[#CBD5E1]">
+                  <label htmlFor="contact-phone" className="mb-2 block font-mono text-[11px] font-semibold uppercase tracking-wider text-[#CBD5E1]">
                     Phone Number *
                   </label>
                   <input
+                    id="contact-phone"
+                    name="phone"
+                    autoComplete="tel"
+                    suppressHydrationWarning
                     type="tel"
                     required
                     placeholder="+91-9876543210"
@@ -94,10 +106,14 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label className="mb-2 block font-mono text-[11px] font-semibold uppercase tracking-wider text-[#CBD5E1]">
+                  <label htmlFor="contact-org" className="mb-2 block font-mono text-[11px] font-semibold uppercase tracking-wider text-[#CBD5E1]">
                     Organization / Utility
                   </label>
                   <input
+                    id="contact-org"
+                    name="organization"
+                    autoComplete="organization"
+                    suppressHydrationWarning
                     type="text"
                     placeholder="e.g. Power Grid / NTPC / Utility"
                     className="w-full rounded-xl border border-white/15 bg-[#060913]/90 px-4 py-3 font-sans text-[14px] text-white placeholder-[#64748B] transition-colors focus:border-[#A855F7] focus:outline-none"
@@ -106,10 +122,13 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label className="mb-2 block font-mono text-[11px] font-semibold uppercase tracking-wider text-[#CBD5E1]">
+                <label htmlFor="contact-category" className="mb-2 block font-mono text-[11px] font-semibold uppercase tracking-wider text-[#CBD5E1]">
                   Product Category / System of Interest
                 </label>
                 <select
+                  id="contact-category"
+                  name="category"
+                  suppressHydrationWarning
                   defaultValue="testing"
                   className="w-full rounded-xl border border-white/15 bg-[#060913]/90 px-4 py-3 font-sans text-[14px] text-white transition-colors focus:border-[#A855F7] focus:outline-none"
                 >
@@ -122,12 +141,15 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label className="mb-2 block font-mono text-[11px] font-semibold uppercase tracking-wider text-[#CBD5E1]">
+                <label htmlFor="contact-message" className="mb-2 block font-mono text-[11px] font-semibold uppercase tracking-wider text-[#CBD5E1]">
                   Project Requirements / Message *
                 </label>
                 <textarea
+                  id="contact-message"
+                  name="message"
                   rows={4}
                   required
+                  suppressHydrationWarning
                   placeholder="Please describe your technical voltage levels, testing requirements, or application specifications..."
                   className="w-full rounded-xl border border-white/15 bg-[#060913]/90 px-4 py-3 font-sans text-[14px] text-white placeholder-[#64748B] transition-colors focus:border-[#A855F7] focus:outline-none"
                 />

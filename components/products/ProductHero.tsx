@@ -355,24 +355,16 @@ function DesktopProductHero({ product }: { product: ProductData }) {
             {product.renderType === "3d" && product.modelUrl ? (
               render3DModel(product)
             ) : (product.image || product.specImage) ? (
-              <div className="relative flex h-full w-full items-center justify-center p-4">
-                <div className="relative h-[440px] w-full overflow-hidden rounded-[16px] border border-white/[0.12] bg-[#080D1A]/90 p-3 shadow-[0_24px_64px_rgba(0,0,0,0.6)] backdrop-blur-md">
-                  <div className="relative h-full w-full overflow-hidden rounded-[12px]">
-                    <Image
-                      src={(product.image || product.specImage)!}
-                      alt={product.title}
-                      fill
-                      className="object-cover object-center transition-transform duration-700 hover:scale-105"
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      priority
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#05070D]/85 via-transparent to-transparent" />
-                    <div className="absolute bottom-5 left-5 z-20">
-                      <span className="rounded-[4px] border border-white/10 bg-[#05070D]/85 px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-[#A855F7] backdrop-blur-md">
-                        {product.category}
-                      </span>
-                    </div>
-                  </div>
+              <div className="relative flex h-full w-full items-center justify-center p-2">
+                <div className="relative h-[440px] w-full flex items-center justify-center">
+                  <Image
+                    src={(product.image || product.specImage)!}
+                    alt={product.title}
+                    fill
+                    className="object-contain object-center drop-shadow-[0_24px_48px_rgba(0,0,0,0.55)] transition-transform duration-700 hover:scale-[1.03]"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    priority
+                  />
                 </div>
               </div>
             ) : null}
@@ -502,18 +494,15 @@ function MobileProductHero({ product }: { product: ProductData }) {
             {product.renderType === "3d" && product.modelUrl ? (
               render3DModel(product)
             ) : (
-              <div className="relative h-full w-full overflow-hidden rounded-[14px] border border-white/[0.10] bg-[#080D1A]/90 p-2 shadow-[0_16px_40px_rgba(0,0,0,0.5)]">
-                <div className="relative h-full w-full overflow-hidden rounded-[10px]">
-                  <Image
-                    src={(product.image || product.specImage)!}
-                    alt={product.title}
-                    fill
-                    className="object-cover object-center"
-                    sizes="100vw"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#05070D]/85 via-transparent to-transparent" />
-                </div>
+              <div className="relative h-full w-full flex items-center justify-center">
+                <Image
+                  src={(product.image || product.specImage)!}
+                  alt={product.title}
+                  fill
+                  className="object-contain object-center drop-shadow-[0_16px_36px_rgba(0,0,0,0.5)]"
+                  sizes="100vw"
+                  priority
+                />
               </div>
             )}
           </div>

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <main className="relative min-h-screen w-full overflow-x-hidden bg-[#05070D] pt-[95px] pb-24 sm:pt-[110px]">
+    <main className="relative min-h-screen w-full overflow-x-clip bg-[#05070D] pt-[95px] pb-24 sm:pt-[110px]">
       <GeometricAtmosphere variant="default" />
 
       <div className="relative z-10 mx-auto w-full max-w-[960px] px-5 sm:px-8">

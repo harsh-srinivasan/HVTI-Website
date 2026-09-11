@@ -52,3 +52,102 @@ button,
 .animate-border-beam {
   animation: borderBeamSpin 4.5s linear infinite;
 }
+
+/* ================================================================
+   LENIS SMOOTH SCROLL OPTIMIZATIONS
+   ================================================================ */
+html {
+  scroll-behavior: auto !important;
+  overflow-x: clip;
+}
+
+body {
+  overflow-x: clip;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent],
+.lenis.lenis-smooth .lenis-prevent {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* ================================================================
+   LUXURY EASING & HARDWARE ACCELERATION UTILITIES
+   ================================================================ */
+.ease-spring {
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ease-out-expo {
+  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.gpu-layer {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* ================================================================
+   PAGE TRANSITION SMOOTH LUXURY ENTER KEYFRAMES
+   ================================================================ */
+@keyframes pageEnterFade {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-page-enter {
+  animation: pageEnterFade 700ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ================================================================
+   INFINITE MARQUEE ANIMATIONS
+   ================================================================ */
+@keyframes marqueeScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - 36px));
+  }
+}
+
+.animate-marquee-scroll {
+  animation: marqueeScroll 38s linear infinite;
+}
+
+.animate-marquee-scroll:hover {
+  animation-play-state: paused;
+}
+

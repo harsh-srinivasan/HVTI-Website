@@ -8,23 +8,159 @@ import { ProductData } from "@/types/product";
 const coronaCameras: ProductData = {
   slug: "corona-cameras",
   category: "Cameras and Imaging Systems",
-  title: "Solar-Blind UV Corona Cameras (CoroCAM 6D / 7 / 8)",
+  title: "Solar-Blind UV Corona Cameras",
+  tagline: "Detect Early. Prevent Failures.",
   description:
-    "Professional solar-blind ultraviolet (UVc) inspection cameras (CoroCAM 6D, CoroCAM 7, CoroCAM 8) for detecting, visualizing, and pinpointing invisible high-voltage corona discharges, surface tracking, and arcing in broad daylight.",
+    "Advanced UV and daylight corona cameras for detecting corona discharges in high-voltage equipment. Improve reliability and safety with early fault detection.",
 
   overview:
     "HVTI distributes the world-renowned CoroCAM® series of solar-blind ultraviolet (UVc) inspection systems engineered for high-voltage transmission lines, substations, and industrial power plants operating at 3.3 kV and above. The family includes the lightweight CoroCAM 6D with motorized Non-Solar Blind (NSB) night mode, the professional CoroCAM 7 with high-performance viewfinder and synchronized 4x zoom, and the multi-spectral CoroCAM 8 combining solar-blind UV, radiometric FLIR thermal IR, and high-definition Sony visible video into a single handheld inspection instrument.",
 
   highlights: [
-    "CoroCAM® 6D / 7 / 8 Solar-Blind UVc Inspection Systems",
-    "Full Daylight Corona Detection (2.05 × 10⁻¹⁸ W/cm² Sensitivity)",
-    "Tri-Spectral CoroCAM 8 (Solar-Blind UV + FLIR IR + HD Video)",
-    "Synchronized Optical/Digital Zoom & Real-Time Photon Counting",
+    "Detect corona discharges",
+    "Day and night operation",
+    "Improve system reliability",
+    "Solar-blind UVc 240–280 nm",
   ],
 
   renderType: "image",
-  image: "/images/products/corona-cameras.jpg",
+  image: "/images/products/corocam-8.png",
   specImage: "/images/products/product-thermal.jpg",
+
+  rangeEyebrow: "OUR CORONA CAMERA RANGE",
+  rangeHeading: "Select the ideal solar-blind UV camera for your inspection voltage class.",
+
+  productVariants: [
+    {
+      id: "corocam6d",
+      name: "CoroCAM 6D",
+      subtitle: "Daylight UV Corona Inspection Camera",
+      badge: "Compact UV",
+      image: "/images/products/corocam-6d.png",
+      description:
+        "Innovative solar-blind UVc camera engineered for routine substation and switchgear inspection. Features high UV sensitivity, motorized NSB night mode, and daylight-readable LCD.",
+      bulletPoints: [
+        "High-sensitivity UVc detector (2.05 × 10⁻¹⁸ W/cm²)",
+        "Motorized Non-Solar-Blind (NSB) night inspection mode",
+        "768 × 576 visible color camera (0.0004 lux low-light)",
+        "Translucent UV overlay with user-selectable color palettes",
+      ],
+      ctaText: "View Details",
+      ctaLink: "#comparison-table",
+    },
+    {
+      id: "corocam7",
+      name: "CoroCAM 7 / 7D",
+      subtitle: "Professional Enhanced UV Camera with Viewfinder",
+      badge: "Viewfinder & 4x Zoom",
+      image: "/images/products/corocam-7.png",
+      description:
+        "Professional grade solar-blind UVc inspection system paired with a high-resolution 800×600 ventilated viewfinder, synchronized 4x optical/digital zoom, and distance compensation.",
+      bulletPoints: [
+        "Focusable 800×600 ventilated viewfinder + 5.7″ daylight LCD",
+        "Synchronized UV & visible zoom from 1x to 4x system zoom",
+        "Real-time photon count with distance compensation algorithms",
+        "Integrated GPS and high-power auxiliary flashlight",
+      ],
+      ctaText: "View Details",
+      ctaLink: "#comparison-table",
+    },
+    {
+      id: "corocam8",
+      name: "CoroCAM 8",
+      subtitle: "Tri-Spectral Multi-Channel Camera (UV + IR + Visible)",
+      badge: "Tri-Spectral Elite",
+      image: "/images/products/corocam-8.png",
+      description:
+        "Flagship inspection instrument combining solar-blind UVc, radiometric FLIR thermal IR (640×480), and Sony HD visible video. Enables simultaneous co-location of corona arcs and thermal hot spots.",
+      bulletPoints: [
+        "Simultaneous UV Corona + FLIR Thermal IR + Sony HD Video",
+        "Radiometric 640×480 IR channel (NETD < 62.5 mK, -20°C to +650°C)",
+        "Simultaneous co-location of electrical discharge & thermal faults",
+        "Full environmental metadata logging: GPS, temp, humidity, pressure",
+      ],
+      ctaText: "View Details",
+      ctaLink: "#comparison-table",
+    },
+  ],
+
+  comparisonMatrix: {
+    title: "Compare Corona Cameras",
+    fullSpecLink: "/contact?subject=Corona%20Camera%20Datasheet",
+    columns: [
+      { id: "corocam6d", name: "CoroCAM 6D", tag: "Compact Daylight", image: "/images/products/corocam-6d.png" },
+      { id: "corocam7", name: "CoroCAM 7", tag: "Professional Viewfinder", image: "/images/products/corocam-7.png" },
+      { id: "corocam8", name: "CoroCAM 8", tag: "Tri-Spectral UV+IR", image: "/images/products/corocam-8.png" },
+    ],
+    rows: [
+      {
+        parameter: "UV Detector Sensitivity",
+        values: {
+          corocam6d: "2.05 × 10⁻¹⁸ W/cm² (< 1 pC @ 10m)",
+          corocam7: "2.05 × 10⁻¹⁸ W/cm² (< 1 pC @ 10m)",
+          corocam8: "2.05 × 10⁻¹⁸ W/cm² (< 1 pC @ 10m)",
+        },
+        highlight: true,
+      },
+      {
+        parameter: "Visible Optical Channel",
+        values: {
+          corocam6d: "768 × 576 px (0.0004 lux low-light)",
+          corocam7: "768 × 576 px High-Zoom Camera",
+          corocam8: "High-Specification Sony HD Video",
+        },
+      },
+      {
+        parameter: "Thermal Infrared Channel",
+        values: {
+          corocam6d: "—",
+          corocam7: "—",
+          corocam8: "FLIR Radiometric (640×480, NETD <62.5mK)",
+        },
+        highlight: true,
+      },
+      {
+        parameter: "Day / Night Operation",
+        values: {
+          corocam6d: "Full Daylight + NSB Night Mode",
+          corocam7: "Full Daylight + NSB Night Mode",
+          corocam8: "Full Daylight Solar-Blind UV + Thermal",
+        },
+      },
+      {
+        parameter: "Display & Viewfinder",
+        values: {
+          corocam6d: "5.7″ Colour LED Daylight LCD (640×480)",
+          corocam7: "5.7″ LCD + 800×600 Ventilated Viewfinder",
+          corocam8: "5.7″ Daylight LCD + 800×600 Viewfinder",
+        },
+      },
+      {
+        parameter: "System Zoom Capability",
+        values: {
+          corocam6d: "1x – 2x Synchronized Zoom",
+          corocam7: "1x – 4x Synchronized Zoom",
+          corocam8: "Synchronized Smooth 3-Channel Zoom",
+        },
+      },
+      {
+        parameter: "Metadata & Environmental Logging",
+        values: {
+          corocam6d: "Integrated GPS + OSD Overlay",
+          corocam7: "GPS + Distance Compensation",
+          corocam8: "GPS + Temp, Humidity, Pressure & Wind",
+        },
+      },
+      {
+        parameter: "Primary Applications",
+        values: {
+          corocam6d: "Substation Busbars, Switchgear & Motor End-Turns",
+          corocam7: "Overhead Transmission Lines & Tower Insulators",
+          corocam8: "Tri-Spectral Substation, Power Plant & Line Audits",
+        },
+      },
+    ],
+  },
 
   engineeringAtAGlance: [
     {
@@ -134,58 +270,40 @@ const coronaCameras: ProductData = {
 
   applications: [
     {
-      id: "overhead-insulators",
-      title: "Transmission Line Insulator Strings",
+      id: "transmission-lines",
+      title: "Transmission Lines",
       icon: "field",
-      isCenter: true,
+      description: "Inspect ceramic, glass, and composite polymer insulator strings across energized lines.",
     },
     {
-      id: "substation-busbars",
-      title: "Substation Busbars, Jumpers & Clamps",
+      id: "substations",
+      title: "Substations",
       icon: "substation",
+      description: "Detect surface tracking and micro-arcing on disconnectors, busbars, and surge arresters.",
     },
     {
-      id: "switchgear-bushings",
-      title: "Transformer & Circuit Breaker Bushings",
+      id: "switchgear",
+      title: "Switchgear",
       icon: "switchgear",
+      description: "Identify insulation degradation and partial discharge inside medium-voltage switchrooms.",
     },
     {
-      id: "generators-motors",
-      title: "Generator End-Winding Corona Inspections",
-      icon: "generator",
-    },
-    {
-      id: "surge-arresters",
-      title: "Lightning Arresters & Disconnectors",
+      id: "transformers",
+      title: "Transformers",
       icon: "transformer",
-    },
-  ],
-
-  features: [
-    {
-      title: "100% Daylight Solar-Blind UVc Detection (240–280 nm)",
-      description:
-        "Specialized solar-blind optical filters completely reject daylight solar radiation, enabling high-voltage inspection crews to detect corona streamers and micro-arcs under blazing mid-day sunlight.",
+      description: "Inspect high-voltage transformer bushings, cable terminations, and tap-changer connections.",
     },
     {
-      title: "Revolutionary CoroCAM 8 Tri-Spectral Co-Location (UV + IR + Visible)",
-      description:
-        "Combines a solar-blind UV camera, a radiometric FLIR thermal camera, and a high-definition Sony visible camera in a single housing, allowing inspectors to visualize both electrical arcing and thermal hotspots simultaneously.",
+      id: "insulators",
+      title: "Insulators",
+      icon: "voltage",
+      description: "Pinpoint micro-cracks and hydrophobic loss in composite insulators before flashover occurs.",
     },
     {
-      title: "Real-Time Translucent Photon Overlay with User Palette Selection",
-      description:
-        "Superimposes sparkling UV discharge photon counts onto the visible high-resolution video stream in selectable neon colors, pinpointing the exact physical component causing the discharge.",
-    },
-    {
-      title: "Calibrated Photon Counting with Distance Compensation",
-      description:
-        "Calculates quantitative discharge intensity metrics, automatically normalizing photon counts for target distance and ambient air density for repeatable trending.",
-    },
-    {
-      title: "Integrated GPS & Full Environmental Metadata Embedding",
-      description:
-        "Embeds precise GPS coordinates, distance measurements, ambient humidity, temperature, and camera settings directly into captured still images and video files.",
+      id: "utility-maintenance",
+      title: "Utility Maintenance",
+      icon: "shield",
+      description: "Routine aerial or ground-based predictive maintenance across power distribution networks.",
     },
   ],
 
@@ -193,32 +311,42 @@ const coronaCameras: ProductData = {
     {
       id: "early-detection",
       icon: "shield",
-      title: "Detects Non-Thermal Insulation Failures",
+      title: "Detects Non-Thermal Faults",
       description:
         "Unlike thermal cameras which only see heat from heavy current flow, corona cameras detect early surface tracking and partial discharge where zero heat is generated.",
     },
     {
-      id: "inspection-efficiency",
-      icon: "gear",
-      title: "Halves Inspection Flight & Walking Times",
+      id: "broad-daylight",
+      icon: "testing",
+      title: "100% Solar Blind Daylight Use",
       description:
-        "With CoroCAM 8, helicopter and ground patrol crews capture both thermal IR audits and UV corona diagnostics in a single sweep.",
+        "Inspect high-voltage equipment under bright midday sunlight without taking lines out of service or waiting for nighttime outages.",
     },
     {
-      id: "outage-prevention",
-      icon: "briefcase",
-      title: "Prevents Catastrophic Insulator Flashovers",
+      id: "quantitative-trending",
+      icon: "control",
+      title: "Calibrated Photon Counting",
       description:
-        "Locates cracked composite/porcelain insulators, loose hardware, and corona cutting on transmission lines months before catastrophic line drops occur.",
+        "Logs precise discharge intensity values normalized for target distance, establishing reliable condition trending over asset lifespans.",
+    },
+    {
+      id: "tri-spectral-efficiency",
+      icon: "power",
+      title: "Tri-Spectral CoroCAM 8",
+      description:
+        "Complete both thermal infrared and solar-blind UV corona audits in a single inspection pass, cutting field survey time by 50%.",
     },
   ],
 
   cta: {
-    title: "Interested in the CoroCAM® series for transmission line audits?",
+    title: "Need help selecting the right corona camera?",
     description:
-      "Contact our optical diagnostic specialists for live field demonstrations, camera comparisons, and rental/purchase quotations.",
-    primaryButtonText: "Request CoroCAM Quote",
-    primaryButtonLink: "/contact?subject=Corona%20Cameras",
+      "Our high-voltage diagnostics specialists will help you choose between the CoroCAM 6D, 7, and Tri-Spectral 8 based on your inspection voltage levels and operating environments.",
+    primaryButtonText: "Talk to an Engineer",
+    primaryButtonLink: "/contact?subject=Corona%20Cameras%20Inquiry",
+    secondaryButtonText: "Download Brochure",
+    secondaryButtonLink: "/resources",
+    supportingImage: "/images/products/corocam-8.png",
   },
 };
 
